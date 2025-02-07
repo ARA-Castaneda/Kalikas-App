@@ -1,0 +1,29 @@
+package com.example.kalikasapp.ui.theme.navigation
+
+// only classes inside this class file
+// can inherit from Screen
+sealed class Screen(val route: String) {
+    object AppMainScreen : Screen("main_screen")
+    object AppLoginScreen : Screen("login_screen")
+    object AppSignupScreen : Screen("signup_screen")
+    object AppBenchmarkScreen : Screen("benchmark_screen")
+
+    object PageProfileScreen : Screen("profilepage_screen")
+    object PageFootprintScreen : Screen("footprintpage_screen")
+    object PageExploreScreen : Screen("explorepage_screen")
+    object PageLearnScreen : Screen("learnpage_screen")
+    object PageNotifsScreen : Screen("notifspage_screen")
+
+    object SignupStudentScreen : Screen("studentsignup_screen")
+    object SignupEducatorScreen : Screen("educatorsignup_screen")
+    object SignupMerchantScreen : Screen("merchantsignup_screen")
+
+    fun withArgs(vararg args: String): String {
+        return buildString {
+            append(route)
+            args.forEach { arg ->
+                append("/$arg")
+            }
+        }
+    }
+}
