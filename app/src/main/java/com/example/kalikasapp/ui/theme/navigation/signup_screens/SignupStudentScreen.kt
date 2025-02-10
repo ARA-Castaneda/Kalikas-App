@@ -51,6 +51,8 @@ fun SignupStudentScreen(navController: NavController) {
     var lastName by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    var confirmPassword by rememberSaveable { mutableStateOf("")}
+    var showError by rememberSaveable { mutableStateOf(false)}
 
     // val darkGreen = Color(0xFF15472B)
     val green = Color(0xFF1E653E)
@@ -178,8 +180,8 @@ fun SignupStudentScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedTextField(
-                    value = password,
-                    onValueChange = { password = it },
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
                     label = { Text("Confirm Password") },
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedTextColor = blackGreen,
@@ -203,9 +205,37 @@ fun SignupStudentScreen(navController: NavController) {
                     )
                 }
 
+                if (showError) {
+                    if (firstName.isEmpty()|| lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                        Text("Please fill out all the information.", color = Color.Red, textAlign = TextAlign.Center)
+                    } else if (!isValidEmail(email, "up.edu.ph")){
+                        Text("Enter a valid UP email.", color = Color.Red, textAlign = TextAlign.Center)
+                    } else if (!isValidPassword(password)){
+                        if (password.length < 8){
+                            Text("Password must be of length 8.", color= Color.Red, textAlign = TextAlign.Center)
+                        } else {
+                            Text("Password must contain at least a capital letter and number.", color = Color.Red, textAlign = TextAlign.Center)
+                        }
+                    } else if (password!=confirmPassword){
+                        Text("Your passwords do not match.", color=Color.Red, textAlign = TextAlign.Center)
+                    }
+                }
+
                 ElevatedButton(
                     onClick = {
-                        navController.navigate(Screen.AppBenchmarkScreen.route)
+                        if (firstName.isEmpty()|| lastName.isEmpty() || email.isEmpty() || password.isEmpty()){
+                            showError = true
+                        } else if (!isValidEmail(email, "up.edu.ph")) {
+                            showError = true
+                        } else if (!isValidPassword(password)) {
+                            showError = true
+                        } else if (password!=confirmPassword){
+                            showError = true
+                        } else {
+                            navController.navigate(Screen.AppBenchmarkScreen.route)
+                            showError = false
+                        }
+
                     },
                     colors = elevatedButtonColors(green, Color.White, green, Color.White),
                     modifier = Modifier
@@ -226,4 +256,17 @@ fun SignupStudentScreen(navController: NavController) {
 fun SignupStudentScreenPreview() {
     val navController = rememberNavController()
     SignupStudentScreen(navController = navController)
+}
+
+fun isValidEmail(email: String, domain: String): Boolean {
+    val pattern = Regex("^[A-Za-z0-9._%+-]+@$domain$")
+    return pattern.matches(email)
+}
+
+fun isValidPassword(password: String): Boolean{
+    val pattern = Regex("^(?=.*[A-Z])(?=.*\\d).+$")
+    if (password.length < 8) {
+        return false
+    } else
+        return pattern.matches(password)
 }

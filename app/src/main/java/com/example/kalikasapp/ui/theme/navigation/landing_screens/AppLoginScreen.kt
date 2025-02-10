@@ -52,6 +52,7 @@ import com.example.kalikasapp.ui.theme.soraFamily
 fun AppLoginScreen(navController: NavController) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
 
     val darkGreen = Color(0xFF15472B)
     val green = Color(0xFF1E653E)
@@ -171,9 +172,22 @@ fun AppLoginScreen(navController: NavController) {
                     )
                 }
 
+                if (showError) {
+                    Text("Invalid email or password.", color=Color.Red, textAlign = TextAlign.Center)
+                }
+
                 ElevatedButton(
                     onClick = {
-                        navController.navigate(Screen.PageProfileScreen.route)
+                        if (email.isEmpty() || password.isEmpty()){
+                            showError = true
+                        } else if (email == "kalikas@up.edu.ph" && password == "admin123") {
+                            navController.navigate(Screen.PageProfileScreen.route)
+                            showError = false
+                        } else {
+                            showError = true
+                        }
+
+
                     },
                     colors = elevatedButtonColors(green, Color.White, green, Color.White),
                     modifier = Modifier
