@@ -62,7 +62,7 @@ fun ProfileSettingsScreen(navController: NavController) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(90.dp)
+                    .height(80.dp)
                     .clip(
                         RoundedCornerShape(
                             topStart = 16.dp,
@@ -110,25 +110,6 @@ fun ProfileSettingsScreen(navController: NavController) {
                                 }
                             }
                         )
-                        Box(
-                            modifier = Modifier
-                                .absolutePadding(8.dp, 20.dp, 8.dp, 8.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            IconButton(
-                                onClick = {
-                                    navController.navigate(Screen.PageProfileScreen.route)
-                                }
-                            ) {
-                                Icon(
-                                    Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                                    null,
-                                    modifier = Modifier
-                                        .width(32.dp)
-                                        .height(32.dp)
-                                )
-                            }
-                        }
                     }
                 }
             }
@@ -140,10 +121,30 @@ fun ProfileSettingsScreen(navController: NavController) {
             modifier = Modifier
                 .padding(innerPadding)
         ) {
+            Box(
+                modifier = Modifier
+                    .absolutePadding(8.dp, 10.dp, 8.dp, 8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                IconButton(
+                    onClick = {
+                        navController.navigate(Screen.PageProfileScreen.route)
+                    }
+                ) {
+                    Icon(
+                        Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        null,
+                        modifier = Modifier
+                            .width(32.dp)
+                            .height(32.dp)
+                    )
+                }
+            }
+            
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .absolutePadding(0.dp, 40.dp, 0.dp, 0.dp)
+                    .absolutePadding(0.dp, 10.dp, 0.dp, 0.dp)
             ) {
                 Row(
                     modifier = Modifier
@@ -169,7 +170,7 @@ fun ProfileSettingsScreen(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .absolutePadding(0.dp, 30.dp, 0.dp, 0.dp)
+                    .absolutePadding(0.dp, 20.dp, 0.dp, 0.dp)
             ) {
                 Row(
                     modifier = Modifier
@@ -194,7 +195,7 @@ fun ProfileSettingsScreen(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .absolutePadding(0.dp, 30.dp, 0.dp, 0.dp)
+                    .absolutePadding(0.dp, 20.dp, 0.dp, 0.dp)
             ) {
                 Row(
                     modifier = Modifier
@@ -219,7 +220,7 @@ fun ProfileSettingsScreen(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .absolutePadding(0.dp, 30.dp, 0.dp, 0.dp)
+                    .absolutePadding(0.dp, 20.dp, 0.dp, 0.dp)
             ) {
                 Row(
                     modifier = Modifier
@@ -245,7 +246,7 @@ fun ProfileSettingsScreen(navController: NavController) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .absolutePadding(0.dp, 60.dp, 0.dp, 0.dp)
+                    .absolutePadding(0.dp, 80.dp, 0.dp, 0.dp)
                     .fillMaxSize()
             ) {
                 ElevatedButton(
@@ -274,12 +275,13 @@ fun ProfileSettingsScreen(navController: NavController) {
 fun SettingEditPhoto() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -312,12 +314,13 @@ fun SettingEditPhoto() {
 fun SettingEditName() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -350,12 +353,13 @@ fun SettingEditName() {
 fun SettingEditLocation() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -388,12 +392,13 @@ fun SettingEditLocation() {
 fun SettingPushNotifications() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -426,12 +431,13 @@ fun SettingPushNotifications() {
 fun SettingEmailNotifications() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -464,12 +470,13 @@ fun SettingEmailNotifications() {
 fun SettingPrivateProfile() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -502,12 +509,13 @@ fun SettingPrivateProfile() {
 fun SettingBlocking() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -540,12 +548,13 @@ fun SettingBlocking() {
 fun SettingDownloadData() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -578,12 +587,13 @@ fun SettingDownloadData() {
 fun SettingSyncData() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -616,12 +626,13 @@ fun SettingSyncData() {
 fun SettingDeleteAccount() {
     val blackGreen = Color(0xFF113822)
     val green = Color(0xFF1E653E)
+    val lightGray = Color(0xFFFAFAFA)
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(32.dp)
-            .background(Color.LightGray),
+            .background(lightGray),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
