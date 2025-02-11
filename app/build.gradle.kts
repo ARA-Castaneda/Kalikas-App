@@ -45,8 +45,20 @@ android {
 
 dependencies {
     val nav_version = "2.8.6"
+    // NAV for supporting navigation
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
-    implementation("androidx.navigation:navigation-compose:$nav_version") // for supporting navigation
+    // Coil for displaying images and networking
+    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+
+    // TV for compact icon buttons
+    implementation("androidx.tv:tv-foundation:1.0.0-alpha12")
+    implementation("androidx.tv:tv-material:1.1.0-alpha01")
+
+    // Material for design components
+    implementation("androidx.compose.material:material:1.7.7")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

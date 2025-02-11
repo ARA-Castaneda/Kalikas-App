@@ -18,6 +18,11 @@ sealed class Screen(val route: String) {
     object SignupEducatorScreen : Screen("educatorsignup_screen")
     object SignupMerchantScreen : Screen("merchantsignup_screen")
 
+    object ProfileBadgesScreen : Screen("profile_badges")
+    object ProfileConnectsScreen : Screen("profile_connects")
+    object ProfileMilestonesScreen : Screen("profile_milestones")
+    object ProfileSettingsScreen : Screen("profile_settings")
+
     fun withArgs(vararg args: String): String {
         return buildString {
             append(route)

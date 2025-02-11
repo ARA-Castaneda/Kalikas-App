@@ -174,6 +174,59 @@ public val Login: ImageVector
     }
 private var _Login: ImageVector? = null
 
+// Profile Settings screen logout
+public val Logout: ImageVector
+    get() {
+        if (_Logout != null) {
+            return _Logout!!
+        }
+        _Logout = ImageVector.Builder(
+            name = "Logout",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(200f, 840f)
+                quadToRelative(-33f, 0f, -56.5f, -23.5f)
+                reflectiveQuadTo(120f, 760f)
+                verticalLineToRelative(-560f)
+                quadToRelative(0f, -33f, 23.5f, -56.5f)
+                reflectiveQuadTo(200f, 120f)
+                horizontalLineToRelative(280f)
+                verticalLineToRelative(80f)
+                horizontalLineTo(200f)
+                verticalLineToRelative(560f)
+                horizontalLineToRelative(280f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(440f, -160f)
+                lineToRelative(-55f, -58f)
+                lineToRelative(102f, -102f)
+                horizontalLineTo(360f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(327f)
+                lineTo(585f, 338f)
+                lineToRelative(55f, -58f)
+                lineToRelative(200f, 200f)
+                close()
+            }
+        }.build()
+        return _Logout!!
+    }
+private var _Logout: ImageVector? = null
+
 // Student signup
 public val Account_circle: ImageVector
     get() {
@@ -555,3 +608,297 @@ public val Footprint: ImageVector
         return _Footprint!!
     }
 private var _Footprint: ImageVector? = null
+
+// Change profile or cover photo
+public val Photo_camera: ImageVector
+    get() {
+        if (_Photo_camera != null) {
+            return _Photo_camera!!
+        }
+        _Photo_camera = ImageVector.Builder(
+            name = "Photo_camera",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(480f, 700f)
+                quadToRelative(75f, 0f, 127.5f, -52.5f)
+                reflectiveQuadTo(660f, 520f)
+                reflectiveQuadToRelative(-52.5f, -127.5f)
+                reflectiveQuadTo(480f, 340f)
+                reflectiveQuadToRelative(-127.5f, 52.5f)
+                reflectiveQuadTo(300f, 520f)
+                reflectiveQuadToRelative(52.5f, 127.5f)
+                reflectiveQuadTo(480f, 700f)
+                moveToRelative(0f, -80f)
+                quadToRelative(-42f, 0f, -71f, -29f)
+                reflectiveQuadToRelative(-29f, -71f)
+                reflectiveQuadToRelative(29f, -71f)
+                reflectiveQuadToRelative(71f, -29f)
+                reflectiveQuadToRelative(71f, 29f)
+                reflectiveQuadToRelative(29f, 71f)
+                reflectiveQuadToRelative(-29f, 71f)
+                reflectiveQuadToRelative(-71f, 29f)
+                moveTo(160f, 840f)
+                quadToRelative(-33f, 0f, -56.5f, -23.5f)
+                reflectiveQuadTo(80f, 760f)
+                verticalLineToRelative(-480f)
+                quadToRelative(0f, -33f, 23.5f, -56.5f)
+                reflectiveQuadTo(160f, 200f)
+                horizontalLineToRelative(126f)
+                lineToRelative(74f, -80f)
+                horizontalLineToRelative(240f)
+                lineToRelative(74f, 80f)
+                horizontalLineToRelative(126f)
+                quadToRelative(33f, 0f, 56.5f, 23.5f)
+                reflectiveQuadTo(880f, 280f)
+                verticalLineToRelative(480f)
+                quadToRelative(0f, 33f, -23.5f, 56.5f)
+                reflectiveQuadTo(800f, 840f)
+                close()
+                moveToRelative(0f, -80f)
+                horizontalLineToRelative(640f)
+                verticalLineToRelative(-480f)
+                horizontalLineTo(638f)
+                lineToRelative(-73f, -80f)
+                horizontalLineTo(395f)
+                lineToRelative(-73f, 80f)
+                horizontalLineTo(160f)
+                close()
+                moveToRelative(320f, -240f)
+            }
+        }.build()
+        return _Photo_camera!!
+    }
+private var _Photo_camera: ImageVector? = null
+
+// Add student or educator user location
+public val Share_location: ImageVector
+    get() {
+        if (_Share_location != null) {
+            return _Share_location!!
+        }
+        _Share_location = ImageVector.Builder(
+            name = "Share_location",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(519f, 878f)
+                verticalLineToRelative(-80f)
+                quadToRelative(42f, -6f, 81.5f, -23f)
+                reflectiveQuadToRelative(74.5f, -43f)
+                lineToRelative(58f, 58f)
+                quadToRelative(-47f, 37f, -101f, 59.5f)
+                reflectiveQuadTo(519f, 878f)
+                moveToRelative(270f, -146f)
+                lineToRelative(-56f, -56f)
+                quadToRelative(26f, -33f, 42f, -72.5f)
+                reflectiveQuadToRelative(22f, -83.5f)
+                horizontalLineToRelative(82f)
+                quadToRelative(-8f, 62f, -30.5f, 115.5f)
+                reflectiveQuadTo(789f, 732f)
+                moveToRelative(8f, -292f)
+                quadToRelative(-6f, -45f, -22f, -84.5f)
+                reflectiveQuadTo(733f, 284f)
+                lineToRelative(56f, -56f)
+                quadToRelative(38f, 44f, 61.5f, 98f)
+                reflectiveQuadTo(879f, 440f)
+                close()
+                moveTo(439f, 878f)
+                quadToRelative(-153f, -18f, -255.5f, -131f)
+                reflectiveQuadTo(81f, 480f)
+                quadToRelative(0f, -155f, 102.5f, -268f)
+                reflectiveQuadTo(439f, 82f)
+                verticalLineToRelative(80f)
+                quadToRelative(-120f, 17f, -199f, 107f)
+                reflectiveQuadToRelative(-79f, 211f)
+                reflectiveQuadToRelative(79f, 210.5f)
+                reflectiveQuadTo(439f, 798f)
+                close()
+                moveToRelative(238f, -650f)
+                quadToRelative(-36f, -27f, -76f, -44f)
+                reflectiveQuadToRelative(-82f, -22f)
+                verticalLineToRelative(-80f)
+                quadToRelative(59f, 5f, 113f, 27.5f)
+                reflectiveQuadTo(733f, 170f)
+                close()
+                moveTo(480f, 680f)
+                quadToRelative(-58f, -49f, -109f, -105f)
+                reflectiveQuadToRelative(-51f, -131f)
+                quadToRelative(0f, -68f, 46.5f, -116f)
+                reflectiveQuadTo(480f, 280f)
+                reflectiveQuadToRelative(113.5f, 48f)
+                reflectiveQuadTo(640f, 444f)
+                quadToRelative(0f, 75f, -51f, 131f)
+                reflectiveQuadTo(480f, 680f)
+                moveToRelative(0f, -200f)
+                quadToRelative(18f, 0f, 30.5f, -12.5f)
+                reflectiveQuadTo(523f, 437f)
+                quadToRelative(0f, -17f, -12.5f, -30f)
+                reflectiveQuadTo(480f, 394f)
+                reflectiveQuadToRelative(-30.5f, 13f)
+                reflectiveQuadToRelative(-12.5f, 30f)
+                quadToRelative(0f, 18f, 12.5f, 30.5f)
+                reflectiveQuadTo(480f, 480f)
+            }
+        }.build()
+        return _Share_location!!
+    }
+private var _Share_location: ImageVector? = null
+
+// Add student or educator user institution
+public val Account_balance: ImageVector
+    get() {
+        if (_Account_balance != null) {
+            return _Account_balance!!
+        }
+        _Account_balance = ImageVector.Builder(
+            name = "Account_balance",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(200f, 680f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveToRelative(240f, 0f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveTo(80f, 840f)
+                verticalLineToRelative(-80f)
+                horizontalLineToRelative(800f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(600f, -160f)
+                verticalLineToRelative(-280f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(280f)
+                close()
+                moveTo(80f, 320f)
+                verticalLineToRelative(-80f)
+                lineToRelative(400f, -200f)
+                lineToRelative(400f, 200f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(178f, -80f)
+                horizontalLineToRelative(444f)
+                close()
+                moveToRelative(0f, 0f)
+                horizontalLineToRelative(444f)
+                lineTo(480f, 130f)
+                close()
+            }
+        }.build()
+        return _Account_balance!!
+    }
+private var _Account_balance: ImageVector? = null
+
+// Add merchant user business type
+public val Cases: ImageVector
+    get() {
+        if (_Cases != null) {
+            return _Cases!!
+        }
+        _Cases = ImageVector.Builder(
+            name = "Cases",
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
+            viewportWidth = 960f,
+            viewportHeight = 960f
+        ).apply {
+            path(
+                fill = SolidColor(Color.Black),
+                fillAlpha = 1.0f,
+                stroke = null,
+                strokeAlpha = 1.0f,
+                strokeLineWidth = 1.0f,
+                strokeLineCap = StrokeCap.Butt,
+                strokeLineJoin = StrokeJoin.Miter,
+                strokeLineMiter = 1.0f,
+                pathFillType = PathFillType.NonZero
+            ) {
+                moveTo(120f, 880f)
+                quadToRelative(-33f, 0f, -56.5f, -23.5f)
+                reflectiveQuadTo(40f, 800f)
+                verticalLineToRelative(-440f)
+                horizontalLineToRelative(80f)
+                verticalLineToRelative(440f)
+                horizontalLineToRelative(680f)
+                verticalLineToRelative(80f)
+                close()
+                moveToRelative(160f, -160f)
+                quadToRelative(-33f, 0f, -56.5f, -23.5f)
+                reflectiveQuadTo(200f, 640f)
+                verticalLineToRelative(-440f)
+                horizontalLineToRelative(200f)
+                verticalLineToRelative(-80f)
+                quadToRelative(0f, -33f, 23.5f, -56.5f)
+                reflectiveQuadTo(480f, 40f)
+                horizontalLineToRelative(160f)
+                quadToRelative(33f, 0f, 56.5f, 23.5f)
+                reflectiveQuadTo(720f, 120f)
+                verticalLineToRelative(80f)
+                horizontalLineToRelative(200f)
+                verticalLineToRelative(440f)
+                quadToRelative(0f, 33f, -23.5f, 56.5f)
+                reflectiveQuadTo(840f, 720f)
+                close()
+                moveToRelative(0f, -80f)
+                horizontalLineToRelative(560f)
+                verticalLineToRelative(-360f)
+                horizontalLineTo(280f)
+                close()
+                moveToRelative(200f, -440f)
+                horizontalLineToRelative(160f)
+                verticalLineToRelative(-80f)
+                horizontalLineTo(480f)
+                close()
+                moveTo(280f, 640f)
+                verticalLineToRelative(-360f)
+                close()
+            }
+        }.build()
+        return _Cases!!
+    }
+private var _Cases: ImageVector? = null

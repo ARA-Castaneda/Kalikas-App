@@ -47,6 +47,23 @@ val montserratFamily = FontFamily(
     Font(R.font.montserrat_thin, FontWeight.Thin)
 )
 
+val opensansFamily = FontFamily(
+    Font(R.font.opensans_bold, FontWeight.Bold),
+    Font(R.font.opensans_extrabold, FontWeight.ExtraBold),
+    Font(R.font.opensans_light, FontWeight.Light),
+    Font(R.font.opensans_medium, FontWeight.Medium),
+    Font(R.font.opensans_regular, FontWeight.Normal),
+)
+
+val robotoFamily = FontFamily(
+    Font(R.font.roboto_bold, FontWeight.Bold),
+    Font(R.font.roboto_extrabold, FontWeight.ExtraBold),
+    Font(R.font.roboto_extralight, FontWeight.ExtraLight),
+    Font(R.font.roboto_light, FontWeight.Light),
+    Font(R.font.roboto_medium, FontWeight.Medium),
+    Font(R.font.roboto_regular, FontWeight.Normal),
+)
+
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
