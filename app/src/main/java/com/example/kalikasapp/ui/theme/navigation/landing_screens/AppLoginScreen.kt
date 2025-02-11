@@ -180,7 +180,7 @@ fun AppLoginScreen(navController: NavController) {
                     onClick = {
                         if (email.isEmpty() || password.isEmpty()){
                             showError = true
-                        } else if (email == "kalikas@up.edu.ph" && password == "admin123") {
+                        } else if (email == "kalikas@up.edu.ph" && password == "Admin123") {
                             navController.navigate(Screen.PageProfileScreen.route)
                             showError = false
                         } else {

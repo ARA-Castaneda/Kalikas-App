@@ -11,15 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -45,30 +40,19 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.tv.material3.IconButton
-import coil3.Uri
-import coil3.compose.rememberAsyncImagePainter
-import com.example.kalikasapp.R
-import com.example.kalikasapp.ui.theme.Account_balance
-import com.example.kalikasapp.ui.theme.App_registration
-import com.example.kalikasapp.ui.theme.Login
 import com.example.kalikasapp.ui.theme.Logout
-import com.example.kalikasapp.ui.theme.Photo_camera
-import com.example.kalikasapp.ui.theme.Share_location
-import com.example.kalikasapp.ui.theme.montserratFamily
 import com.example.kalikasapp.ui.theme.navigation.Screen
 import com.example.kalikasapp.ui.theme.opensansFamily
-import com.example.kalikasapp.ui.theme.robotoFamily
-import com.example.kalikasapp.ui.theme.soraFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileSettingsScreen(navController: NavController) {
-    val darkGreen = Color(0xFF15472B)
+    // val darkGreen = Color(0xFF15472B)
     val green = Color(0xFF1E653E)
     val lightGreen = Color(0xFF39C076)
     val lightBlue = Color(0xFF9FE3BE)
     val blackGreen = Color(0xFF113822)
-    val whiteGreen = Color(0xFFFAFEFC)
+    // val whiteGreen = Color(0xFFFAFEFC)
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
@@ -97,31 +81,40 @@ fun ProfileSettingsScreen(navController: NavController) {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    TopAppBar(
+                    Box(
                         modifier = Modifier
-                            .absolutePadding(8.dp, 8.dp, 8.dp, 8.dp),
-                        colors = topAppBarColors(
-                            containerColor = Color.Transparent,
-                            titleContentColor = Color.White,
-                            navigationIconContentColor = Color.White
-                        ),
-                        title = {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = "Settings",
-                                    textAlign = TextAlign.Center,
-                                    fontSize = 28.sp,
-                                    fontFamily = opensansFamily,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier
-                                )
+                            .fillMaxSize()
+                    ) {
+                        TopAppBar(
+                            modifier = Modifier
+                                .absolutePadding(8.dp, 8.dp, 8.dp, 8.dp),
+                            colors = topAppBarColors(
+                                containerColor = Color.Transparent,
+                                titleContentColor = Color.White,
+                                navigationIconContentColor = Color.White
+                            ),
+                            title = {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.Center,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "Settings",
+                                        textAlign = TextAlign.Center,
+                                        fontSize = 28.sp,
+                                        fontFamily = opensansFamily,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier
+                                    )
+                                }
                             }
-                        },
-                        navigationIcon = {
+                        )
+                        Box(
+                            modifier = Modifier
+                                .absolutePadding(8.dp, 20.dp, 8.dp, 8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
                             IconButton(
                                 onClick = {
                                     navController.navigate(Screen.PageProfileScreen.route)
@@ -136,7 +129,7 @@ fun ProfileSettingsScreen(navController: NavController) {
                                 )
                             }
                         }
-                    )
+                    }
                 }
             }
         },
