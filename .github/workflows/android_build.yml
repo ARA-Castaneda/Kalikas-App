@@ -1,0 +1,29 @@
+name: Android Build
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+          cache: gradle
+
+      - name: Grant Execution Permissions for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
+      - name: Build Project
+        run: ./gradlew assemble
