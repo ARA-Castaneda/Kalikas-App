@@ -23,6 +23,10 @@ sealed class Screen(val route: String) {
     object ProfileMilestonesScreen : Screen("profile_milestones")
     object ProfileSettingsScreen : Screen("profile_settings")
 
+    object FootprintWeeklyScreen : Screen("footprint_weekly")
+    object FootprintMonthlyScreen : Screen("footprint_monthly")
+    object FootprintYearlyScreen : Screen("footprint_yearly")
+
     fun withArgs(vararg args: String): String {
         return buildString {
             append(route)

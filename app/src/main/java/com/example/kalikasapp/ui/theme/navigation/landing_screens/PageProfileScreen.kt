@@ -13,18 +13,25 @@ import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -37,9 +44,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -53,59 +62,182 @@ import androidx.tv.material3.IconButton
 import coil3.compose.rememberAsyncImagePainter
 import com.example.kalikasapp.R
 import com.example.kalikasapp.ui.theme.Account_balance
+import com.example.kalikasapp.ui.theme.Collections_bookmark
+import com.example.kalikasapp.ui.theme.Compost
+import com.example.kalikasapp.ui.theme.Diversity_2
+import com.example.kalikasapp.ui.theme.Mood
+import com.example.kalikasapp.ui.theme.Notifications_active
 import com.example.kalikasapp.ui.theme.Photo_camera
 import com.example.kalikasapp.ui.theme.Share_location
 import com.example.kalikasapp.ui.theme.montserratFamily
 import com.example.kalikasapp.ui.theme.navigation.Screen
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.EnergyFootprint
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FoodFootprint
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.TranspoFootprint
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.WasteFootprint
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.WaterFootprint
 import com.example.kalikasapp.ui.theme.robotoFamily
 import com.example.kalikasapp.ui.theme.soraFamily
 
+data class BottomNavigationItem(
+    var route: String,
+    var selectedIcon: ImageVector,
+    var hasNews: Boolean,
+    var badgeCount: Int? = null
+)
+
+val userWaterFootprint = WaterFootprint()
+val userEnergyFootprint = EnergyFootprint()
+val userTranspoFootprint = TranspoFootprint()
+val userFoodFootprint = FoodFootprint()
+val userWasteFootprint = WasteFootprint()
+
 @Composable
 fun PageProfileScreen(navController: NavController) {
-    // val darkGreen = Color(0xFF15472B)
-    // val whiteGreen = Color(0xFFFAFEFC)
+    Scaffold(
+        bottomBar = {
+            BottomNavBar(navController)
+        },
+        content = { padding ->
+            Column(
+                modifier = Modifier
+                    .padding(padding)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                    ) {
+                        Box(modifier = Modifier) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .absolutePadding(20.dp, 20.dp, 20.dp, 20.dp)
+                            ) {
+                                ProfileCoverPhoto()
+                                ProfileDisplayPhoto()
+                                ProfileUserInfo(
+                                    null, null, null, null
+                                )
+                            }
+
+                            Row(
+                                modifier = Modifier
+                                    .absolutePadding(5.dp, 20.dp, 0.dp, 0.dp)
+                            ) {
+                                SettingsButton(
+                                    settingsIcon = painterResource(id = R.drawable.settingsbutton),
+                                    onClick = {
+                                        navController.navigate(Screen.ProfileSettingsScreen.route)
+                                    }
+                                )
+                            }
+
+                            ProfileNavBar()
+                            ProfileLevelCard(
+                                level = null,
+                                streak = null,
+                                title = null,
+                                titlePainter = painterResource(id = R.drawable.level1),
+                                levelExp = null,
+                                nextLevelExp = null
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    )
+}
+
+@Composable
+fun BottomNavBar(navController: NavController) {
+    val green = Color(0xFF1E653E)
+    val lightGreen = Color(0xFF39C076)
+
+    val items = listOf(
+        BottomNavigationItem(
+            route = Screen.PageProfileScreen.route,
+            selectedIcon = Mood,
+            hasNews = false
+        ),
+        BottomNavigationItem(
+            route = Screen.PageFootprintScreen.route,
+            selectedIcon = Compost,
+            hasNews = false
+        ),
+        BottomNavigationItem(
+            route = Screen.PageExploreScreen.route,
+            selectedIcon = Diversity_2,
+            hasNews = false
+        ),
+        BottomNavigationItem(
+            route = Screen.PageLearnScreen.route,
+            selectedIcon = Collections_bookmark,
+            hasNews = false
+        ),
+        BottomNavigationItem(
+            route = Screen.PageNotifsScreen.route,
+            selectedIcon = Notifications_active,
+            hasNews = false
+        )
+    )
+
+    var selectedItemIndex by rememberSaveable {
+        mutableStateOf(0)
+    }
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .clip(RoundedCornerShape(
+                topStart = 32.dp, topEnd = 32.dp,
+                bottomStart = 32.dp, bottomEnd = 32.dp)
+            )
+            .background(Color.Transparent)
     ) {
-        Column(
+        NavigationBar(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
+                .background(Color.Transparent)
         ) {
-            Box(modifier = Modifier) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .absolutePadding(20.dp, 20.dp, 20.dp, 20.dp)
-                ) {
-                    ProfileCoverPhoto()
-                    ProfileDisplayPhoto()
-                    ProfileUserInfo(
-                        null, null, null, null
-                    )
-                }
-
-                Row(
-                    modifier = Modifier
-                        .absolutePadding(5.dp, 20.dp, 0.dp, 0.dp)
-                ) {
-                    SettingsButton(
-                        settingsIcon = painterResource(id = R.drawable.settingsbutton),
-                        onClick = {
-                            navController.navigate(Screen.ProfileSettingsScreen.route)
+            items.forEachIndexed { index, item ->
+                NavigationBarItem(
+                    selected = selectedItemIndex == index,
+                    onClick = {
+                        selectedItemIndex = index
+                        navController.navigate(item.route)
+                    },
+                    icon = {
+                        BadgedBox(
+                            badge = {
+                                if(item.badgeCount != null) {
+                                    Badge {
+                                        Text(text = item.badgeCount.toString())
+                                    }
+                                } else if(item.hasNews) {
+                                    Badge()
+                                }
+                            }
+                        ) {
+                            if(index == selectedItemIndex) {
+                                Icon(
+                                    imageVector = item.selectedIcon,
+                                    tint = green,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(32.dp)
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = item.selectedIcon,
+                                    tint = lightGreen,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(32.dp)
+                                )
+                            }
                         }
-                    )
-                }
-
-                ProfileNavBar()
-                ProfileLevelCard(
-                    level = null,
-                    streak = null,
-                    title = null,
-                    titlePainter = painterResource(id = R.drawable.level1),
-                    levelExp = null,
-                    nextLevelExp = null
+                    }
                 )
             }
         }
@@ -123,7 +255,9 @@ fun SettingsButton(settingsIcon: Painter, onClick: () -> Unit) {
             Image(
                 painter = settingsIcon,
                 contentDescription = null,
-                modifier = Modifier.width(30.dp).height(30.dp)
+                modifier = Modifier
+                    .width(30.dp)
+                    .height(30.dp)
             )
         }
     }
@@ -495,7 +629,8 @@ fun ProfileLevelCard(
                             contentDescription = null,
                             modifier = Modifier
                                 .absolutePadding(0.dp, 0.dp, 4.dp, 0.dp)
-                                .width(16.dp).height(16.dp)
+                                .width(16.dp)
+                                .height(16.dp)
 
                         )
                         Text(
@@ -527,7 +662,8 @@ fun ProfileLevelCard(
                             contentDescription = null,
                             modifier = Modifier
                                 .absolutePadding(0.dp, 0.dp, 4.dp, 0.dp)
-                                .width(16.dp).height(16.dp)
+                                .width(16.dp)
+                                .height(16.dp)
 
                         )
                         Text(
@@ -563,7 +699,8 @@ fun ProfileLevelCard(
                     painter = titlePainter,
                     contentDescription = null,
                     modifier = Modifier
-                        .width(80.dp).height(80.dp),
+                        .width(80.dp)
+                        .height(80.dp),
                     contentScale = ContentScale.Crop
                 )
                 Text(
