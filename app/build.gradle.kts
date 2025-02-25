@@ -59,6 +59,10 @@ dependencies {
     // Material for design components
     implementation("androidx.compose.material:material:1.7.7")
 
+    // Canvas for and stroke brush
+    implementation("androidx.compose.ui:ui:1.0.0")
+    implementation("androidx.compose.ui:ui-graphics")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
