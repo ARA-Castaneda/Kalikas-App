@@ -18,6 +18,8 @@ import org.junit.Test
 
 class FootprintCalculatorTest {
 
+    /* testing with default values */
+
     // Test data
     private val waterFootprint = WaterFootprint(
         household = 1,
@@ -37,11 +39,13 @@ class FootprintCalculatorTest {
         electricfanCountUnplugged = Tuple(1, false),
         airconCountUnplugged = Tuple(0, false),
         lightbulbCountUnplugged = Tuple(4, false),
+
         refrigeratorCountUnplugged = Tuple(0, true),
         microwaveCountUnplugged = Tuple(1, true),
         stoveCountUnplugged = Tuple(0, true),
         toasterCountUnplugged = Tuple(0, true),
         ricecookerCountUnplugged = Tuple(1, true),
+
         dispenserCountUnplugged = Tuple(0, true),
         kettleCountUnplugged = Tuple(1, true),
         washingmachineCountUnplugged = Tuple(0, true),
@@ -111,10 +115,7 @@ class FootprintCalculatorTest {
             userWaterFootprint = waterFootprint
         )
 
-        /*
-        Verify that the water emission is calculated correctly
-        (This assumes the maps are populated with correct values)
-        */
+        // Verify that the water emission is calculated correctly
         assert(waterEmission > 0.0f)
     }
 
@@ -125,7 +126,6 @@ class FootprintCalculatorTest {
         )
 
         // Verify that the energy emission is calculated correctly
-        // (This assumes the maps are populated with correct values)
         assert(energyEmission > 0.0f)
     }
 
@@ -136,7 +136,6 @@ class FootprintCalculatorTest {
         )
 
         // Verify that the transportation emission is calculated correctly
-        // (This assumes the maps are populated with correct values)
         assert(transpoEmission > 0.0f)
     }
 
@@ -147,7 +146,6 @@ class FootprintCalculatorTest {
         )
 
         // Verify that the food emission is calculated correctly
-        // (This assumes the maps are populated with correct values)
         assert(foodEmission > 0.0f)
     }
 
@@ -158,9 +156,170 @@ class FootprintCalculatorTest {
         )
 
         // Verify that the waste emission is calculated correctly
-        // (This assumes the maps are populated with correct values)
         assert(wasteEmission > 0.0f)
     }
 
+
+    /* new values outside of default */
+    @Test
+    fun testModifiedWaterFootprint() {
+        val modifiedWaterFootprint = waterFootprint.copy(
+            showerDuration = "over 30 mins",
+            sinkDuration = "5-10 mins",
+            toiletUsage = "sometimes"
+        )
+
+        val modifiedCarbonFootprint = userCarbonFootprint(
+            household = 1,
+            waterComponent = modifiedWaterFootprint,
+            energyComponent = energyFootprint,
+            transpoComponent = transpoFootprint,
+            foodComponent = foodFootprint,
+            wasteComponent = wasteFootprint
+        )
+
+        assert(modifiedCarbonFootprint.total > 0.0f)
+        assert(modifiedCarbonFootprint.water > 0.0f)
+        assert(modifiedWaterFootprint != waterFootprint)
+    }
+
+    @Test
+    fun testModifiedEnergyFootprint() {
+        val modifiedEnergyFootprint = energyFootprint.copy(
+            airconCountUnplugged = Tuple(2, false),
+            lightbulbCountUnplugged = Tuple(6, false)
+        )
+
+        val modifiedCarbonFootprint = userCarbonFootprint(
+            household = 3,
+            waterComponent = waterFootprint,
+            energyComponent = modifiedEnergyFootprint,
+            transpoComponent = transpoFootprint,
+            foodComponent = foodFootprint,
+            wasteComponent = wasteFootprint
+        )
+
+        assert(modifiedCarbonFootprint.total > 0.0f)
+        assert(modifiedCarbonFootprint.energy > 0.0f)
+        assert(modifiedEnergyFootprint != energyFootprint)
+    }
+
+    @Test
+    fun testModifiedTranspoFootprint() {
+        val modifiedTranspoFootprint = transpoFootprint.copy(
+            carDuration = "120 mins",
+            busDuration = "60 mins"
+        )
+
+        val modifiedCarbonFootprint = userCarbonFootprint(
+            household = 3,
+            waterComponent = waterFootprint,
+            energyComponent = energyFootprint,
+            transpoComponent = modifiedTranspoFootprint,
+            foodComponent = foodFootprint,
+            wasteComponent = wasteFootprint
+        )
+
+        assert(modifiedCarbonFootprint.total > 0.0f)
+        assert(modifiedCarbonFootprint.transpo > 0.0f)
+        assert(modifiedTranspoFootprint != transpoFootprint)
+    }
+
+    @Test
+    fun testModifiedFoodFootprint() {
+        val modifiedFoodFootprint = foodFootprint.copy(
+            beefServings = "every meal",
+            processedServings = "everyday"
+        )
+
+        val modifiedCarbonFootprint = userCarbonFootprint(
+            household = 3,
+            waterComponent = waterFootprint,
+            energyComponent = energyFootprint,
+            transpoComponent = transpoFootprint,
+            foodComponent = modifiedFoodFootprint,
+            wasteComponent = wasteFootprint
+        )
+
+        assert(modifiedCarbonFootprint.total > 0.0f)
+        assert(modifiedCarbonFootprint.food > 0.0f)
+        assert(modifiedFoodFootprint != foodFootprint)
+    }
+
+    @Test
+    fun testModifiedWasteFootprint() {
+        val modifiedWasteFootprint = wasteFootprint.copy(
+            organicWeight = "5-6 kg",
+            recycledPlastic = "all"
+        )
+
+        val modifiedCarbonFootprint = userCarbonFootprint(
+            household = 3,
+            waterComponent = waterFootprint,
+            energyComponent = energyFootprint,
+            transpoComponent = transpoFootprint,
+            foodComponent = foodFootprint,
+            wasteComponent = modifiedWasteFootprint
+        )
+
+        assert(modifiedCarbonFootprint.total > 0.0f)
+        assert(modifiedCarbonFootprint.waste > 0.0f)
+        assert(modifiedWasteFootprint != wasteFootprint)
+    }
+
+    @Test
+    fun testAllFootprintsModified() {
+        val modifiedWaterFootprint = waterFootprint.copy(
+            showerDuration = "unknown",
+            sinkDuration = "over 30 mins",
+            household = 5
+        )
+
+        val modifiedEnergyFootprint = energyFootprint.copy(
+            airconCountUnplugged = Tuple(3, true),
+            lightbulbCountUnplugged = Tuple(10, false),
+            washingmachineCountUnplugged = Tuple(2, false)
+        )
+
+        val modifiedTranspoFootprint = transpoFootprint.copy(
+            carDuration = "0 mins",
+            busDuration = "180 mins",
+            trainDuration = "unknown"
+        )
+
+        val modifiedFoodFootprint = foodFootprint.copy(
+            beefServings = "never",
+            processedServings = "every meal",
+            vegetableServings = "unknown"
+        )
+
+        val modifiedWasteFootprint = wasteFootprint.copy(
+            organicWeight = "unknown",
+            recycledPlastic = "none",
+            recycledNonBio = "all"
+        )
+
+        val modifiedCarbonFootprint = userCarbonFootprint(
+            household = 5,
+            waterComponent = modifiedWaterFootprint,
+            energyComponent = modifiedEnergyFootprint,
+            transpoComponent = modifiedTranspoFootprint,
+            foodComponent = modifiedFoodFootprint,
+            wasteComponent = modifiedWasteFootprint
+        )
+
+        assert(modifiedCarbonFootprint.total > 0.0f)
+        assert(modifiedCarbonFootprint.water > 0.0f)
+        assert(modifiedCarbonFootprint.energy > 0.0f)
+        assert(modifiedCarbonFootprint.transpo > 0.0f)
+        assert(modifiedCarbonFootprint.food > 0.0f)
+        assert(modifiedCarbonFootprint.waste > 0.0f)
+
+        assert(modifiedWaterFootprint != waterFootprint)
+        assert(modifiedEnergyFootprint != energyFootprint)
+        assert(modifiedTranspoFootprint!= transpoFootprint)
+        assert(modifiedFoodFootprint != foodFootprint)
+        assert(modifiedWasteFootprint != wasteFootprint)
+    }
 
 }
