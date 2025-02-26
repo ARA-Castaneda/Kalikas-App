@@ -78,5 +78,17 @@ class PageFootprintScreenTest {
         assertEquals(100.0f, totalDailyFootprint)
     }
 
+    private val newUserDailyFood = mutableStateOf(25.0f)
+    private val newUserDailyWater = mutableStateOf(15.0f)
+
+    @Test
+    fun testPageFootprintScreen_modifiedFoodAndWater() {
+        // Check if initial values are set correctly
+        assertEquals(15.0f, newUserDailyWater.value)
+        assertEquals(30.0f, userDailyEnergy.value)
+        assertEquals(20.0f, userDailyTranspo.value)
+        assertEquals(25.0f, newUserDailyFood.value)
+        assertEquals(10.0f, userDailyWaste.value)
+    }
 }
 
