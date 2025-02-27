@@ -612,7 +612,8 @@ fun TopNavBar(navController: NavController) {
         NavigationBar(
             modifier = Modifier
                 .height(60.dp),
-            containerColor = navGreen
+            containerColor = Color.LightGray
+            /*containerColor = navGreen*/
         ) {
             items.forEachIndexed { index, item ->
                 NavigationBarItem(
@@ -633,6 +634,13 @@ fun TopNavBar(navController: NavController) {
                                 }
                             }
                         ) {
+                            Icon(
+                                painter = painterResource(id = item.selectedIcon),
+                                tint = Color.Unspecified,
+                                contentDescription = null,
+                                modifier = Modifier.width(50.dp).height(40.dp)
+                            )
+                            /*
                             if(index == selectedItemIndex) {
                                 Icon(
                                     painter = painterResource(id = item.selectedIcon),
@@ -648,6 +656,7 @@ fun TopNavBar(navController: NavController) {
                                     modifier = Modifier.width(50.dp).height(40.dp)
                                 )
                             }
+                            */
                         }
                     }
                 )
