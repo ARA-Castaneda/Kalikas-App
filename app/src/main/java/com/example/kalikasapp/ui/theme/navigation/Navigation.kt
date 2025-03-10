@@ -6,6 +6,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintLoggerEnergyScreen
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintLoggerFoodScreen
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintLoggerTranspoScreen
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintLoggerWasteScreen
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintLoggerWaterScreen
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintMonthlyScreen
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintWeeklyScreen
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintYearlyScreen
@@ -77,6 +82,28 @@ fun Navigation() {
         // yearly footprint
         composable(route = Screen.FootprintYearlyScreen.route) {
             FootprintYearlyScreen(navController = navController)
+        }
+
+        // Footprint record logger screens
+        // water footprint logger
+        composable(route = Screen.FootprintLoggerWaterScreen.route) {
+            FootprintLoggerWaterScreen(navController = navController)
+        }
+        // energy footprint logger
+        composable(route = Screen.FootprintLoggerEnergyScreen.route) {
+            FootprintLoggerEnergyScreen(navController = navController)
+        }
+        // transpo footprint logger
+        composable(route = Screen.FootprintLoggerTranspoScreen.route) {
+            FootprintLoggerTranspoScreen(navController = navController)
+        }
+        // food footprint logger
+        composable(route = Screen.FootprintLoggerFoodScreen.route) {
+            FootprintLoggerFoodScreen(navController = navController)
+        }
+        // waste footprint logger
+        composable(route = Screen.FootprintLoggerWasteScreen.route) {
+            FootprintLoggerWasteScreen(navController = navController)
         }
 
         // Explore page screen

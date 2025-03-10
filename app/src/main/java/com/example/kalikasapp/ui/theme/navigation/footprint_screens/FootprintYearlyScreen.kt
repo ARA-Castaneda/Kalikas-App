@@ -27,6 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.kalikasapp.R
 import com.example.kalikasapp.ui.theme.montserratFamily
+import com.example.kalikasapp.ui.theme.navigation.Screen
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.EcologicalFootprint
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.CarbonFootprint
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.FootprintModel
@@ -42,29 +43,39 @@ import com.example.kalikasapp.ui.theme.navigation.landing_screens.waterPrint
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.userCarbonFootprint
 import java.util.Locale
 
-val userYearlyCarbonFootprint = userCarbonFootprint.total * 12f
+/*
+if (userDailiesProgress.waterDailies.d1.t2 || userDailiesProgress.waterDailies.d2.t2 ||
+        userDailiesProgress.waterDailies.d3.t2
+        ) {
 
-val userYearlyWater = String.format(Locale.US, "%.2f",
+    } else {
+
+    }
+*/
+
+var userYearlyCarbonFootprint = userCarbonFootprint.total * 12f
+
+var userYearlyWater = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.water / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userYearlyEnergy = String.format(Locale.US, "%.2f",
+var userYearlyEnergy = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.energy / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userYearlyTranspo = String.format(Locale.US, "%.2f",
+var userYearlyTranspo = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.transpo / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userYearlyFood = String.format(Locale.US, "%.2f",
+var userYearlyFood = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.food / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userYearlyWaste = String.format(Locale.US, "%.2f",
+var userYearlyWaste = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.waste / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userYearlies = listOf(
+var userYearlies = listOf(
     FootprintModel(userYearlyWater, waterPrint),
     FootprintModel(userYearlyEnergy, energyPrint),
     FootprintModel(userYearlyTranspo, transpoPrint),
@@ -157,7 +168,7 @@ fun FootprintYearlyScreen(navController: NavController) {
 fun YearlyCarbonFootprint() {
     Column(
         modifier = Modifier
-            .absolutePadding(200.dp, 650.dp, 20.dp, 20.dp),
+            .absolutePadding(200.dp, 644.dp, 20.dp, 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
@@ -178,7 +189,7 @@ fun YearlyCarbonFootprint() {
                     .toFloat().toString(),
                 textAlign = TextAlign.Center,
                 color = Color.DarkGray,
-                fontSize = 40.sp,
+                fontSize = 30.sp,
                 fontFamily = montserratFamily,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -207,7 +218,7 @@ fun YearlyWaterLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbonwater),
-            "water", waterPrint, navController
+            "water", waterPrint, navController, Screen.FootprintLoggerWaterScreen.route
         )
 
         Column(
@@ -247,7 +258,7 @@ fun YearlyEnergyLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbonenergy),
-            "energy", energyPrint, navController
+            "energy", energyPrint, navController, Screen.FootprintLoggerEnergyScreen.route
         )
 
         Column(
@@ -287,7 +298,7 @@ fun YearlyTranspoLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbontranspo),
-            "transpo", transpoPrint, navController
+            "transpo", transpoPrint, navController, Screen.FootprintLoggerTranspoScreen.route
         )
 
         Column(
@@ -327,7 +338,7 @@ fun YearlyFoodLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbonfood),
-            "food", foodPrint, navController
+            "food", foodPrint, navController, Screen.FootprintLoggerFoodScreen.route
         )
 
         Column(
@@ -367,7 +378,7 @@ fun YearlyWasteLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbonwaste),
-            "waste", wastePrint, navController
+            "waste", wastePrint, navController, Screen.FootprintLoggerWasteScreen.route
         )
 
         Column(

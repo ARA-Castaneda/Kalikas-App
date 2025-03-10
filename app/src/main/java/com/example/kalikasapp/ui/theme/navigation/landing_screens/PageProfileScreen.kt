@@ -71,6 +71,8 @@ import com.example.kalikasapp.ui.theme.Photo_camera
 import com.example.kalikasapp.ui.theme.Share_location
 import com.example.kalikasapp.ui.theme.montserratFamily
 import com.example.kalikasapp.ui.theme.navigation.Screen
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.ChallengesProgress
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.DailiesProgress
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.EnergyFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FoodFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.TranspoFootprint
@@ -86,11 +88,12 @@ data class BottomNavigationItem(
     var badgeCount: Int? = null
 )
 
-val userWaterFootprint = WaterFootprint()
-val userEnergyFootprint = EnergyFootprint()
-val userTranspoFootprint = TranspoFootprint()
-val userFoodFootprint = FoodFootprint()
-val userWasteFootprint = WasteFootprint()
+// initialize user benchmarks
+var userWaterFootprint = WaterFootprint()
+var userEnergyFootprint = EnergyFootprint()
+var userTranspoFootprint = TranspoFootprint()
+var userFoodFootprint = FoodFootprint()
+var userWasteFootprint = WasteFootprint()
 
 @Composable
 fun PageProfileScreen(navController: NavController) {
@@ -570,6 +573,7 @@ fun ProfileLevelCard(
     val lightGreen = Color(0xFF39C076)
     val green = Color(0xFF1E653E)
     val darkGreen = Color(0xFF15472B)
+    val textGreen = Color(0xFF092013)
 
     val userLevel = level ?: 1
     val userStreak = streak ?: 0

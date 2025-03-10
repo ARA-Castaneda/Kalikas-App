@@ -1,5 +1,7 @@
 package com.example.kalikasapp.ui.theme.navigation.footprint_screens
 
+import com.example.kalikasapp.ui.theme.navigation.landing_screens.userChallengesProgress
+import com.example.kalikasapp.ui.theme.navigation.landing_screens.userDailiesProgress
 import java.util.Locale
 
 const val sequestrationRate = 4.000f
@@ -17,6 +19,99 @@ data class Triple(
 data class Tuple(
     var t1: Int,
     var t2: Boolean
+)
+
+data class DailyTuple(
+    var t1: String,
+    var t2: Boolean
+)
+
+// user data class for dailies progress
+data class DailiesProgress(
+    // daily1 == challenge2 ; daily2 == challenge3, daily3 == challenge1
+    var waterDailies: DailiesTriple = DailiesTriple(
+        DailyTuple("c2", false), DailyTuple("c3", false), DailyTuple("c1", false)
+    ),
+    // daily1 == challenge3 ; daily2 == challenge2, daily3 == challenge1
+    var energyDailies: DailiesTriple = DailiesTriple(
+        DailyTuple("c3", false), DailyTuple("c2", false), DailyTuple("c1", false)
+    ),
+    // daily1 == challenge1 ; daily2 == challenge3, daily3 == challenge2
+    var transpoDailies: DailiesTriple = DailiesTriple(
+        DailyTuple("c1", false), DailyTuple("c3", false), DailyTuple("c2", false)
+    ),
+    // daily1 == challenge1 ; daily2 == challenge3, daily3 == challenge2
+    var foodDailies: DailiesTriple = DailiesTriple(
+        DailyTuple("c1", false), DailyTuple("c3", false), DailyTuple("c2", false)
+    ),
+    // daily1 == challenge2 ; daily2 == challenge3, daily3 == challenge1
+    var wasteDailies: DailiesTriple = DailiesTriple(
+        DailyTuple("c2", false), DailyTuple("c3", false), DailyTuple("c1", false)
+    ),
+)
+
+// user data class for challenge progress
+data class ChallengesProgress(
+    var waterChallenges: ChallengesTriple =
+        ChallengesTriple(
+            ProgressTuple(
+                alpha = waterLoggerChallengesCounter.getOrElse(key = waterLoggerChallenges[0]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = waterLoggerChallengesCounter.getOrElse(key = waterLoggerChallenges[1]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = waterLoggerChallengesCounter.getOrElse(key = waterLoggerChallenges[2]) {1},
+                done = 0)
+        ),
+    var energyChallenges: ChallengesTriple =
+        ChallengesTriple(
+            ProgressTuple(
+                alpha = energyLoggerChallengesCounter.getOrElse(key = energyLoggerChallenges[0]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = energyLoggerChallengesCounter.getOrElse(key = energyLoggerChallenges[1]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = energyLoggerChallengesCounter.getOrElse(key = energyLoggerChallenges[2]) {1},
+                done = 0)
+        ),
+    var transpoChallenges: ChallengesTriple =
+        ChallengesTriple(
+            ProgressTuple(
+                alpha = transpoLoggerChallengesCounter.getOrElse(key = transpoLoggerChallenges[0]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = transpoLoggerChallengesCounter.getOrElse(key = transpoLoggerChallenges[1]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = transpoLoggerChallengesCounter.getOrElse(key = transpoLoggerChallenges[2]) {1},
+                done = 0)
+        ),
+    var foodChallenges: ChallengesTriple =
+        ChallengesTriple(
+            ProgressTuple(
+                alpha = foodLoggerChallengesCounter.getOrElse(key = foodLoggerChallenges[0]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = foodLoggerChallengesCounter.getOrElse(key = foodLoggerChallenges[1]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = foodLoggerChallengesCounter.getOrElse(key = foodLoggerChallenges[2]) {1},
+                done = 0)
+        ),
+    var wasteChallenges: ChallengesTriple =
+        ChallengesTriple(
+            ProgressTuple(
+                alpha = wasteLoggerChallengesCounter.getOrElse(key = wasteLoggerChallenges[0]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = wasteLoggerChallengesCounter.getOrElse(key = wasteLoggerChallenges[1]) {1},
+                done = 0),
+            ProgressTuple(
+                alpha = wasteLoggerChallengesCounter.getOrElse(key = wasteLoggerChallenges[2]) {1},
+                done = 0)
+        )
 )
 
 data class EcoFootprint(
@@ -120,6 +215,16 @@ data class WasteFootprint(
     var nonbioWeight: String = "less than 1 kg",
     var recycledNonBio: String = "none"
 )
+
+// Controller of user challenges variables
+fun userChallengesController(
+) {
+    userWaterChallengesCounter(userDailiesProgress, userChallengesProgress)
+    userEnergyChallengesCounter(userDailiesProgress, userChallengesProgress)
+    userTranspoChallengesCounter(userDailiesProgress, userChallengesProgress)
+    userFoodChallengesCounter(userDailiesProgress, userChallengesProgress)
+    userWasteChallengesCounter(userDailiesProgress, userChallengesProgress)
+}
 
 // Calculated per individual per year (gha)
 fun userEcoFootprint(

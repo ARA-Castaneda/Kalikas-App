@@ -27,6 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.kalikasapp.R
 import com.example.kalikasapp.ui.theme.montserratFamily
+import com.example.kalikasapp.ui.theme.navigation.Screen
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.EcologicalFootprint
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.CarbonFootprint
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.FootprintModel
@@ -42,29 +43,39 @@ import com.example.kalikasapp.ui.theme.navigation.landing_screens.waterPrint
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.userCarbonFootprint
 import java.util.Locale
 
-val userMonthlyCarbonFootprint = userCarbonFootprint.total
+/*
+if (userDailiesProgress.waterDailies.d1.t2 || userDailiesProgress.waterDailies.d2.t2 ||
+        userDailiesProgress.waterDailies.d3.t2
+        ) {
 
-val userMonthlyWater = String.format(Locale.US, "%.2f",
+    } else {
+
+    }
+*/
+
+var userMonthlyCarbonFootprint = userCarbonFootprint.total
+
+var userMonthlyWater = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.water / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userMonthlyEnergy = String.format(Locale.US, "%.2f",
+var userMonthlyEnergy = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.energy / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userMonthlyTranspo = String.format(Locale.US, "%.2f",
+var userMonthlyTranspo = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.transpo / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userMonthlyFood = String.format(Locale.US, "%.2f",
+var userMonthlyFood = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.food / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userMonthlyWaste = String.format(Locale.US, "%.2f",
+var userMonthlyWaste = String.format(Locale.US, "%.2f",
     (userCarbonFootprint.waste / userCarbonFootprint.total) * 100.0f
 ).toFloat()
 
-val userMonthlies = listOf(
+var userMonthlies = listOf(
     FootprintModel(userMonthlyWater, waterPrint),
     FootprintModel(userMonthlyEnergy, energyPrint),
     FootprintModel(userMonthlyTranspo, transpoPrint),
@@ -157,7 +168,7 @@ fun FootprintMonthlyScreen(navController: NavController) {
 fun MonthlyCarbonFootprint() {
     Column(
         modifier = Modifier
-            .absolutePadding(200.dp, 650.dp, 20.dp, 20.dp),
+            .absolutePadding(200.dp, 644.dp, 20.dp, 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
@@ -178,7 +189,7 @@ fun MonthlyCarbonFootprint() {
                     .toFloat().toString(),
                 textAlign = TextAlign.Center,
                 color = Color.DarkGray,
-                fontSize = 40.sp,
+                fontSize = 30.sp,
                 fontFamily = montserratFamily,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -209,7 +220,7 @@ fun MonthlyWaterLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbonwater),
-            "water", waterPrint, navController
+            "water", waterPrint, navController, Screen.FootprintLoggerWaterScreen.route
         )
 
         Column(
@@ -250,7 +261,7 @@ fun MonthlyEnergyLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbonenergy),
-            "energy", energyPrint, navController
+            "energy", energyPrint, navController, Screen.FootprintLoggerEnergyScreen.route
         )
 
         Column(
@@ -291,7 +302,7 @@ fun MonthlyTranspoLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbontranspo),
-            "transpo", transpoPrint, navController
+            "transpo", transpoPrint, navController, Screen.FootprintLoggerTranspoScreen.route
         )
 
         Column(
@@ -332,7 +343,7 @@ fun MonthlyFoodLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbonfood),
-            "food", foodPrint, navController
+            "food", foodPrint, navController, Screen.FootprintLoggerFoodScreen.route
         )
 
         Column(
@@ -373,7 +384,7 @@ fun MonthlyWasteLogsButton(navController: NavController){
     ) {
         LogFootprintButton(
             painterResource(R.drawable.carbonwaste),
-            "waste", wastePrint, navController
+            "waste", wastePrint, navController, Screen.FootprintLoggerWasteScreen.route
         )
 
         Column(

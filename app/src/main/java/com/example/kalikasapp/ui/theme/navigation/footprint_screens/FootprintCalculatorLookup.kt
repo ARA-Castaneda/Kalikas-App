@@ -5,7 +5,8 @@ val showerDurationMap = mapOf(
     "under 5 mins" to 1059.92f,
     "5-10 mins" to 2119.83f,
     "11-30 mins" to 5299.58f,
-    "over 30 mins" to 7949.37f
+    "over 30 mins" to 7949.37f,
+    "daily target" to 3179.75f
 )
 
 // Water Footprint sink duration to liters per month (rounded to 2 dp)
@@ -13,13 +14,15 @@ val sinkDurationMap = mapOf(
     "under 5 mins" to 635.95f,
     "5-10 mins" to 1271.90f,
     "11-15 mins" to 2066.84f,
-    "over 15 mins" to 2384.81f
+    "over 15 mins" to 2384.81f,
+    "daily target" to 0.00f
 )
 
 // Water Footprint toilet flush to liters per month (rounded to 2 dp)
 val toiletUsageMap = mapOf(
     "always" to 847.93f,
-    "sometimes" to 576.59f
+    "sometimes" to 576.59f,
+    "daily target" to 0.00f
 )
 
 // Water Footprint dishes duration, method, load to liters per month (rounded to 2 dp)
@@ -124,7 +127,9 @@ val electricityContribMap = mapOf(
     "smartphone" to 0.409f,
     "tablet" to 0.205f,
     "electricfan" to 24.569f,
+    "daily target fan" to 12.285f,
     "aircon" to 221.119f,
+    "daily target aircon" to 110.559f,
     "lightbulb" to 2.211f,
 
     "tvsetVE" to 0.778f,
@@ -207,7 +212,7 @@ val foodContribMap = mapOf(
     "beef - once a week" to 7.060f,
     "beef - 2-3x per week" to 17.650f,
     "beef - 4-6x per week" to 35.300f,
-    "beef - everday" to 49.420f,
+    "beef - everyday" to 49.420f,
     "beef - 2-3x per day" to 123.550f,
     "beef - more than 3x a day" to 247.100f,
 
@@ -216,7 +221,7 @@ val foodContribMap = mapOf(
     "chicken - once a week" to 0.987f,
     "chicken - 2-3x per week" to 2.468f,
     "chicken - 4-6x per week" to 4.935f,
-    "chicken - everday" to 6.909f,
+    "chicken - everyday" to 6.909f,
     "chicken - 2-3x per day" to 17.273f,
     "chicken - more than 3x a day" to 34.545f,
 
@@ -225,7 +230,7 @@ val foodContribMap = mapOf(
     "pork - once a week" to 1.231f,
     "pork - 2-3x per week" to 3.078f,
     "pork - 4-6x per week" to 6.155f,
-    "pork - everday" to 8.617f,
+    "pork - everyday" to 8.617f,
     "pork - 2-3x per day" to 21.543f,
     "pork - more than 3x a day" to 43.085f,
 
@@ -234,7 +239,7 @@ val foodContribMap = mapOf(
     "seafood - once a week" to 1.363f,
     "seafood - 2-3x per week" to 3.408f,
     "seafood - 4-6x per week" to 6.815f,
-    "seafood - everday" to 9.541f,
+    "seafood - everyday" to 9.541f,
     "seafood - 2-3x per day" to 23.853f,
     "seafood - more than 3x a day" to 47.705f,
 
@@ -243,7 +248,7 @@ val foodContribMap = mapOf(
     "egg - once a week" to 0.234f,
     "egg - 2-3x per week" to 0.584f,
     "egg - 4-6x per week" to 1.168f,
-    "egg - everday" to 1.635f,
+    "egg - everyday" to 1.635f,
     "egg - 2-3x per day" to 4.086f,
     "egg - more than 3x a day" to 8.173f,
 
@@ -252,7 +257,7 @@ val foodContribMap = mapOf(
     "milk - once a week" to 0.756f,
     "milk - 2-3x per week" to 1.890f,
     "milk - 4-6x per week" to 3.780f,
-    "milk - everday" to 5.292f,
+    "milk - everyday" to 5.292f,
     "milk - 2-3x per day" to 13.230f,
     "milk - more than 3x a day" to 26.460f,
 
@@ -261,7 +266,7 @@ val foodContribMap = mapOf(
     "cheese - once a week" to 1.337f,
     "cheese - 2-3x per week" to 3.343f,
     "cheese - 4-6x per week" to 6.686f,
-    "cheese - everday" to 9.361f,
+    "cheese - everyday" to 9.361f,
     "cheese - 2-3x per day" to 23.402f,
     "cheese - more than 3x a day" to 46.805f,
 
@@ -270,7 +275,7 @@ val foodContribMap = mapOf(
     "rice - once a week" to 0.612f,
     "rice - 2-3x per week" to 1.530f,
     "rice - 4-6x per week" to 3.060f,
-    "rice - everday" to 4.284f,
+    "rice - everyday" to 4.284f,
     "rice - 2-3x per day" to 10.710f,
     "rice - more than 3x a day" to 21.420f,
 
@@ -279,7 +284,7 @@ val foodContribMap = mapOf(
     "fruit - once a week" to 0.050f,
     "fruit - 2-3x per week" to 0.126f,
     "fruit - 4-6x per week" to 0.252f,
-    "fruit - everday" to 0.353f,
+    "fruit - everyday" to 0.353f,
     "fruit - 2-3x per day" to 0.882f,
     "fruit - more than 3x a day" to 1.764f,
 
@@ -288,7 +293,7 @@ val foodContribMap = mapOf(
     "vegetable - once a week" to 0.084f,
     "vegetable - 2-3x per week" to 0.210f,
     "vegetable - 4-6x per week" to 0.420f,
-    "vegetable - everday" to 0.588f,
+    "vegetable - everyday" to 0.588f,
     "vegetable - 2-3x per day" to 1.470f,
     "vegetable - more than 3x a day" to 2.940f,
 
@@ -297,7 +302,7 @@ val foodContribMap = mapOf(
     "wheat - once a week" to 0.048f,
     "wheat - 2-3x per week" to 0.120f,
     "wheat - 4-6x per week" to 0.240f,
-    "wheat - everday" to 0.336f,
+    "wheat - everyday" to 0.336f,
     "wheat - 2-3x per day" to 0.840f,
     "wheat - more than 3x a day" to 1.680f,
 
@@ -306,13 +311,14 @@ val foodContribMap = mapOf(
     "processed - once a week" to 0.400f,
     "processed - 2-3x per week" to 1.000f,
     "processed - 4-6x per week" to 2.000f,
-    "processed - everday" to 2.800f,
+    "processed - everyday" to 2.800f,
     "processed - 2-3x per day" to 7.000f,
     "processed - more than 3x a day" to 14.000f
 )
 
 // Waste Footprint weights of wastes per week (rounded to 2 dp)
 val wasteWeightsMap = mapOf(
+    "organic - none" to 0.00f,
     "organic - less than 1 kg" to 0.50f,
     "organic - almost 1 kg" to 1.00f,
     "organic - 1-2 kg" to 2.00f,
@@ -327,6 +333,7 @@ val wasteWeightsMap = mapOf(
     "paper - 3-5 kg" to 4.00f,
     "paper - more than 5 kg" to 5.50f,
 
+    "plastic - none" to 0.00f,
     "plastic - less than 1 kg" to 0.50f,
     "plastic - almost 1 kg" to 1.00f,
     "plastic - 1-2 kg" to 2.00f,

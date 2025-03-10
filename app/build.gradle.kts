@@ -48,6 +48,9 @@ dependencies {
     // NAV for supporting navigation
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
+    // Animation for dynamic ui assets
+    implementation("androidx.compose.animation:animation:1.7.8")
+
     // Coil for displaying images and networking
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
