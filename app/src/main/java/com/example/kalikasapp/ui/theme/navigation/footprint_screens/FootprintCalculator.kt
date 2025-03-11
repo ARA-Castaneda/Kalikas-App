@@ -216,16 +216,6 @@ data class WasteFootprint(
     var recycledNonBio: String = "none"
 )
 
-// Controller of user challenges variables
-fun userChallengesController(
-) {
-    userWaterChallengesCounter(userDailiesProgress, userChallengesProgress)
-    userEnergyChallengesCounter(userDailiesProgress, userChallengesProgress)
-    userTranspoChallengesCounter(userDailiesProgress, userChallengesProgress)
-    userFoodChallengesCounter(userDailiesProgress, userChallengesProgress)
-    userWasteChallengesCounter(userDailiesProgress, userChallengesProgress)
-}
-
 // Calculated per individual per year (gha)
 fun userEcoFootprint(
     carbonComponent: CarbonFootprint

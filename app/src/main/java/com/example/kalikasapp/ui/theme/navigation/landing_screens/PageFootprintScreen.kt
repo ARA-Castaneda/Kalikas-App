@@ -56,7 +56,6 @@ import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userRecalcFo
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userRecalcTranspoFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userRecalcWasteFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userRecalcWaterFootprint
-import com.example.kalikasapp.ui.theme.navigation.footprint_screens.waterDailiesDone
 import java.util.Locale
 
 data class TopNavigationItem(

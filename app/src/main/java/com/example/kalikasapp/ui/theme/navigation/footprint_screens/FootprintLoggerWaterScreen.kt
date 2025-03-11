@@ -31,6 +31,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -95,25 +96,25 @@ fun FootprintLoggerWaterScreen(navController: NavController) {
         DailiesInterface(
             waterLoggerDailies, waterLoggerExpMap,
             waterCategoryCard, waterLoggerText,
-            waterExpCard, { WaterDailiesTracker() },
+            waterExpCard, { WaterDailiesTracker(userDailiesDone) },
             waterChecked, waterUnchecked,
-            userDailiesProgress.waterDailies,
-            (::userWaterDailiesCounter)
+            userDailiesProgress.waterDailies, (::userWaterDailiesCounter),
+            (::userWaterChallengesCounter), { waterChallengesCounter() }
         )
 
         ChallengesInterface(
             waterLoggerChallenges, waterCategoryCard,
-            waterLoggerText, { WaterChallengesTracker() },
+            waterLoggerText, { WaterChallengesTracker(userChallengesDone) },
             badgeA, badgeB, badgeC,
-            userChallengesProgress.waterChallenges, waterProgressBarExp,
-            { waterChallengesCounter() }, waterChallengeCard
+            userChallengesProgress.waterChallenges,
+            waterProgressBarExp, waterChallengeCard
         )
     }
 }
 
 @Composable
-fun WaterDailiesTracker() {
-    var total by remember { mutableIntStateOf(waterDailiesDone) }
+fun WaterDailiesTracker(dailiesDone: DailiesDone) {
+    var total by rememberSaveable { mutableIntStateOf(dailiesDone.waterDailiesDone) }
 
     Row(
         modifier = Modifier
@@ -142,6 +143,9 @@ fun WaterDailiesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(dailiesDone.waterDailiesDone) {
+                    total = dailiesDone.waterDailiesDone
+                }
                 Text(
                     text = "$total/3",
                     color = waterLoggerText,
@@ -156,8 +160,8 @@ fun WaterDailiesTracker() {
 }
 
 @Composable
-fun WaterChallengesTracker() {
-    var total by remember { mutableIntStateOf(waterChallengesDone) }
+fun WaterChallengesTracker(challengesDone: ChallengesDone) {
+    var total by rememberSaveable { mutableIntStateOf(challengesDone.waterChallengesDone) }
 
     Row(
         modifier = Modifier
@@ -186,6 +190,9 @@ fun WaterChallengesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(challengesDone.waterChallengesDone) {
+                    total = challengesDone.waterChallengesDone
+                }
                 Text(
                     text = "$total/3",
                     color = waterLoggerText,
@@ -391,7 +398,9 @@ fun DailiesInterface(
     dailies: List<String>, dailiesExp: Map<String, Float>, cardColor: Color,
     categoryTextColor: Color, categoryExpColor: Color, categoryDailiesTracker: @Composable () -> Unit,
     checkedColor: Color, uncheckedColor: Color, categoryDailies: DailiesTriple,
-    userDailiesController: (dailyTuple: DailyTuple, string: String) -> Unit
+    userDailiesController: (dailyTuple: DailyTuple, string: String) -> Unit,
+    userChallengesController: (dailyTuple: DailyTuple) -> Unit,
+    categoryChallengesCounter: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -420,7 +429,8 @@ fun DailiesInterface(
             dailies[1], dailiesExp.getOrElse(key = dailies[1]) { 20f },
             dailies[2], dailiesExp.getOrElse(key = dailies[2]) { 20f },
             categoryTextColor, categoryExpColor,
-            checkedColor, uncheckedColor, categoryDailies, userDailiesController
+            checkedColor, uncheckedColor, categoryDailies,
+            userDailiesController, userChallengesController, categoryChallengesCounter
         )
         categoryDailiesTracker()
     }
@@ -434,7 +444,9 @@ fun DailiesChecklist(
     categoryTextColor: Color, cardColor: Color,
     checkedColor: Color, uncheckedColor: Color,
     categoryDailies: DailiesTriple,
-    userDailiesController: (dailyTuple: DailyTuple, string: String) -> Unit
+    userDailiesController: (dailyTuple: DailyTuple, string: String) -> Unit,
+    userChallengesController: (dailyTuple: DailyTuple) -> Unit,
+    categoryChallengesCounter: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -444,19 +456,22 @@ fun DailiesChecklist(
             dailyTargetA, dailyExpA,
             categoryTextColor, cardColor,
             checkedColor, uncheckedColor,
-            categoryDailies.d1, userDailiesController
+            categoryDailies.d1, userDailiesController,
+            userChallengesController, categoryChallengesCounter
         )
        LoggerChecklist(
             dailyTargetB, dailyExpB,
             categoryTextColor, cardColor,
             checkedColor, uncheckedColor,
-           categoryDailies.d2, userDailiesController
+           categoryDailies.d2, userDailiesController,
+           userChallengesController, categoryChallengesCounter
         )
         LoggerChecklist(
             dailyTargetC, dailyExpC,
             categoryTextColor, cardColor,
             checkedColor, uncheckedColor,
-            categoryDailies.d3, userDailiesController
+            categoryDailies.d3, userDailiesController,
+            userChallengesController, categoryChallengesCounter
         )
     }
 }
@@ -466,19 +481,31 @@ fun LoggerChecklist(
     dailyTarget: String, dailyTargetExp: Float,
     categoryTextColor: Color, cardColor: Color,
     checkedColor: Color, uncheckedColor: Color,
-    categoryDaily: DailyTuple, userDailiesController: (dailyTuple: DailyTuple, string: String) -> Unit
+    categoryDaily: DailyTuple,
+    userDailiesController: (dailyTuple: DailyTuple, string: String) -> Unit,
+    userChallengesController: (daliesTuple: DailyTuple) -> Unit,
+    categoryChallengesCounter: () -> Unit
 ) {
     // checked default is false
-    var checked by remember { mutableStateOf(false) }
+    var checked by rememberSaveable { mutableStateOf(categoryDaily.t2) }
 
     Row(
         modifier = Modifier
             .absolutePadding(0.dp, 10.dp, 0.dp, 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        LaunchedEffect(categoryDaily.t2) {
+            checked = categoryDaily.t2
+        }
         Checkbox(
             checked = checked,
-            onCheckedChange = { checked = it },
+            onCheckedChange = {
+                checked = it
+                categoryDaily.t2 = checked
+                userDailiesController(categoryDaily, categoryDaily.t1)
+                userChallengesController(categoryDaily)
+                categoryChallengesCounter()
+                              },
             colors = CheckboxDefaults.colors(
                 checkedColor = checkedColor,
                 uncheckedColor = uncheckedColor
@@ -526,9 +553,6 @@ fun LoggerChecklist(
             contentAlignment = Alignment.Center
         ) {
             if (checked) {
-                categoryDaily.t2 = true
-                userDailiesController(categoryDaily, categoryDaily.t1)
-
                 Card(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -546,9 +570,6 @@ fun LoggerChecklist(
                     modifier = Modifier
                 )
             } else {
-                categoryDaily.t2 = false
-                userDailiesController(categoryDaily, categoryDaily.t1)
-
                 Card(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -575,8 +596,7 @@ fun ChallengesInterface(
     challenges: List<String>, cardColor: Color,
     categoryTextColor: Color, categoryChallengesTracker: @Composable () -> Unit,
     badgeA: Painter, badgeB: Painter, badgeC: Painter,
-    categoryChallenges: ChallengesTriple, progressBarColor: Color,
-    categoryChallengesCounter: () -> Unit, challengeCard: Color
+    categoryChallenges: ChallengesTriple, progressBarColor: Color, challengeCard: Color
 ) {
     Box(
         modifier = Modifier
@@ -600,14 +620,12 @@ fun ChallengesInterface(
             }
         }
 
-        userChallengesController()
-        categoryChallengesCounter()
+        categoryChallengesTracker()
         BadgesInterface(
             challenges, badgeA, badgeB, badgeC,
             categoryTextColor, categoryChallenges,
             progressBarColor, challengeCard
         )
-        categoryChallengesTracker()
     }
 }
 
@@ -649,13 +667,18 @@ fun LoggerBadge(
     categoryChallenge: ProgressTuple, categoryTextColor: Color,
     progressBarColor: Color, challengeCard: Color
 ) {
+    var done by rememberSaveable { mutableStateOf(categoryChallenge.done == categoryChallenge.alpha) }
+
     Column(
         modifier = Modifier
             .height(210.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (categoryChallenge.done == categoryChallenge.alpha) {
+        LaunchedEffect(categoryChallenge) {
+            done = categoryChallenge.done == categoryChallenge.alpha
+        }
+        if (done) {
             Image(
                 painter = badge,
                 modifier = Modifier
@@ -706,8 +729,14 @@ fun LoggerBadge(
 
 @Composable
 fun BadgeProgressBar(userExp: ProgressTuple, progressBarColor: Color, categoryTextColor: Color) {
-    var exp = (userExp.done).toFloat()/(userExp.alpha).toFloat()
-    var progress by remember { mutableStateOf(exp) }
+    var exp by rememberSaveable {
+        mutableFloatStateOf(
+            (userExp.done).toFloat()/(userExp.alpha).toFloat()
+        )
+    }
+    var progress by rememberSaveable { mutableFloatStateOf(exp) }
+    var done by rememberSaveable { mutableIntStateOf((userExp.done)) }
+    var alpha by rememberSaveable { mutableIntStateOf(userExp.alpha) }
 
     val size by animateFloatAsState(
         targetValue = progress,
@@ -724,6 +753,12 @@ fun BadgeProgressBar(userExp: ProgressTuple, progressBarColor: Color, categoryTe
             .width(105.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        LaunchedEffect(userExp) {
+            exp = (userExp.done).toFloat()/(userExp.alpha).toFloat()
+            progress = exp
+            done = userExp.done
+            alpha = userExp.alpha
+        }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -752,7 +787,7 @@ fun BadgeProgressBar(userExp: ProgressTuple, progressBarColor: Color, categoryTe
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = (userExp.done).toString() + "/" + (userExp.alpha).toString(),
+                text = "$done/$alpha",
                 textAlign = TextAlign.Center,
                 color = categoryTextColor,
                 fontSize = 16.sp,
@@ -773,8 +808,6 @@ fun BadgeProgressBar(userExp: ProgressTuple, progressBarColor: Color, categoryTe
         color = progressBarColor
     )
     */
-
-    LaunchedEffect(key1 = true) { }
 }
 
 

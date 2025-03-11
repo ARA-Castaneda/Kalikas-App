@@ -1,14 +1,19 @@
 package com.example.kalikasapp.ui.theme.navigation.footprint_screens
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.userChallengesProgress
+import com.example.kalikasapp.ui.theme.navigation.landing_screens.userDailiesProgress
 
-// user Footprint Challenges variables
-// used by ChallengesTracker() n/3 challenges done
-var waterChallengesDone = 0
-var energyChallengesDone = 0
-var transpoChallengesDone = 0
-var foodChallengesDone = 0
-var wasteChallengesDone = 0
+class ChallengesDone {
+    var waterChallengesDone by mutableIntStateOf(0)
+    var energyChallengesDone by mutableIntStateOf(0)
+    var transpoChallengesDone by mutableIntStateOf(0)
+    var foodChallengesDone by mutableIntStateOf(0)
+    var wasteChallengesDone by mutableIntStateOf(0)
+}
+var userChallengesDone = ChallengesDone()
 
 // user challenges tracker data class
 // alpha = challenge upper threshold
@@ -111,304 +116,509 @@ val wasteLoggerChallengesCounter = mapOf(
     "No spoiled or\nleftovers for 7 days" to 7
 )
 
-fun userWaterChallengesCounter(dailiesProgress: DailiesProgress, challengesProgress: ChallengesProgress) {
-    if (dailiesProgress.waterDailies.d1.t2) {
-        getWaterChallengeProperty(dailiesProgress.waterDailies.d1.t1)
-    } else { resetWaterChallengeProperty(dailiesProgress.waterDailies.d1.t1) }
+// Auxiliary functions for reflecting dailies changes to challenges
+fun userWaterChallengesCounter(dailyTuple: DailyTuple) {
+    when (dailyTuple) {
+        userDailiesProgress.waterDailies.d1 ->
+            if (dailyTuple.t2) {
+                getWaterChallengeProperty(dailyTuple.t1)
+            } else {
+                resetWaterChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.waterDailies.d2.t2) {
-        getWaterChallengeProperty(dailiesProgress.waterDailies.d2.t1)
-    } else { resetWaterChallengeProperty(dailiesProgress.waterDailies.d2.t1) }
+        userDailiesProgress.waterDailies.d2 ->
+            if (dailyTuple.t2) {
+                getWaterChallengeProperty(dailyTuple.t1)
+            } else {
+                resetWaterChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.waterDailies.d3.t2) {
-        getWaterChallengeProperty(dailiesProgress.waterDailies.d3.t1)
-    } else { resetWaterChallengeProperty(dailiesProgress.waterDailies.d3.t1) }
+        userDailiesProgress.waterDailies.d3 ->
+            if (dailyTuple.t2) {
+                getWaterChallengeProperty(dailyTuple.t1)
+            } else {
+                resetWaterChallengeProperty(dailyTuple.t1)
+            }
+
+        else -> userChallengesDone.waterChallengesDone += 0
+    }
 }
 
-fun userEnergyChallengesCounter(dailiesProgress: DailiesProgress, challengesProgress: ChallengesProgress) {
-    if (dailiesProgress.energyDailies.d1.t2) {
-        getEnergyChallengeProperty(dailiesProgress.energyDailies.d1.t1)
-    } else { resetEnergyChallengeProperty(dailiesProgress.energyDailies.d1.t1) }
+fun userEnergyChallengesCounter(dailyTuple: DailyTuple) {
+    when (dailyTuple) {
+        userDailiesProgress.energyDailies.d1 ->
+            if (dailyTuple.t2) {
+                getEnergyChallengeProperty(dailyTuple.t1)
+            } else {
+                resetEnergyChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.energyDailies.d2.t2) {
-        getEnergyChallengeProperty(dailiesProgress.energyDailies.d2.t1)
-    } else { resetEnergyChallengeProperty(dailiesProgress.energyDailies.d2.t1) }
+        userDailiesProgress.energyDailies.d2 ->
+            if (dailyTuple.t2) {
+                getEnergyChallengeProperty(dailyTuple.t1)
+            } else {
+                resetEnergyChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.energyDailies.d3.t2) {
-        getEnergyChallengeProperty(dailiesProgress.energyDailies.d3.t1)
-    } else { resetEnergyChallengeProperty(dailiesProgress.energyDailies.d3.t1) }
+        userDailiesProgress.energyDailies.d3 ->
+            if (dailyTuple.t2) {
+                getEnergyChallengeProperty(dailyTuple.t1)
+            } else {
+                resetEnergyChallengeProperty(dailyTuple.t1)
+            }
+
+        else -> userChallengesDone.energyChallengesDone += 0
+    }
 }
 
-fun userTranspoChallengesCounter(dailiesProgress: DailiesProgress, challengesProgress: ChallengesProgress) {
-    if (dailiesProgress.transpoDailies.d1.t2) {
-        getTranspoChallengeProperty(dailiesProgress.transpoDailies.d1.t1)
-    } else { resetTranspoChallengeProperty(dailiesProgress.transpoDailies.d1.t1) }
+fun userTranspoChallengesCounter(dailyTuple: DailyTuple) {
+    when (dailyTuple) {
+        userDailiesProgress.transpoDailies.d1 ->
+            if (dailyTuple.t2) {
+                getTranspoChallengeProperty(dailyTuple.t1)
+            } else {
+                resetTranspoChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.transpoDailies.d2.t2) {
-        getTranspoChallengeProperty(dailiesProgress.transpoDailies.d2.t1)
-    } else { resetTranspoChallengeProperty(dailiesProgress.transpoDailies.d2.t1) }
+        userDailiesProgress.transpoDailies.d2 ->
+            if (dailyTuple.t2) {
+                getTranspoChallengeProperty(dailyTuple.t1)
+            } else {
+                resetTranspoChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.transpoDailies.d3.t2) {
-        getTranspoChallengeProperty(dailiesProgress.transpoDailies.d3.t1)
-    } else { resetTranspoChallengeProperty(dailiesProgress.transpoDailies.d3.t1) }
+        userDailiesProgress.transpoDailies.d3 ->
+            if (dailyTuple.t2) {
+                getTranspoChallengeProperty(dailyTuple.t1)
+            } else {
+                resetTranspoChallengeProperty(dailyTuple.t1)
+            }
+
+        else -> userChallengesDone.transpoChallengesDone += 0
+    }
 }
 
-fun userFoodChallengesCounter(dailiesProgress: DailiesProgress, challengesProgress: ChallengesProgress) {
-    if (dailiesProgress.foodDailies.d1.t2) {
-        getFoodChallengeProperty(dailiesProgress.foodDailies.d1.t1)
-    } else { resetFoodChallengeProperty(dailiesProgress.foodDailies.d1.t1) }
+fun userFoodChallengesCounter(dailyTuple: DailyTuple) {
+    when (dailyTuple) {
+        userDailiesProgress.foodDailies.d1 ->
+            if (dailyTuple.t2) {
+                getFoodChallengeProperty(dailyTuple.t1)
+            } else {
+                resetFoodChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.foodDailies.d2.t2) {
-        getFoodChallengeProperty(dailiesProgress.foodDailies.d2.t1)
-    } else { resetFoodChallengeProperty(dailiesProgress.foodDailies.d2.t1) }
+        userDailiesProgress.foodDailies.d2 ->
+            if (dailyTuple.t2) {
+                getFoodChallengeProperty(dailyTuple.t1)
+            } else {
+                resetFoodChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.foodDailies.d3.t2) {
-        getFoodChallengeProperty(dailiesProgress.foodDailies.d3.t1)
-    } else { resetFoodChallengeProperty(dailiesProgress.foodDailies.d3.t1) }
+        userDailiesProgress.foodDailies.d3 ->
+            if (dailyTuple.t2) {
+                getFoodChallengeProperty(dailyTuple.t1)
+            } else {
+                resetFoodChallengeProperty(dailyTuple.t1)
+            }
+
+        else -> userChallengesDone.foodChallengesDone += 0
+    }
 }
 
-fun userWasteChallengesCounter(dailiesProgress: DailiesProgress, challengesProgress: ChallengesProgress) {
-    if (dailiesProgress.wasteDailies.d1.t2) {
-        getWasteChallengeProperty(dailiesProgress.wasteDailies.d1.t1)
-    } else { resetWasteChallengeProperty(dailiesProgress.wasteDailies.d1.t1) }
+fun userWasteChallengesCounter(dailyTuple: DailyTuple) {
+    when (dailyTuple) {
+        userDailiesProgress.wasteDailies.d1 ->
+            if (dailyTuple.t2) {
+                getWasteChallengeProperty(dailyTuple.t1)
+            } else {
+                resetWasteChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.wasteDailies.d2.t2) {
-        getWasteChallengeProperty(dailiesProgress.wasteDailies.d2.t1)
-    } else { resetWasteChallengeProperty(dailiesProgress.wasteDailies.d2.t1) }
+        userDailiesProgress.wasteDailies.d2 ->
+            if (dailyTuple.t2) {
+                getWasteChallengeProperty(dailyTuple.t1)
+            } else {
+                resetWasteChallengeProperty(dailyTuple.t1)
+            }
 
-    if (dailiesProgress.wasteDailies.d3.t2) {
-        getWasteChallengeProperty(dailiesProgress.wasteDailies.d3.t1)
-    } else { resetWasteChallengeProperty(dailiesProgress.wasteDailies.d3.t1) }
+        userDailiesProgress.wasteDailies.d3 ->
+            if (dailyTuple.t2) {
+                getWasteChallengeProperty(dailyTuple.t1)
+            } else {
+                resetWasteChallengeProperty(dailyTuple.t1)
+            }
+
+        else -> userChallengesDone.wasteChallengesDone += 0
+    }
 }
 
 // Auxiliary functions for mapping daily targets to challenges
 fun getWaterChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> userChallengesProgress.waterChallenges.c1.done += 1
-        "c2" -> userChallengesProgress.waterChallenges.c2.done += 1
-        "c3" -> userChallengesProgress.waterChallenges.c3.done += 1
-        else -> userChallengesProgress.waterChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.waterChallenges.c1.done <
+                userChallengesProgress.waterChallenges.c1.alpha
+                ) {
+                userChallengesProgress.waterChallenges.c1.done += 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.waterChallenges.c2.done <
+                userChallengesProgress.waterChallenges.c2.alpha
+            ) {
+                userChallengesProgress.waterChallenges.c2.done += 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.waterChallenges.c3.done <
+                userChallengesProgress.waterChallenges.c3.alpha
+            ) {
+                userChallengesProgress.waterChallenges.c3.done += 1
+            }
+
+        else ->
+            userChallengesDone.waterChallengesDone += 0
     }
 }
 fun resetWaterChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> if (userChallengesProgress.waterChallenges.c1.done != 0) {
-            userChallengesProgress.waterChallenges.c1.done -= 1
-        }
-        "c2" -> if (userChallengesProgress.waterChallenges.c2.done != 0) {
-            userChallengesProgress.waterChallenges.c2.done -= 1
-        }
-        "c3" -> if (userChallengesProgress.waterChallenges.c3.done != 0) {
-            userChallengesProgress.waterChallenges.c3.done -= 1
-        }
-        else -> userChallengesProgress.waterChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.waterChallenges.c1.done != 0) {
+                userChallengesProgress.waterChallenges.c1.done -= 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.waterChallenges.c2.done != 0) {
+                userChallengesProgress.waterChallenges.c2.done -= 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.waterChallenges.c3.done != 0) {
+                userChallengesProgress.waterChallenges.c3.done -= 1
+            }
+
+        else -> userChallengesDone.waterChallengesDone += 0
     }
 }
 
 fun getEnergyChallengeProperty(challengeProperty: String) {
-    return when (challengeProperty) {
-        "c1" -> userChallengesProgress.energyChallenges.c1.done += 1
-        "c2" -> userChallengesProgress.energyChallenges.c2.done += 1
-        "c3" -> userChallengesProgress.energyChallenges.c3.done += 1
-        else -> userChallengesProgress.energyChallenges.c1.done += 0
+    when (challengeProperty) {
+        "c1" ->
+            if (userChallengesProgress.energyChallenges.c1.done <
+                userChallengesProgress.energyChallenges.c1.alpha
+            ) {
+                userChallengesProgress.energyChallenges.c1.done += 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.energyChallenges.c2.done <
+                userChallengesProgress.energyChallenges.c2.alpha
+            ) {
+                userChallengesProgress.energyChallenges.c2.done += 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.energyChallenges.c3.done <
+                userChallengesProgress.energyChallenges.c3.alpha
+            ) {
+                userChallengesProgress.energyChallenges.c3.done += 1
+            }
+
+        else ->
+            userChallengesDone.energyChallengesDone += 0
     }
 }
 fun resetEnergyChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> if (userChallengesProgress.energyChallenges.c1.done != 0) {
-            userChallengesProgress.energyChallenges.c1.done -= 1
-        }
-        "c2" -> if (userChallengesProgress.energyChallenges.c2.done != 0) {
-            userChallengesProgress.energyChallenges.c2.done -= 1
-        }
-        "c3" -> if (userChallengesProgress.energyChallenges.c3.done != 0) {
-            userChallengesProgress.energyChallenges.c3.done -= 1
-        }
-        else -> userChallengesProgress.energyChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.energyChallenges.c1.done != 0) {
+                userChallengesProgress.energyChallenges.c1.done -= 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.energyChallenges.c2.done != 0) {
+                userChallengesProgress.energyChallenges.c2.done -= 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.energyChallenges.c3.done != 0) {
+                userChallengesProgress.energyChallenges.c3.done -= 1
+            }
+
+        else -> userChallengesDone.energyChallengesDone += 0
     }
 }
 
 fun getTranspoChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> userChallengesProgress.transpoChallenges.c1.done += 1
-        "c2" -> userChallengesProgress.transpoChallenges.c2.done += 1
-        "c3" -> userChallengesProgress.transpoChallenges.c3.done += 1
-        else -> userChallengesProgress.transpoChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.transpoChallenges.c1.done <
+                userChallengesProgress.transpoChallenges.c1.alpha
+            ) {
+                userChallengesProgress.transpoChallenges.c1.done += 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.transpoChallenges.c2.done <
+                userChallengesProgress.transpoChallenges.c2.alpha
+            ) {
+                userChallengesProgress.transpoChallenges.c2.done += 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.transpoChallenges.c3.done <
+                userChallengesProgress.transpoChallenges.c3.alpha
+            ) {
+                userChallengesProgress.transpoChallenges.c3.done += 1
+            }
+
+        else ->
+            userChallengesDone.transpoChallengesDone += 0
     }
 }
 fun resetTranspoChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> if (userChallengesProgress.transpoChallenges.c1.done != 0) {
-            userChallengesProgress.transpoChallenges.c1.done -= 1
-        }
-        "c2" -> if (userChallengesProgress.transpoChallenges.c2.done != 0) {
-            userChallengesProgress.transpoChallenges.c2.done -= 1
-        }
-        "c3" -> if (userChallengesProgress.transpoChallenges.c3.done != 0) {
-            userChallengesProgress.transpoChallenges.c3.done -= 1
-        }
-        else -> userChallengesProgress.transpoChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.transpoChallenges.c1.done != 0) {
+                userChallengesProgress.transpoChallenges.c1.done -= 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.transpoChallenges.c2.done != 0) {
+                userChallengesProgress.transpoChallenges.c2.done -= 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.transpoChallenges.c3.done != 0) {
+                userChallengesProgress.transpoChallenges.c3.done -= 1
+            }
+
+        else -> userChallengesDone.transpoChallengesDone += 0
     }
 }
 
 fun getFoodChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> userChallengesProgress.foodChallenges.c1.done += 1
-        "c2" -> userChallengesProgress.foodChallenges.c2.done += 1
-        "c3" -> userChallengesProgress.foodChallenges.c3.done += 1
-        else -> userChallengesProgress.foodChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.foodChallenges.c1.done <
+                userChallengesProgress.foodChallenges.c1.alpha
+            ) {
+                userChallengesProgress.foodChallenges.c1.done += 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.foodChallenges.c2.done <
+                userChallengesProgress.foodChallenges.c2.alpha
+            ) {
+                userChallengesProgress.foodChallenges.c2.done += 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.foodChallenges.c3.done <
+                userChallengesProgress.foodChallenges.c3.alpha
+            ) {
+                userChallengesProgress.foodChallenges.c3.done += 1
+            }
+
+        else ->
+            userChallengesDone.foodChallengesDone += 0
     }
 }
 fun resetFoodChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> if (userChallengesProgress.foodChallenges.c1.done != 0) {
-            userChallengesProgress.foodChallenges.c1.done -= 1
-        }
-        "c2" -> if (userChallengesProgress.foodChallenges.c2.done != 0) {
-            userChallengesProgress.foodChallenges.c2.done -= 1
-        }
-        "c3" -> if (userChallengesProgress.foodChallenges.c3.done != 0) {
-            userChallengesProgress.foodChallenges.c3.done -= 1
-        }
-        else -> userChallengesProgress.foodChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.foodChallenges.c1.done != 0) {
+                userChallengesProgress.foodChallenges.c1.done -= 1 }
+
+        "c2" ->
+            if (userChallengesProgress.foodChallenges.c2.done != 0) {
+                userChallengesProgress.foodChallenges.c2.done -= 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.foodChallenges.c3.done != 0) {
+                userChallengesProgress.foodChallenges.c3.done -= 1
+            }
+
+        else -> userChallengesDone.foodChallengesDone += 0
     }
 }
 
 fun getWasteChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> userChallengesProgress.wasteChallenges.c1.done += 1
-        "c2" -> userChallengesProgress.wasteChallenges.c2.done += 1
-        "c3" -> userChallengesProgress.wasteChallenges.c3.done += 1
-        else -> userChallengesProgress.wasteChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.wasteChallenges.c1.done <
+                userChallengesProgress.wasteChallenges.c1.alpha
+            ) {
+                userChallengesProgress.wasteChallenges.c1.done += 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.wasteChallenges.c2.done <
+                userChallengesProgress.wasteChallenges.c2.alpha
+            ) {
+                userChallengesProgress.wasteChallenges.c2.done += 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.wasteChallenges.c3.done <
+                userChallengesProgress.wasteChallenges.c3.alpha
+            ) {
+                userChallengesProgress.wasteChallenges.c3.done += 1
+            }
+
+        else ->
+            userChallengesDone.wasteChallengesDone += 0
     }
 }
 fun resetWasteChallengeProperty(challengeProperty: String) {
     when (challengeProperty) {
-        "c1" -> if (userChallengesProgress.wasteChallenges.c1.done != 0) {
-            userChallengesProgress.wasteChallenges.c1.done -= 1
-        }
-        "c2" -> if (userChallengesProgress.wasteChallenges.c2.done != 0) {
-            userChallengesProgress.wasteChallenges.c2.done -= 1
-        }
-        "c3" -> if (userChallengesProgress.wasteChallenges.c3.done != 0) {
-            userChallengesProgress.wasteChallenges.c3.done -= 1
-        }
-        else -> userChallengesProgress.wasteChallenges.c1.done += 0
+        "c1" ->
+            if (userChallengesProgress.wasteChallenges.c1.done != 0) {
+                userChallengesProgress.wasteChallenges.c1.done -= 1
+            }
+
+        "c2" ->
+            if (userChallengesProgress.wasteChallenges.c2.done != 0) {
+                userChallengesProgress.wasteChallenges.c2.done -= 1
+            }
+
+        "c3" ->
+            if (userChallengesProgress.wasteChallenges.c3.done != 0) {
+                userChallengesProgress.wasteChallenges.c3.done -= 1
+            }
+
+        else -> userChallengesDone.wasteChallengesDone += 0
     }
 }
 
 // Auxiliary function for updating challenge counters
 fun waterChallengesCounter() {
     if (
-        userChallengesProgress.waterChallenges.c1.alpha ==
-        userChallengesProgress.waterChallenges.c1.done
+        (userChallengesProgress.waterChallenges.c1.alpha ==
+        userChallengesProgress.waterChallenges.c1.done) &&
+        userChallengesDone.waterChallengesDone < 3
         ) {
-        waterChallengesDone += 1
+        userChallengesDone.waterChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.waterChallenges.c2.alpha ==
-        userChallengesProgress.waterChallenges.c2.done
+        (userChallengesProgress.waterChallenges.c2.alpha ==
+        userChallengesProgress.waterChallenges.c2.done) &&
+        userChallengesDone.waterChallengesDone < 3
     ) {
-        waterChallengesDone += 1
+        userChallengesDone.waterChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.waterChallenges.c2.alpha ==
-        userChallengesProgress.waterChallenges.c2.done
+        (userChallengesProgress.waterChallenges.c2.alpha ==
+        userChallengesProgress.waterChallenges.c2.done) &&
+        userChallengesDone.waterChallengesDone < 3
     ) {
-        waterChallengesDone += 1
+        userChallengesDone.waterChallengesDone += 1
     }
 }
 
 fun energyChallengesCounter() {
     if (
-        userChallengesProgress.energyChallenges.c1.alpha ==
-        userChallengesProgress.energyChallenges.c1.done
+        (userChallengesProgress.energyChallenges.c1.alpha ==
+        userChallengesProgress.energyChallenges.c1.done) &&
+        userChallengesDone.energyChallengesDone < 3
     ) {
-        energyChallengesDone += 1
+        userChallengesDone.energyChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.energyChallenges.c2.alpha ==
-        userChallengesProgress.energyChallenges.c2.done
+        (userChallengesProgress.energyChallenges.c2.alpha ==
+        userChallengesProgress.energyChallenges.c2.done) &&
+        userChallengesDone.energyChallengesDone < 3
     ) {
-        energyChallengesDone += 1
+        userChallengesDone.energyChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.energyChallenges.c3.alpha ==
-        userChallengesProgress.energyChallenges.c3.done
+        (userChallengesProgress.energyChallenges.c3.alpha ==
+        userChallengesProgress.energyChallenges.c3.done) &&
+        userChallengesDone.energyChallengesDone < 3
     ) {
-        energyChallengesDone += 1
+        userChallengesDone.energyChallengesDone += 1
     }
 }
 
 fun transpoChallengesCounter() {
     if (
-        userChallengesProgress.transpoChallenges.c1.alpha ==
-        userChallengesProgress.transpoChallenges.c1.done
+        (userChallengesProgress.transpoChallenges.c1.alpha ==
+        userChallengesProgress.transpoChallenges.c1.done) &&
+        userChallengesDone.transpoChallengesDone < 3
     ) {
-        transpoChallengesDone += 1
+        userChallengesDone.transpoChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.transpoChallenges.c2.alpha ==
-        userChallengesProgress.transpoChallenges.c2.done
+        (userChallengesProgress.transpoChallenges.c2.alpha ==
+        userChallengesProgress.transpoChallenges.c2.done) &&
+        userChallengesDone.transpoChallengesDone < 3
     ) {
-        transpoChallengesDone += 1
+        userChallengesDone.transpoChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.transpoChallenges.c3.alpha ==
-        userChallengesProgress.transpoChallenges.c3.done
+        (userChallengesProgress.transpoChallenges.c3.alpha ==
+        userChallengesProgress.transpoChallenges.c3.done) &&
+        userChallengesDone.transpoChallengesDone < 3
     ) {
-        transpoChallengesDone += 1
+        userChallengesDone.transpoChallengesDone += 1
     }
 }
 
 fun foodChallengesCounter() {
     if (
-        userChallengesProgress.foodChallenges.c1.alpha ==
-        userChallengesProgress.foodChallenges.c1.done
+        (userChallengesProgress.foodChallenges.c1.alpha ==
+        userChallengesProgress.foodChallenges.c1.done) &&
+        userChallengesDone.foodChallengesDone < 3
     ) {
-        foodChallengesDone += 1
+        userChallengesDone.foodChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.foodChallenges.c2.alpha ==
-        userChallengesProgress.foodChallenges.c2.done
+        (userChallengesProgress.foodChallenges.c2.alpha ==
+        userChallengesProgress.foodChallenges.c2.done) &&
+        userChallengesDone.foodChallengesDone < 3
     ) {
-        foodChallengesDone += 1
+        userChallengesDone.foodChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.foodChallenges.c3.alpha ==
-        userChallengesProgress.foodChallenges.c3.done
+        (userChallengesProgress.foodChallenges.c3.alpha ==
+        userChallengesProgress.foodChallenges.c3.done) &&
+        userChallengesDone.foodChallengesDone < 3
     ) {
-        foodChallengesDone += 1
+        userChallengesDone.foodChallengesDone += 1
     }
 }
 
 fun wasteChallengesCounter() {
     if (
-        userChallengesProgress.wasteChallenges.c1.alpha ==
-        userChallengesProgress.wasteChallenges.c1.done
+        (userChallengesProgress.wasteChallenges.c1.alpha ==
+        userChallengesProgress.wasteChallenges.c1.done) &&
+        userChallengesDone.wasteChallengesDone < 3
     ) {
-        wasteChallengesDone += 1
+        userChallengesDone.wasteChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.wasteChallenges.c2.alpha ==
-        userChallengesProgress.wasteChallenges.c2.done
+        (userChallengesProgress.wasteChallenges.c2.alpha ==
+        userChallengesProgress.wasteChallenges.c2.done) &&
+        userChallengesDone.wasteChallengesDone < 3
     ) {
-        wasteChallengesDone += 1
+        userChallengesDone.wasteChallengesDone += 1
     }
 
     if (
-        userChallengesProgress.wasteChallenges.c3.alpha ==
-        userChallengesProgress.wasteChallenges.c3.done
+        (userChallengesProgress.wasteChallenges.c3.alpha ==
+        userChallengesProgress.wasteChallenges.c3.done) &&
+        userChallengesDone.wasteChallengesDone < 3
     ) {
-        wasteChallengesDone += 1
+        userChallengesDone.wasteChallengesDone += 1
     }
 }

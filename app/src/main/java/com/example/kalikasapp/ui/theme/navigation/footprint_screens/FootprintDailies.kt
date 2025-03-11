@@ -1,15 +1,18 @@
 package com.example.kalikasapp.ui.theme.navigation.footprint_screens
 
-import com.example.kalikasapp.ui.theme.navigation.landing_screens.userDailies
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.userDailiesProgress
 
-// user Footprint Daily Targets variables
-// used by DailiesTracker()
-var waterDailiesDone = 0        // accomplished water dailies for the day n/3
-var energyDailiesDone = 0       // accomplished energy dailies for the day n/3
-var transpoDailiesDone = 0      // accomplished transpo dailies for the day n/3
-var foodDailiesDone = 0         // accomplished food dailies for the day n/3
-var wasteDailiesDone = 0        // accomplished waste dailies for the day n/3
+class DailiesDone {
+    var waterDailiesDone by mutableIntStateOf(0)
+    var energyDailiesDone by mutableIntStateOf(0)
+    var transpoDailiesDone by mutableIntStateOf(0)
+    var foodDailiesDone by mutableIntStateOf(0)
+    var wasteDailiesDone by mutableIntStateOf(0)
+}
+var userDailiesDone = DailiesDone()
 
 var maxDailyWaterExp = 60f      // water dailies accumulated exp - resets everyday
 var maxDailyEnergyExp = 60f     // water dailies accumulated exp - resets everyday
@@ -146,44 +149,59 @@ fun userWaterDailiesCounter(dailyTuple: DailyTuple, string: String) {
     when (string) {
         userDailiesProgress.waterDailies.d1.t1 ->
             if (!dailyTuple.t2) {
-                if (waterDailiesDone == 0) {
-                    waterDailiesDone
+                if (userDailiesDone.waterDailiesDone == 0) {
+                    userDailiesDone.waterDailiesDone
                     userDailiesProgress.waterDailies.d1.t2 = false
                 } else {
-                    waterDailiesDone -= 1
+                    userDailiesDone.waterDailiesDone -= 1
                     userDailiesProgress.waterDailies.d1.t2 = false
                 }
             } else {
-                waterDailiesDone += 1
-                userDailiesProgress.waterDailies.d1.t2 = true
+                if (userDailiesDone.waterDailiesDone == 3) {
+                    userDailiesDone.waterDailiesDone
+                    userDailiesProgress.waterDailies.d1.t2 = true
+                } else {
+                    userDailiesDone.waterDailiesDone += 1
+                    userDailiesProgress.waterDailies.d1.t2 = true
+                }
             }
 
         userDailiesProgress.waterDailies.d2.t1 ->
             if (!dailyTuple.t2) {
-                if (waterDailiesDone == 0) {
-                    waterDailiesDone
+                if (userDailiesDone.waterDailiesDone == 0) {
+                    userDailiesDone.waterDailiesDone
                     userDailiesProgress.waterDailies.d2.t2 = false
                 } else {
-                    waterDailiesDone -= 1
+                    userDailiesDone.waterDailiesDone -= 1
                     userDailiesProgress.waterDailies.d2.t2 = false
                 }
             } else {
-                waterDailiesDone += 1
-                userDailiesProgress.waterDailies.d2.t2 = true
+                if (userDailiesDone.waterDailiesDone == 3) {
+                    userDailiesDone.waterDailiesDone
+                    userDailiesProgress.waterDailies.d2.t2 = true
+                } else {
+                    userDailiesDone.waterDailiesDone += 1
+                    userDailiesProgress.waterDailies.d2.t2 = true
+                }
             }
 
         userDailiesProgress.waterDailies.d3.t1 ->
             if (!dailyTuple.t2) {
-                if (waterDailiesDone == 0) {
-                    waterDailiesDone
+                if (userDailiesDone.waterDailiesDone == 0) {
+                    userDailiesDone.waterDailiesDone
                     userDailiesProgress.waterDailies.d3.t2 = false
                 } else {
-                    waterDailiesDone -= 1
+                    userDailiesDone.waterDailiesDone -= 1
                     userDailiesProgress.waterDailies.d3.t2 = false
                 }
             } else {
-                waterDailiesDone += 1
-                userDailiesProgress.waterDailies.d3.t2 = true
+                if (userDailiesDone.waterDailiesDone == 3) {
+                    userDailiesDone.waterDailiesDone
+                    userDailiesProgress.waterDailies.d3.t2 = true
+                } else {
+                    userDailiesDone.waterDailiesDone += 1
+                    userDailiesProgress.waterDailies.d3.t2 = true
+                }
             }
     }
 }
@@ -193,44 +211,59 @@ fun userEnergyDailiesCounter(dailyTuple: DailyTuple, string: String) {
     when (string) {
         userDailiesProgress.energyDailies.d1.t1 ->
             if (!dailyTuple.t2) {
-                if (energyDailiesDone == 0) {
-                    energyDailiesDone
+                if (userDailiesDone.energyDailiesDone == 0) {
+                    userDailiesDone.energyDailiesDone
                     userDailiesProgress.energyDailies.d1.t2 = false
                 } else {
-                    energyDailiesDone -= 1
+                    userDailiesDone.energyDailiesDone -= 1
                     userDailiesProgress.energyDailies.d1.t2 = false
                 }
             } else {
-                energyDailiesDone += 1
-                userDailiesProgress.energyDailies.d1.t2 = true
+                if (userDailiesDone.energyDailiesDone == 3) {
+                    userDailiesDone.energyDailiesDone
+                    userDailiesProgress.energyDailies.d1.t2 = true
+                } else {
+                    userDailiesDone.energyDailiesDone += 1
+                    userDailiesProgress.energyDailies.d1.t2 = true
+                }
             }
 
         userDailiesProgress.energyDailies.d2.t1 ->
             if (!dailyTuple.t2) {
-                if (energyDailiesDone == 0) {
-                    energyDailiesDone
+                if (userDailiesDone.energyDailiesDone == 0) {
+                    userDailiesDone.energyDailiesDone
                     userDailiesProgress.energyDailies.d2.t2 = false
                 } else {
-                    energyDailiesDone -= 1
+                    userDailiesDone.energyDailiesDone -= 1
                     userDailiesProgress.energyDailies.d2.t2 = false
                 }
             } else {
-                energyDailiesDone += 1
-                userDailiesProgress.energyDailies.d2.t2 = true
+                if (userDailiesDone.energyDailiesDone == 3) {
+                    userDailiesDone.energyDailiesDone
+                    userDailiesProgress.energyDailies.d2.t2 = true
+                } else {
+                    userDailiesDone.energyDailiesDone += 1
+                    userDailiesProgress.energyDailies.d2.t2 = true
+                }
             }
 
         userDailiesProgress.energyDailies.d3.t1 ->
             if (!dailyTuple.t2) {
-                if (energyDailiesDone == 0) {
-                    energyDailiesDone
+                if (userDailiesDone.energyDailiesDone == 0) {
+                    userDailiesDone.energyDailiesDone
                     userDailiesProgress.energyDailies.d3.t2 = false
                 } else {
-                    energyDailiesDone -= 1
+                    userDailiesDone.energyDailiesDone -= 1
                     userDailiesProgress.energyDailies.d3.t2 = false
                 }
             } else {
-                energyDailiesDone += 1
-                userDailiesProgress.energyDailies.d3.t2 = true
+                if (userDailiesDone.energyDailiesDone == 3) {
+                    userDailiesDone.energyDailiesDone
+                    userDailiesProgress.energyDailies.d3.t2 = true
+                } else {
+                    userDailiesDone.energyDailiesDone += 1
+                    userDailiesProgress.energyDailies.d3.t2 = true
+                }
             }
     }
 }
@@ -240,44 +273,59 @@ fun userTranspoDailiesCounter(dailyTuple: DailyTuple, string: String) {
     when (string) {
         userDailiesProgress.transpoDailies.d1.t1 ->
             if (!dailyTuple.t2) {
-                if (transpoDailiesDone == 0) {
-                    transpoDailiesDone
+                if (userDailiesDone.transpoDailiesDone == 0) {
+                    userDailiesDone.transpoDailiesDone
                     userDailiesProgress.transpoDailies.d1.t2 = false
                 } else {
-                    transpoDailiesDone -= 1
+                    userDailiesDone.transpoDailiesDone -= 1
                     userDailiesProgress.transpoDailies.d1.t2 = false
                 }
             } else {
-                transpoDailiesDone += 1
-                userDailiesProgress.transpoDailies.d1.t2 = true
+                if (userDailiesDone.transpoDailiesDone == 3) {
+                    userDailiesDone.transpoDailiesDone
+                    userDailiesProgress.transpoDailies.d1.t2 = true
+                } else {
+                    userDailiesDone.transpoDailiesDone += 1
+                    userDailiesProgress.transpoDailies.d1.t2 = true
+                }
             }
 
         userDailiesProgress.transpoDailies.d2.t1 ->
             if (!dailyTuple.t2) {
-                if (transpoDailiesDone == 0) {
-                    transpoDailiesDone
+                if (userDailiesDone.transpoDailiesDone == 0) {
+                    userDailiesDone.transpoDailiesDone
                     userDailiesProgress.transpoDailies.d2.t2 = false
                 } else {
-                    transpoDailiesDone -= 1
+                    userDailiesDone.transpoDailiesDone -= 1
                     userDailiesProgress.transpoDailies.d2.t2 = false
                 }
             } else {
-                transpoDailiesDone += 1
-                userDailiesProgress.transpoDailies.d2.t2 = true
+                if (userDailiesDone.transpoDailiesDone == 3) {
+                    userDailiesDone.transpoDailiesDone
+                    userDailiesProgress.transpoDailies.d2.t2 = true
+                } else {
+                    userDailiesDone.transpoDailiesDone += 1
+                    userDailiesProgress.transpoDailies.d2.t2 = true
+                }
             }
 
         userDailiesProgress.transpoDailies.d3.t1 ->
             if (!dailyTuple.t2) {
-                if (transpoDailiesDone == 0) {
-                    transpoDailiesDone
+                if (userDailiesDone.transpoDailiesDone == 0) {
+                    userDailiesDone.transpoDailiesDone
                     userDailiesProgress.transpoDailies.d3.t2 = false
                 } else {
-                    transpoDailiesDone -= 1
+                    userDailiesDone.transpoDailiesDone -= 1
                     userDailiesProgress.transpoDailies.d3.t2 = false
                 }
             } else {
-                transpoDailiesDone += 1
-                userDailiesProgress.transpoDailies.d3.t2 = true
+                if (userDailiesDone.transpoDailiesDone == 3) {
+                    userDailiesDone.transpoDailiesDone
+                    userDailiesProgress.transpoDailies.d3.t2 = true
+                } else {
+                    userDailiesDone.transpoDailiesDone += 1
+                    userDailiesProgress.transpoDailies.d3.t2 = true
+                }
             }
     }
 }
@@ -287,44 +335,59 @@ fun userFoodDailiesCounter(dailyTuple: DailyTuple, string: String) {
     when (string) {
         userDailiesProgress.foodDailies.d1.t1 ->
             if (!dailyTuple.t2) {
-                if (foodDailiesDone == 0) {
-                    foodDailiesDone
+                if (userDailiesDone.foodDailiesDone == 0) {
+                    userDailiesDone.foodDailiesDone
                     userDailiesProgress.foodDailies.d1.t2 = false
                 } else {
-                    foodDailiesDone -= 1
+                    userDailiesDone.foodDailiesDone -= 1
                     userDailiesProgress.foodDailies.d1.t2 = false
                 }
             } else {
-                foodDailiesDone += 1
-                userDailiesProgress.foodDailies.d1.t2 = true
+                if (userDailiesDone.foodDailiesDone == 3) {
+                    userDailiesDone.foodDailiesDone
+                    userDailiesProgress.foodDailies.d1.t2 = true
+                } else {
+                    userDailiesDone.foodDailiesDone += 1
+                    userDailiesProgress.foodDailies.d1.t2 = true
+                }
             }
 
         userDailiesProgress.foodDailies.d2.t1 ->
             if (!dailyTuple.t2) {
-                if (foodDailiesDone == 0) {
-                    foodDailiesDone
+                if (userDailiesDone.foodDailiesDone == 0) {
+                    userDailiesDone.foodDailiesDone
                     userDailiesProgress.foodDailies.d2.t2 = false
                 } else {
-                    foodDailiesDone -= 1
+                    userDailiesDone.foodDailiesDone -= 1
                     userDailiesProgress.foodDailies.d2.t2 = false
                 }
             } else {
-                foodDailiesDone += 1
-                userDailiesProgress.foodDailies.d2.t2 = true
+                if (userDailiesDone.foodDailiesDone == 3) {
+                    userDailiesDone.foodDailiesDone
+                    userDailiesProgress.foodDailies.d2.t2 = true
+                } else {
+                    userDailiesDone.foodDailiesDone += 1
+                    userDailiesProgress.foodDailies.d2.t2 = true
+                }
             }
 
         userDailiesProgress.foodDailies.d3.t1 ->
             if (!dailyTuple.t2) {
-                if (foodDailiesDone == 0) {
-                    foodDailiesDone
+                if (userDailiesDone.foodDailiesDone == 0) {
+                    userDailiesDone.foodDailiesDone
                     userDailiesProgress.foodDailies.d3.t2 = false
                 } else {
-                    foodDailiesDone -= 1
+                    userDailiesDone.foodDailiesDone -= 1
                     userDailiesProgress.foodDailies.d3.t2 = false
                 }
             } else {
-                foodDailiesDone += 1
-                userDailiesProgress.foodDailies.d3.t2 = true
+                if (userDailiesDone.foodDailiesDone == 3) {
+                    userDailiesDone.foodDailiesDone
+                    userDailiesProgress.foodDailies.d3.t2 = true
+                } else {
+                    userDailiesDone.foodDailiesDone += 1
+                    userDailiesProgress.foodDailies.d3.t2 = true
+                }
             }
     }
 }
@@ -334,44 +397,59 @@ fun userWasteDailiesCounter(dailyTuple: DailyTuple, string: String) {
     when (string) {
         userDailiesProgress.wasteDailies.d1.t1 ->
             if (!dailyTuple.t2) {
-                if (wasteDailiesDone == 0) {
-                    wasteDailiesDone
+                if (userDailiesDone.wasteDailiesDone == 0) {
+                    userDailiesDone.wasteDailiesDone
                     userDailiesProgress.wasteDailies.d1.t2 = false
                 } else {
-                    wasteDailiesDone -= 1
+                    userDailiesDone.wasteDailiesDone -= 1
                     userDailiesProgress.wasteDailies.d1.t2 = false
                 }
             } else {
-                wasteDailiesDone += 1
-                userDailiesProgress.wasteDailies.d1.t2 = true
+                if (userDailiesDone.wasteDailiesDone == 3) {
+                    userDailiesDone.wasteDailiesDone
+                    userDailiesProgress.wasteDailies.d1.t2 = true
+                } else {
+                    userDailiesDone.wasteDailiesDone += 1
+                    userDailiesProgress.wasteDailies.d1.t2 = true
+                }
             }
 
         userDailiesProgress.wasteDailies.d2.t1 ->
             if (!dailyTuple.t2) {
-                if (wasteDailiesDone == 0) {
-                    wasteDailiesDone
+                if (userDailiesDone.wasteDailiesDone == 0) {
+                    userDailiesDone.wasteDailiesDone
                     userDailiesProgress.wasteDailies.d2.t2 = false
                 } else {
-                    wasteDailiesDone -= 1
+                    userDailiesDone.wasteDailiesDone -= 1
                     userDailiesProgress.wasteDailies.d2.t2 = false
                 }
             } else {
-                wasteDailiesDone += 1
-                userDailiesProgress.wasteDailies.d2.t2 = true
+                if (userDailiesDone.wasteDailiesDone == 3) {
+                    userDailiesDone.wasteDailiesDone
+                    userDailiesProgress.wasteDailies.d2.t2 = true
+                } else {
+                    userDailiesDone.wasteDailiesDone += 1
+                    userDailiesProgress.wasteDailies.d2.t2 = true
+                }
             }
 
         userDailiesProgress.wasteDailies.d3.t1 ->
             if (!dailyTuple.t2) {
-                if (wasteDailiesDone == 0) {
-                    wasteDailiesDone
+                if (userDailiesDone.wasteDailiesDone == 0) {
+                    userDailiesDone.wasteDailiesDone
                     userDailiesProgress.wasteDailies.d3.t2 = false
                 } else {
-                    wasteDailiesDone -= 1
+                    userDailiesDone.wasteDailiesDone -= 1
                     userDailiesProgress.wasteDailies.d3.t2 = false
                 }
             } else {
-                wasteDailiesDone += 1
-                userDailiesProgress.wasteDailies.d3.t2 = true
+                if (userDailiesDone.wasteDailiesDone == 3) {
+                    userDailiesDone.wasteDailiesDone
+                    userDailiesProgress.wasteDailies.d3.t2 = true
+                } else {
+                    userDailiesDone.wasteDailiesDone += 1
+                    userDailiesProgress.wasteDailies.d3.t2 = true
+                }
             }
     }
 }

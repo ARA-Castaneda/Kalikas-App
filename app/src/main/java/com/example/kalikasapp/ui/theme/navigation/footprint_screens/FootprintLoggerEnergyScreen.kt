@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -63,25 +65,25 @@ fun FootprintLoggerEnergyScreen(navController: NavController) {
         DailiesInterface(
             energyLoggerDailies, energyLoggerExpMap,
             energyCategoryCard, energyLoggerText,
-            energyExpCard, { EnergyDailiesTracker() },
+            energyExpCard, { EnergyDailiesTracker(userDailiesDone) },
             energyChecked, energyUnchecked,
-            userDailiesProgress.energyDailies,
-            (::userEnergyDailiesCounter)
+            userDailiesProgress.energyDailies, (::userEnergyDailiesCounter),
+            (::userEnergyChallengesCounter), { energyChallengesCounter() }
         )
 
         ChallengesInterface(
             energyLoggerChallenges, energyCategoryCard,
-            energyLoggerText, { EnergyChallengesTracker() },
+            energyLoggerText, { EnergyChallengesTracker(userChallengesDone) },
             badgeA, badgeB, badgeC,
-            userChallengesProgress.energyChallenges, energyProgressBarExp,
-            { energyChallengesCounter() }, energyChallengeCard
+            userChallengesProgress.energyChallenges,
+            energyProgressBarExp, energyChallengeCard
         )
     }
 }
 
 @Composable
-fun EnergyDailiesTracker() {
-    var total by remember { mutableIntStateOf(energyDailiesDone) }
+fun EnergyDailiesTracker(dailiesDone: DailiesDone) {
+    var total by rememberSaveable { mutableIntStateOf(dailiesDone.energyDailiesDone) }
 
     Row(
         modifier = Modifier
@@ -110,6 +112,9 @@ fun EnergyDailiesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(dailiesDone.energyDailiesDone) {
+                    total = dailiesDone.energyDailiesDone
+                }
                 Text(
                     text = "$total/3",
                     color = energyLoggerText,
@@ -124,8 +129,8 @@ fun EnergyDailiesTracker() {
 }
 
 @Composable
-fun EnergyChallengesTracker() {
-    var total by remember { mutableIntStateOf(energyChallengesDone) }
+fun EnergyChallengesTracker(challengesDone: ChallengesDone) {
+    var total by rememberSaveable { mutableIntStateOf(challengesDone.energyChallengesDone) }
 
     Row(
         modifier = Modifier
@@ -154,6 +159,9 @@ fun EnergyChallengesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(challengesDone.energyChallengesDone) {
+                    total = challengesDone.energyChallengesDone
+                }
                 Text(
                     text = "$total/3",
                     color = energyLoggerText,

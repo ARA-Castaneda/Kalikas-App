@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -63,25 +65,25 @@ fun FootprintLoggerWasteScreen(navController: NavController) {
         DailiesInterface(
             wasteLoggerDailies, wasteLoggerExpMap,
             wasteCategoryCard, wasteLoggerText,
-            wasteExpCard, { WasteDailiesTracker() },
+            wasteExpCard, { WasteDailiesTracker(userDailiesDone) },
             wasteChecked, wasteUnchecked,
-            userDailiesProgress.wasteDailies,
-            (::userWasteDailiesCounter)
+            userDailiesProgress.wasteDailies, (::userWasteDailiesCounter),
+            (::userWasteChallengesCounter), { wasteChallengesCounter() }
         )
 
         ChallengesInterface(
             wasteLoggerChallenges, wasteCategoryCard,
-            wasteLoggerText, { WasteChallengesTracker() },
+            wasteLoggerText, { WasteChallengesTracker(userChallengesDone) },
             badgeA, badgeB, badgeC,
-            userChallengesProgress.wasteChallenges, wasteProgressBarExp,
-            { wasteChallengesCounter() }, wasteChallengeCard
+            userChallengesProgress.wasteChallenges,
+            wasteProgressBarExp, wasteChallengeCard
         )
     }
 }
 
 @Composable
-fun WasteDailiesTracker() {
-    var total by remember { mutableIntStateOf(wasteDailiesDone) }
+fun WasteDailiesTracker(dailiesDone: DailiesDone) {
+    var total by rememberSaveable { mutableIntStateOf(dailiesDone.wasteDailiesDone) }
 
     Row(
         modifier = Modifier
@@ -110,6 +112,9 @@ fun WasteDailiesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(dailiesDone.wasteDailiesDone) {
+                    total = dailiesDone.wasteDailiesDone
+                }
                 Text(
                     text = "$total/3",
                     color = wasteLoggerText,
@@ -124,8 +129,8 @@ fun WasteDailiesTracker() {
 }
 
 @Composable
-fun WasteChallengesTracker() {
-    var total by remember { mutableIntStateOf(wasteChallengesDone) }
+fun WasteChallengesTracker(challengesDone: ChallengesDone) {
+    var total by rememberSaveable { mutableIntStateOf(challengesDone.wasteChallengesDone) }
 
     Row(
         modifier = Modifier
@@ -154,6 +159,9 @@ fun WasteChallengesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(challengesDone.wasteChallengesDone) {
+                    total = challengesDone.wasteChallengesDone
+                }
                 Text(
                     text = "$total/3",
                     color = wasteLoggerText,

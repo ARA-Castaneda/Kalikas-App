@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -63,25 +65,25 @@ fun FootprintLoggerTranspoScreen(navController: NavController) {
         DailiesInterface(
             transpoLoggerDailies, transpoLoggerExpMap,
             transpoCategoryCard, transpoLoggerText,
-            transpoExpCard, { TranspoDailiesTracker() },
+            transpoExpCard, { TranspoDailiesTracker(userDailiesDone) },
             transpoChecked, transpoUnchecked,
-            userDailiesProgress.transpoDailies,
-            (::userTranspoDailiesCounter)
+            userDailiesProgress.transpoDailies, (::userTranspoDailiesCounter),
+            (::userTranspoChallengesCounter), { transpoChallengesCounter() }
         )
 
         ChallengesInterface(
             transpoLoggerChallenges, transpoCategoryCard,
-            transpoLoggerText, { TranspoChallengesTracker() },
+            transpoLoggerText, { TranspoChallengesTracker(userChallengesDone) },
             badgeA, badgeB, badgeC,
-            userChallengesProgress.transpoChallenges, transpoProgressBarExp,
-            { transpoChallengesCounter() }, transpoChallengeCard
+            userChallengesProgress.transpoChallenges,
+            transpoProgressBarExp, transpoChallengeCard
         )
     }
 }
 
 @Composable
-fun TranspoDailiesTracker() {
-    var total by remember { mutableIntStateOf(transpoDailiesDone) }
+fun TranspoDailiesTracker(dailiesDone: DailiesDone) {
+    var total by rememberSaveable { mutableIntStateOf(dailiesDone.transpoDailiesDone) }
 
     Row(
         modifier = Modifier
@@ -110,6 +112,9 @@ fun TranspoDailiesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(dailiesDone.transpoDailiesDone) {
+                    total = dailiesDone.transpoDailiesDone
+                }
                 Text(
                     text = "$total/3",
                     color = transpoLoggerText,
@@ -124,8 +129,8 @@ fun TranspoDailiesTracker() {
 }
 
 @Composable
-fun TranspoChallengesTracker() {
-    var total by remember { mutableIntStateOf(transpoChallengesDone) }
+fun TranspoChallengesTracker(challengesDone: ChallengesDone) {
+    var total by rememberSaveable { mutableIntStateOf(challengesDone.transpoChallengesDone) }
 
     Row(
         modifier = Modifier
@@ -154,6 +159,9 @@ fun TranspoChallengesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(challengesDone.transpoChallengesDone) {
+                    total = challengesDone.transpoChallengesDone
+                }
                 Text(
                     text = "$total/3",
                     color = transpoLoggerText,

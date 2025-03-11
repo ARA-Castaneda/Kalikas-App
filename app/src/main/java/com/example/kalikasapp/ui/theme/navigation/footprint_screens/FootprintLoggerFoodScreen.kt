@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -63,25 +65,25 @@ fun FootprintLoggerFoodScreen(navController: NavController) {
         DailiesInterface(
             foodLoggerDailies, foodLoggerExpMap,
             foodCategoryCard, foodLoggerText,
-            foodExpCard, { FoodDailiesTracker() },
+            foodExpCard, { FoodDailiesTracker(userDailiesDone) },
             foodChecked, foodUnchecked,
-            userDailiesProgress.foodDailies,
-            (::userFoodDailiesCounter)
+            userDailiesProgress.foodDailies, (::userFoodDailiesCounter),
+            (::userFoodChallengesCounter), { foodChallengesCounter() }
         )
 
         ChallengesInterface(
             foodLoggerChallenges, foodCategoryCard,
-            foodLoggerText, { FoodChallengesTracker() },
+            foodLoggerText, { FoodChallengesTracker(userChallengesDone) },
             badgeA, badgeB, badgeC,
-            userChallengesProgress.foodChallenges, foodProgressBarExp,
-            { foodChallengesCounter() }, foodChallengeCard
+            userChallengesProgress.foodChallenges,
+            foodProgressBarExp, foodChallengeCard
         )
     }
 }
 
 @Composable
-fun FoodDailiesTracker() {
-    var total by remember { mutableIntStateOf(foodDailiesDone) }
+fun FoodDailiesTracker(dailiesDone: DailiesDone) {
+    var total by rememberSaveable { mutableIntStateOf(dailiesDone.foodDailiesDone) }
 
     Row(
         modifier = Modifier
@@ -110,6 +112,9 @@ fun FoodDailiesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(dailiesDone.foodDailiesDone) {
+                    total = dailiesDone.foodDailiesDone
+                }
                 Text(
                     text = "$total/3",
                     color = foodLoggerText,
@@ -124,8 +129,8 @@ fun FoodDailiesTracker() {
 }
 
 @Composable
-fun FoodChallengesTracker() {
-    var total by remember { mutableIntStateOf(foodChallengesDone) }
+fun FoodChallengesTracker(challengesDone: ChallengesDone) {
+    var total by rememberSaveable { mutableIntStateOf(challengesDone.foodChallengesDone) }
 
     Row(
         modifier = Modifier
@@ -154,6 +159,9 @@ fun FoodChallengesTracker() {
                 modifier = Modifier
                     .absolutePadding(10.dp, 0.dp, 0.dp, 0.dp)
             ) {
+                LaunchedEffect(challengesDone.foodChallengesDone) {
+                    total = challengesDone.foodChallengesDone
+                }
                 Text(
                     text = "$total/3",
                     color = foodLoggerText,
