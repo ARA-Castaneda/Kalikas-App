@@ -71,6 +71,7 @@ fun FootprintLoggerFoodScreen(navController: NavController) {
             (::userFoodChallengesCounter), { foodChallengesCounter() }
         )
 
+        foodChallengesCounter()
         ChallengesInterface(
             foodLoggerChallenges, foodCategoryCard,
             foodLoggerText, { FoodChallengesTracker(userChallengesDone) },

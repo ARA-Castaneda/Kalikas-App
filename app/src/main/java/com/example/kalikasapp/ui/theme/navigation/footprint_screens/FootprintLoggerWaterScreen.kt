@@ -102,6 +102,7 @@ fun FootprintLoggerWaterScreen(navController: NavController) {
             (::userWaterChallengesCounter), { waterChallengesCounter() }
         )
 
+        waterChallengesCounter()
         ChallengesInterface(
             waterLoggerChallenges, waterCategoryCard,
             waterLoggerText, { WaterChallengesTracker(userChallengesDone) },
@@ -504,7 +505,6 @@ fun LoggerChecklist(
                 categoryDaily.t2 = checked
                 userDailiesController(categoryDaily, categoryDaily.t1)
                 userChallengesController(categoryDaily)
-                categoryChallengesCounter()
                               },
             colors = CheckboxDefaults.colors(
                 checkedColor = checkedColor,

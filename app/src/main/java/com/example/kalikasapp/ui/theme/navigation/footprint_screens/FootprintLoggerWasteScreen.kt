@@ -71,6 +71,7 @@ fun FootprintLoggerWasteScreen(navController: NavController) {
             (::userWasteChallengesCounter), { wasteChallengesCounter() }
         )
 
+        wasteChallengesCounter()
         ChallengesInterface(
             wasteLoggerChallenges, wasteCategoryCard,
             wasteLoggerText, { WasteChallengesTracker(userChallengesDone) },

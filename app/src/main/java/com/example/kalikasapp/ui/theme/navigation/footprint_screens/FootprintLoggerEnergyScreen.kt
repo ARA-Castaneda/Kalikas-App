@@ -71,6 +71,7 @@ fun FootprintLoggerEnergyScreen(navController: NavController) {
             (::userEnergyChallengesCounter), { energyChallengesCounter() }
         )
 
+        energyChallengesCounter()
         ChallengesInterface(
             energyLoggerChallenges, energyCategoryCard,
             energyLoggerText, { EnergyChallengesTracker(userChallengesDone) },

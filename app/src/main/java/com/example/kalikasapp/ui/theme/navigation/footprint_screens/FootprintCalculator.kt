@@ -16,6 +16,12 @@ data class Triple(
     var t3: String
 )
 
+data class BadgesTriple(
+    var b1: Boolean,
+    var b2: Boolean,
+    var b3: Boolean
+)
+
 data class Tuple(
     var t1: Int,
     var t2: Boolean

@@ -2,6 +2,7 @@ package com.example.kalikasapp.ui.theme.navigation.footprint_screens
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.userChallengesProgress
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.userDailiesProgress
@@ -14,6 +15,16 @@ class ChallengesDone {
     var wasteChallengesDone by mutableIntStateOf(0)
 }
 var userChallengesDone = ChallengesDone()
+
+// user badges tracker data class
+class BadgesDone {
+    var waterBadgesDone by mutableStateOf(BadgesTriple(b1 = false, b2 = false, b3 = false))
+    var energyBadgesDone by mutableStateOf(BadgesTriple(b1 = false, b2 = false, b3 = false))
+    var transpoBadgesDone by mutableStateOf(BadgesTriple(b1 = false, b2 = false, b3 = false))
+    var foodBadgesDone by mutableStateOf(BadgesTriple(b1 = false, b2 = false, b3 = false))
+    var wasteBadgesDone by mutableStateOf(BadgesTriple(b1 = false, b2 = false, b3 = false))
+}
+var userBadgesDone = BadgesDone()
 
 // user challenges tracker data class
 // alpha = challenge upper threshold
@@ -497,25 +508,31 @@ fun waterChallengesCounter() {
     if (
         (userChallengesProgress.waterChallenges.c1.alpha ==
         userChallengesProgress.waterChallenges.c1.done) &&
-        userChallengesDone.waterChallengesDone < 3
+        userChallengesDone.waterChallengesDone < 3 &&
+        !userBadgesDone.waterBadgesDone.b1
         ) {
         userChallengesDone.waterChallengesDone += 1
+        userBadgesDone.waterBadgesDone.b1 = true
     }
 
     if (
         (userChallengesProgress.waterChallenges.c2.alpha ==
         userChallengesProgress.waterChallenges.c2.done) &&
-        userChallengesDone.waterChallengesDone < 3
+        userChallengesDone.waterChallengesDone < 3 &&
+        !userBadgesDone.waterBadgesDone.b2
     ) {
         userChallengesDone.waterChallengesDone += 1
+        userBadgesDone.waterBadgesDone.b2 = true
     }
 
     if (
         (userChallengesProgress.waterChallenges.c2.alpha ==
         userChallengesProgress.waterChallenges.c2.done) &&
-        userChallengesDone.waterChallengesDone < 3
+        userChallengesDone.waterChallengesDone < 3 &&
+        !userBadgesDone.waterBadgesDone.b3
     ) {
         userChallengesDone.waterChallengesDone += 1
+        userBadgesDone.waterBadgesDone.b3 = true
     }
 }
 
@@ -523,25 +540,31 @@ fun energyChallengesCounter() {
     if (
         (userChallengesProgress.energyChallenges.c1.alpha ==
         userChallengesProgress.energyChallenges.c1.done) &&
-        userChallengesDone.energyChallengesDone < 3
+        userChallengesDone.energyChallengesDone < 3 &&
+        !userBadgesDone.energyBadgesDone.b1
     ) {
         userChallengesDone.energyChallengesDone += 1
+        userBadgesDone.energyBadgesDone.b1 = true
     }
 
     if (
         (userChallengesProgress.energyChallenges.c2.alpha ==
         userChallengesProgress.energyChallenges.c2.done) &&
-        userChallengesDone.energyChallengesDone < 3
+        userChallengesDone.energyChallengesDone < 3 &&
+        !userBadgesDone.energyBadgesDone.b2
     ) {
         userChallengesDone.energyChallengesDone += 1
+        userBadgesDone.energyBadgesDone.b2 = true
     }
 
     if (
         (userChallengesProgress.energyChallenges.c3.alpha ==
         userChallengesProgress.energyChallenges.c3.done) &&
-        userChallengesDone.energyChallengesDone < 3
+        userChallengesDone.energyChallengesDone < 3 &&
+        !userBadgesDone.energyBadgesDone.b3
     ) {
         userChallengesDone.energyChallengesDone += 1
+        userBadgesDone.energyBadgesDone.b3 = true
     }
 }
 
@@ -549,25 +572,31 @@ fun transpoChallengesCounter() {
     if (
         (userChallengesProgress.transpoChallenges.c1.alpha ==
         userChallengesProgress.transpoChallenges.c1.done) &&
-        userChallengesDone.transpoChallengesDone < 3
+        userChallengesDone.transpoChallengesDone < 3 &&
+        !userBadgesDone.transpoBadgesDone.b1
     ) {
         userChallengesDone.transpoChallengesDone += 1
+        userBadgesDone.transpoBadgesDone.b1 = true
     }
 
     if (
         (userChallengesProgress.transpoChallenges.c2.alpha ==
         userChallengesProgress.transpoChallenges.c2.done) &&
-        userChallengesDone.transpoChallengesDone < 3
+        userChallengesDone.transpoChallengesDone < 3 &&
+        !userBadgesDone.transpoBadgesDone.b2
     ) {
         userChallengesDone.transpoChallengesDone += 1
+        userBadgesDone.transpoBadgesDone.b2 = true
     }
 
     if (
         (userChallengesProgress.transpoChallenges.c3.alpha ==
         userChallengesProgress.transpoChallenges.c3.done) &&
-        userChallengesDone.transpoChallengesDone < 3
+        userChallengesDone.transpoChallengesDone < 3 &&
+        !userBadgesDone.transpoBadgesDone.b3
     ) {
         userChallengesDone.transpoChallengesDone += 1
+        userBadgesDone.transpoBadgesDone.b3 = true
     }
 }
 
@@ -575,25 +604,31 @@ fun foodChallengesCounter() {
     if (
         (userChallengesProgress.foodChallenges.c1.alpha ==
         userChallengesProgress.foodChallenges.c1.done) &&
-        userChallengesDone.foodChallengesDone < 3
+        userChallengesDone.foodChallengesDone < 3 &&
+        !userBadgesDone.foodBadgesDone.b1
     ) {
         userChallengesDone.foodChallengesDone += 1
+        userBadgesDone.foodBadgesDone.b1 = true
     }
 
     if (
         (userChallengesProgress.foodChallenges.c2.alpha ==
         userChallengesProgress.foodChallenges.c2.done) &&
-        userChallengesDone.foodChallengesDone < 3
+        userChallengesDone.foodChallengesDone < 3 &&
+        !userBadgesDone.foodBadgesDone.b2
     ) {
         userChallengesDone.foodChallengesDone += 1
+        userBadgesDone.foodBadgesDone.b2 = true
     }
 
     if (
         (userChallengesProgress.foodChallenges.c3.alpha ==
         userChallengesProgress.foodChallenges.c3.done) &&
-        userChallengesDone.foodChallengesDone < 3
+        userChallengesDone.foodChallengesDone < 3 &&
+        !userBadgesDone.foodBadgesDone.b3
     ) {
         userChallengesDone.foodChallengesDone += 1
+        userBadgesDone.foodBadgesDone.b3 = true
     }
 }
 
@@ -601,24 +636,30 @@ fun wasteChallengesCounter() {
     if (
         (userChallengesProgress.wasteChallenges.c1.alpha ==
         userChallengesProgress.wasteChallenges.c1.done) &&
-        userChallengesDone.wasteChallengesDone < 3
+        userChallengesDone.wasteChallengesDone < 3 &&
+        !userBadgesDone.wasteBadgesDone.b1
     ) {
         userChallengesDone.wasteChallengesDone += 1
+        userBadgesDone.wasteBadgesDone.b1 = true
     }
 
     if (
         (userChallengesProgress.wasteChallenges.c2.alpha ==
         userChallengesProgress.wasteChallenges.c2.done) &&
-        userChallengesDone.wasteChallengesDone < 3
+        userChallengesDone.wasteChallengesDone < 3 &&
+        !userBadgesDone.wasteBadgesDone.b2
     ) {
         userChallengesDone.wasteChallengesDone += 1
+        userBadgesDone.wasteBadgesDone.b2 = true
     }
 
     if (
         (userChallengesProgress.wasteChallenges.c3.alpha ==
         userChallengesProgress.wasteChallenges.c3.done) &&
-        userChallengesDone.wasteChallengesDone < 3
+        userChallengesDone.wasteChallengesDone < 3 &&
+        !userBadgesDone.wasteBadgesDone.b3
     ) {
         userChallengesDone.wasteChallengesDone += 1
+        userBadgesDone.wasteBadgesDone.b3 = true
     }
 }

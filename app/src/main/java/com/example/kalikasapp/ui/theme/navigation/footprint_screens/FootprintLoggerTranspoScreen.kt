@@ -71,6 +71,7 @@ fun FootprintLoggerTranspoScreen(navController: NavController) {
             (::userTranspoChallengesCounter), { transpoChallengesCounter() }
         )
 
+        transpoChallengesCounter()
         ChallengesInterface(
             transpoLoggerChallenges, transpoCategoryCard,
             transpoLoggerText, { TranspoChallengesTracker(userChallengesDone) },
