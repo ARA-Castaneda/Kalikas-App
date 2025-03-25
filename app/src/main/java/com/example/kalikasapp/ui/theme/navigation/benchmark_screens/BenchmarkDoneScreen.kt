@@ -1,28 +1,23 @@
-package com.example.kalikasapp.ui.theme.navigation.landing_screens
+package com.example.kalikasapp.ui.theme.navigation.benchmark_screens
 
+import com.example.kalikasapp.ui.theme.navigation.landing_screens.LogoImage
+import com.example.kalikasapp.ui.theme.navigation.landing_screens.OverlayImage
+import com.example.kalikasapp.ui.theme.navigation.landing_screens.Footprints
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition.Companion.None
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material3.ButtonDefaults.elevatedButtonColors
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
@@ -35,11 +30,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,34 +40,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.kalikasapp.R
 import com.example.kalikasapp.ui.theme.navigation.Screen
 import com.example.kalikasapp.ui.theme.soraFamily
 
 @Composable
-fun Footprints(modifier: Modifier) {
-    val leftPrint = painterResource(R.drawable.leftprint)
-    val rightPrint = painterResource(R.drawable.rightprint)
-    Box(modifier) {
-        Image(
-            painter = leftPrint,
-            contentDescription = null,
-            modifier = Modifier
-                .width(100.dp)
-                .height(100.dp)
-        )
-        Image(
-            painter = rightPrint,
-            contentDescription = null,
-            modifier = Modifier
-                .width(100.dp)
-                .height(100.dp)
-        )
-    }
-}
-
-@Composable
-fun AppBenchmarkScreen(navController: NavController) {
+fun BenchmarkDoneScreen(navController: NavController) {
     var visible by remember { mutableStateOf(true) }
 
     val darkGreen = Color(0xFF15472B)
@@ -82,7 +52,6 @@ fun AppBenchmarkScreen(navController: NavController) {
     val lightGreen = Color(0xFF39C076)
     val lightBlue = Color(0xFF9FE3BE)
     val blackGreen = Color(0xFF113822)
-    val whiteGreen = Color(0xFFFAFEFC)
 
     Box(
         modifier = Modifier
@@ -97,36 +66,13 @@ fun AppBenchmarkScreen(navController: NavController) {
         LogoImage(modifier = Modifier)
 
         Column(
-            modifier = Modifier
-                .absolutePadding(20.dp, 20.dp, 20.dp, 20.dp)
-                .fillMaxSize()
-        ) {
-            Row(
-                modifier = Modifier
-            ) {
-                ElevatedButton(
-                    onClick = {
-                        navController.navigate(Screen.SignupStudentScreen.route)
-                    },
-                    colors = elevatedButtonColors(whiteGreen, blackGreen, green, blackGreen),
-                    modifier = Modifier
-                        .width(75.dp)
-                        .height(50.dp)
-                        .clip(shape = RoundedCornerShape(10.dp))
-                ) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, null)
-                }
-            }
-        }
-
-        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .absolutePadding(20.dp, 420.dp, 20.dp, 0.dp)
                 .fillMaxSize()
         ) {
             Text(
-                text = "Start tracking your Carbon Footprint",
+                text = "Calculating your Footprint ...",
                 color = blackGreen,
                 fontSize = 36.sp,
                 fontFamily = soraFamily,
@@ -241,7 +187,7 @@ fun AppBenchmarkScreen(navController: NavController) {
             floatingActionButton = {
                 LargeFloatingActionButton(
                     onClick = {
-                        navController.navigate(Screen.WaterBenchmarkScreenA.route)
+                        navController.navigate(Screen.PageProfileScreen.route)
                     },
                     shape = CircleShape,
                     containerColor = Color.Transparent,
@@ -266,7 +212,7 @@ fun AppBenchmarkScreen(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun AppBenchmarkScreenPreview() {
+fun BenchmarkDoneScreenPreview() {
     val navController = rememberNavController()
-    AppBenchmarkScreen(navController = navController)
+    BenchmarkDoneScreen(navController = navController)
 }

@@ -6,6 +6,23 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.BenchmarkDoneScreen
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.WaterBenchmarkScreenA
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.WaterBenchmarkScreenB
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.WaterBenchmarkScreenC
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.EnergyBenchmarkScreenA
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.EnergyBenchmarkScreenB
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.EnergyBenchmarkScreenC
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.EnergyBenchmarkScreenD
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.FoodBenchmarkScreenA
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.FoodBenchmarkScreenB
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.FoodBenchmarkScreenC
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.TranspoBenchmarkScreenA
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.TranspoBenchmarkScreenB
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.WasteBenchmarkScreenA
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.WasteBenchmarkScreenB
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.WasteBenchmarkScreenC
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.WasteBenchmarkScreenD
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintLoggerEnergyScreen
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintLoggerFoodScreen
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintLoggerTranspoScreen
@@ -56,6 +73,63 @@ fun Navigation() {
         // Benchmarks screens for testing carbon and ecological footprints
         composable(route = Screen.AppBenchmarkScreen.route) {
             AppBenchmarkScreen(navController = navController)
+        }
+        // landing benchmark screen after answering all question sets
+        composable(route = Screen.BenchmarkDoneScreen.route) {
+            BenchmarkDoneScreen(navController = navController)
+        }
+        // water benchmark screens of question sets A to C
+        composable(route = Screen.WaterBenchmarkScreenA.route) {
+            WaterBenchmarkScreenA(navController = navController)
+        }
+        composable(route = Screen.WaterBenchmarkScreenB.route) {
+            WaterBenchmarkScreenB(navController = navController)
+        }
+        composable(route = Screen.WaterBenchmarkScreenC.route) {
+            WaterBenchmarkScreenC(navController = navController)
+        }
+        // energy benchmark screens of question sets A to D
+        composable(route = Screen.EnergyBenchmarkScreenA.route) {
+            EnergyBenchmarkScreenA(navController = navController)
+        }
+        composable(route = Screen.EnergyBenchmarkScreenB.route) {
+            EnergyBenchmarkScreenB(navController = navController)
+        }
+        composable(route = Screen.EnergyBenchmarkScreenC.route) {
+            EnergyBenchmarkScreenC(navController = navController)
+        }
+        composable(route = Screen.EnergyBenchmarkScreenD.route) {
+            EnergyBenchmarkScreenD(navController = navController)
+        }
+        // transpo benchmark screens of question sets A to B
+        composable(route = Screen.TranspoBenchmarkScreenA.route) {
+            TranspoBenchmarkScreenA(navController = navController)
+        }
+        composable(route = Screen.TranspoBenchmarkScreenB.route) {
+            TranspoBenchmarkScreenB(navController = navController)
+        }
+        // food benchmark screens of question sets A to C
+        composable(route = Screen.FoodBenchmarkScreenA.route) {
+            FoodBenchmarkScreenA(navController = navController)
+        }
+        composable(route = Screen.FoodBenchmarkScreenB.route) {
+            FoodBenchmarkScreenB(navController = navController)
+        }
+        composable(route = Screen.FoodBenchmarkScreenC.route) {
+            FoodBenchmarkScreenC(navController = navController)
+        }
+        // waste benchmark screens of question sets A to D
+        composable(route = Screen.WasteBenchmarkScreenA.route) {
+            WasteBenchmarkScreenA(navController = navController)
+        }
+        composable(route = Screen.WasteBenchmarkScreenB.route) {
+            WasteBenchmarkScreenB(navController = navController)
+        }
+        composable(route = Screen.WasteBenchmarkScreenC.route) {
+            WasteBenchmarkScreenC(navController = navController)
+        }
+        composable(route = Screen.WasteBenchmarkScreenD.route) {
+            WasteBenchmarkScreenD(navController = navController)
         }
 
         // User profiles screen and utilities

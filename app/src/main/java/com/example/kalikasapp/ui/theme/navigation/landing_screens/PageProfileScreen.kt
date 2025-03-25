@@ -71,8 +71,11 @@ import com.example.kalikasapp.ui.theme.Photo_camera
 import com.example.kalikasapp.ui.theme.Share_location
 import com.example.kalikasapp.ui.theme.montserratFamily
 import com.example.kalikasapp.ui.theme.navigation.Screen
-import com.example.kalikasapp.ui.theme.navigation.footprint_screens.ChallengesProgress
-import com.example.kalikasapp.ui.theme.navigation.footprint_screens.DailiesProgress
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkEnergyFootprint
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkFoodFootprint
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkTranspoFootprint
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkWasteFootprint
+import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkWaterFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.EnergyFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FoodFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.TranspoFootprint
@@ -89,11 +92,11 @@ data class BottomNavigationItem(
 )
 
 // initialize user benchmarks
-var userWaterFootprint = WaterFootprint()
-var userEnergyFootprint = EnergyFootprint()
-var userTranspoFootprint = TranspoFootprint()
-var userFoodFootprint = FoodFootprint()
-var userWasteFootprint = WasteFootprint()
+var userWaterFootprint = benchmarkWaterFootprint
+var userEnergyFootprint = benchmarkEnergyFootprint
+var userTranspoFootprint = benchmarkTranspoFootprint
+var userFoodFootprint = benchmarkFoodFootprint
+var userWasteFootprint = benchmarkWasteFootprint
 
 @Composable
 fun PageProfileScreen(navController: NavController) {
@@ -377,7 +380,7 @@ fun ProfileUserInfo(
     val green = Color(0xFF1E653E)
     val lightGreen = Color(0xFF39C076)
 
-    val userName = name ?: "Kalikas Admin"
+    val userName = name ?: "Kalikas User"
     val userLoc = location ?: "Add location"
     val userInst = institution ?: "Add institution"
     val userBio = bio ?: "Welcome to Kalikas App. The sustainable living journey starts here. This user has yet to add an introduction."

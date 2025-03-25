@@ -1,7 +1,5 @@
 package com.example.kalikasapp.ui.theme.navigation.footprint_screens
 
-import com.example.kalikasapp.ui.theme.navigation.landing_screens.userChallengesProgress
-import com.example.kalikasapp.ui.theme.navigation.landing_screens.userDailiesProgress
 import java.util.Locale
 
 const val sequestrationRate = 4.000f
