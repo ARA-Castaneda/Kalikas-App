@@ -23,6 +23,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.Scaffold
@@ -109,7 +110,7 @@ fun BenchmarkWaterScreen(
 // modifiable to other categories
 @Composable
 fun WaterCounterToggle(fxn: (Int) -> Unit) {
-    var count by rememberSaveable { mutableIntStateOf(0) }
+    var count by rememberSaveable { mutableIntStateOf(1) }
 
     Row(
         modifier = Modifier.width(130.dp),
@@ -118,7 +119,7 @@ fun WaterCounterToggle(fxn: (Int) -> Unit) {
     ) {
         Button(
             onClick = {
-                if (count > 0) {
+                if (count > 1) {
                     count--
                     fxn(count)
                 }
@@ -263,7 +264,7 @@ fun BenchmarksNextButton(
         containerColor = Color.Transparent,
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            LargeFloatingActionButton(
+            FloatingActionButton(
                 onClick = {
                     navController.navigate(route)
                 },
@@ -271,11 +272,16 @@ fun BenchmarksNextButton(
                 containerColor = Color.Transparent,
                 contentColor = contentColor
             ) {
-                Icon(
-                    Icons.AutoMirrored.Filled.ArrowForward,
-                    null,
-                    modifier = Modifier.size(40.dp)
-                )
+                Box(
+                    modifier = Modifier.size(80.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowForward,
+                        null,
+                        modifier = Modifier.size(40.dp)
+                    )
+                }
             }
         }
     ) { padding ->

@@ -727,6 +727,7 @@ fun LoggerBadge(
     }
 }
 
+// add logic to reflect progress realtime
 @Composable
 fun BadgeProgressBar(userExp: ProgressTuple, progressBarColor: Color, categoryTextColor: Color) {
     var exp by rememberSaveable {

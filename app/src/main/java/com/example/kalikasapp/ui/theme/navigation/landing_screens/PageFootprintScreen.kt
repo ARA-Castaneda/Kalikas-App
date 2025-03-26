@@ -22,9 +22,9 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -45,11 +45,18 @@ import androidx.navigation.compose.rememberNavController
 import com.example.kalikasapp.R
 import com.example.kalikasapp.ui.theme.montserratFamily
 import com.example.kalikasapp.ui.theme.navigation.Screen
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.CarbonFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.ChallengesProgress
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.DailiesProgress
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FootprintPieChart
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.adjustEnergyEmission
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.adjustFoodEmission
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.adjustTranspoEmission
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.adjustWasteEmission
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.adjustWaterEmission
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userEcoFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userCarbonFootprint
+import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userDailiesDone
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userRecalcCarbonFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userRecalcEnergyFootprint
 import com.example.kalikasapp.ui.theme.navigation.footprint_screens.userRecalcFoodFootprint
@@ -103,106 +110,176 @@ var userRecalcCarbonFootprint = userRecalcCarbonFootprint(
     wasteComponent = userRecalcWasteFootprint
 )
 
+// overall ecofootprint of user
 var userEcoFootprint = {
-    if (userDailiesProgress.waterDailies.d1.t2 || userDailiesProgress.waterDailies.d2.t2 ||
-        userDailiesProgress.waterDailies.d3.t2
-        ) {
+    if (userDailiesDone.waterDailiesDone > 0 || userDailiesDone.energyDailiesDone > 0 ||
+        userDailiesDone.transpoDailiesDone > 0 || userDailiesDone.foodDailiesDone > 0 ||
+        userDailiesDone.wasteDailiesDone > 0
+    ) {
         userEcoFootprint(userRecalcCarbonFootprint)
     } else {
         userEcoFootprint(userCarbonFootprint)
     }
 }
 
+// need to refactor variables
+/*
+// daily carbon footprint of user
 var userDailyCarbonFootprint = {
-    if (userDailiesProgress.waterDailies.d1.t2 || userDailiesProgress.waterDailies.d2.t2 ||
-        userDailiesProgress.waterDailies.d3.t2
-        ) {
+    // logic must consider other categories
+    if (userDailiesDone.waterDailiesDone > 0 || userDailiesDone.energyDailiesDone > 0 ||
+        userDailiesDone.transpoDailiesDone > 0 || userDailiesDone.foodDailiesDone > 0 ||
+        userDailiesDone.wasteDailiesDone > 0
+    ) {
         userRecalcCarbonFootprint.total / 30.0f
     } else {
         userCarbonFootprint.total / 30.0f
     }
 }
 
+// percent of daily water consumption
 var userDailyWater = {
-    if (userDailiesProgress.waterDailies.d1.t2 || userDailiesProgress.waterDailies.d2.t2 ||
-        userDailiesProgress.waterDailies.d3.t2
-    ) {
+    if (userDailiesDone.waterDailiesDone > 0) {
         String.format(Locale.US, "%.2f",
             (userRecalcCarbonFootprint.water / userRecalcCarbonFootprint.total) * 100.0f
         ).toFloat()
     } else {
-        String.format(Locale.US, "%.2f",
+        String.format(
+            Locale.US, "%.2f",
             (userCarbonFootprint.water / userCarbonFootprint.total) * 100.0f
         ).toFloat()
     }
 }
+// consumption per liter
+var dailyWater = {
+    if (userDailiesDone.waterDailiesDone > 0) {
+        String.format(Locale.US, "%.2f",
+            (userRecalcCarbonFootprint.water / 30f)
+        ).toFloat()
+    } else {
+        String.format(Locale.US, "%.2f",
+            (userCarbonFootprint.water / 30f)
+        ).toFloat()
+    }
+}
 
+// percent of daily energy consumption
 var userDailyEnergy = {
-    if (userDailiesProgress.energyDailies.d1.t2 || userDailiesProgress.energyDailies.d2.t2 ||
-        userDailiesProgress.energyDailies.d3.t2
-    ) {
+    if (userDailiesDone.energyDailiesDone > 0) {
         String.format(Locale.US, "%.2f",
             (userRecalcCarbonFootprint.energy / userRecalcCarbonFootprint.total) * 100.0f
         ).toFloat()
     } else {
-        String.format(Locale.US, "%.2f",
+        String.format(
+            Locale.US, "%.2f",
             (userCarbonFootprint.energy / userCarbonFootprint.total) * 100.0f
         ).toFloat()
     }
 }
+// consumption per kWh
+var dailyEnergy = {
+    if (userDailiesDone.energyDailiesDone > 0) {
+        String.format(Locale.US, "%.2f",
+            (userRecalcCarbonFootprint.energy / 30f)).toFloat()
+    } else {
+        String.format(Locale.US, "%.2f",
+            (userCarbonFootprint.energy / 30f)).toFloat()
+    }
+}
 
+// percent of daily transpo consumption
 var userDailyTranspo = {
-    if (userDailiesProgress.transpoDailies.d1.t2 || userDailiesProgress.transpoDailies.d2.t2 ||
-        userDailiesProgress.transpoDailies.d3.t2
-    ) {
+    if (userDailiesDone.transpoDailiesDone > 0) {
         String.format(Locale.US, "%.2f",
             (userRecalcCarbonFootprint.transpo / userRecalcCarbonFootprint.total) * 100.0f
         ).toFloat()
     } else {
-        String.format(Locale.US, "%.2f",
+        String.format(
+            Locale.US, "%.2f",
             (userCarbonFootprint.transpo / userCarbonFootprint.total) * 100.0f
         ).toFloat()
     }
 }
+// consumption per km
+var dailyTranspo = {
+    if (userDailiesDone.transpoDailiesDone > 0) {
+        String.format(Locale.US, "%.2f",
+            (userRecalcCarbonFootprint.transpo / 30f)).toFloat()
+    } else {
+        String.format(Locale.US, "%.2f",
+            (userCarbonFootprint.transpo / 30f)).toFloat()
+    }
+}
 
+// percent of daily food consumption
 var userDailyFood = {
-    if (userDailiesProgress.foodDailies.d1.t2 || userDailiesProgress.foodDailies.d2.t2 ||
-        userDailiesProgress.foodDailies.d3.t2
-    ) {
+    if (userDailiesDone.foodDailiesDone > 0) {
         String.format(Locale.US, "%.2f",
             (userRecalcCarbonFootprint.food / userRecalcCarbonFootprint.total) * 100.0f
         ).toFloat()
     } else {
-        String.format(Locale.US, "%.2f",
+        String.format(
+            Locale.US, "%.2f",
             (userCarbonFootprint.food / userCarbonFootprint.total) * 100.0f
         ).toFloat()
     }
 }
+// consumption per serving
+var dailyFood = {
+    if (userDailiesDone.foodDailiesDone > 0) {
+        String.format(Locale.US, "%.2f",
+            (userRecalcCarbonFootprint.food / 30f)).toFloat()
+    } else {
+        String.format(Locale.US, "%.2f",
+            (userCarbonFootprint.food / 30f)).toFloat()
+    }
+}
 
+// percent of daily waste production
 var userDailyWaste = {
-    if (userDailiesProgress.wasteDailies.d1.t2 || userDailiesProgress.wasteDailies.d2.t2 ||
-        userDailiesProgress.wasteDailies.d3.t2
-    ) {
+    if (userDailiesDone.wasteDailiesDone > 0) {
         String.format(Locale.US, "%.2f",
             (userRecalcCarbonFootprint.waste / userRecalcCarbonFootprint.total) * 100.0f
         ).toFloat()
     } else {
-        String.format(Locale.US, "%.2f",
+        String.format(
+            Locale.US, "%.2f",
             (userCarbonFootprint.waste / userCarbonFootprint.total) * 100.0f
         ).toFloat()
     }
 }
-
-var userDailies = listOf(
-    FootprintModel(userDailyWater(), waterPrint),
-    FootprintModel(userDailyEnergy(), energyPrint),
-    FootprintModel(userDailyTranspo(), transpoPrint),
-    FootprintModel(userDailyFood(), foodPrint),
-    FootprintModel(userDailyWaste(), wastePrint)
-)
+// production per kg
+var dailyWaste = {
+    if (userDailiesDone.wasteDailiesDone > 0) {
+        String.format(Locale.US, "%.2f",
+            (userRecalcCarbonFootprint.waste / 30f)).toFloat()
+    } else {
+        String.format(Locale.US, "%.2f",
+            (userCarbonFootprint.waste / 30f)).toFloat()
+    }
+}
+*/
 
 @Composable
 fun PageFootprintScreen(navController: NavController) {
+    // need to fix LaunchedEffect() logic
+    /*
+    var doneWater by rememberSaveable { mutableIntStateOf(userDailiesDone.waterDailiesDone) }
+    var doneEnergy by rememberSaveable { mutableIntStateOf(userDailiesDone.energyDailiesDone) }
+    var doneTranspo by rememberSaveable { mutableIntStateOf(userDailiesDone.transpoDailiesDone) }
+    var doneFood by rememberSaveable { mutableIntStateOf(userDailiesDone.foodDailiesDone) }
+    var doneWaste by rememberSaveable { mutableIntStateOf(userDailiesDone.wasteDailiesDone) }
+    */
+
+    var userDailyWater by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyEnergy by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyTranspo by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyFood by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyWaste by rememberSaveable { mutableFloatStateOf(0f) }
+
+    var userDailies: List<FootprintModel>
+    // var recalc: CarbonFootprint
+
     Scaffold(
         bottomBar = {
             BottomNavBar(navController)
@@ -259,6 +336,61 @@ fun PageFootprintScreen(navController: NavController) {
                                     modifier = Modifier
                                 )
 
+                                LaunchedEffect(userDailiesDone) {
+                                    /*
+                                    doneWater = userDailiesDone.waterDailiesDone
+                                    doneEnergy = userDailiesDone.energyDailiesDone
+                                    doneTranspo = userDailiesDone.transpoDailiesDone
+                                    doneFood = userDailiesDone.foodDailiesDone
+                                    doneWaste = userDailiesDone.wasteDailiesDone
+
+                                    recalc = userRecalcCarbonFootprint(
+                                        household = adjustWaterEmission().household,
+                                        waterComponent = adjustWaterEmission(),
+                                        energyComponent = adjustEnergyEmission(),
+                                        transpoComponent = adjustTranspoEmission(),
+                                        foodComponent = adjustFoodEmission(),
+                                        wasteComponent = adjustWasteEmission()
+                                    )
+                                    */
+
+                                    userDailyWater =
+                                        String.format(
+                                            Locale.US, "%.2f",
+                                            (userCarbonFootprint.water / userCarbonFootprint.total) * 100.0f
+                                        ).toFloat()
+
+                                    userDailyEnergy =
+                                        String.format(
+                                            Locale.US, "%.2f",
+                                            (userCarbonFootprint.energy / userCarbonFootprint.total) * 100.0f
+                                        ).toFloat()
+
+                                    userDailyTranspo =
+                                        String.format(
+                                            Locale.US, "%.2f",
+                                            (userCarbonFootprint.transpo / userCarbonFootprint.total) * 100.0f
+                                        ).toFloat()
+
+                                    userDailyFood =
+                                        String.format(
+                                            Locale.US, "%.2f",
+                                            (userCarbonFootprint.food / userCarbonFootprint.total) * 100.0f
+                                        ).toFloat()
+
+                                    userDailyWaste =
+                                        String.format(
+                                            Locale.US, "%.2f",
+                                            (userCarbonFootprint.waste / userCarbonFootprint.total) * 100.0f
+                                        ).toFloat()
+                                }
+                                userDailies = listOf(
+                                    FootprintModel(userDailyWater, waterPrint),
+                                    FootprintModel(userDailyEnergy, energyPrint),
+                                    FootprintModel(userDailyTranspo, transpoPrint),
+                                    FootprintModel(userDailyFood, foodPrint),
+                                    FootprintModel(userDailyWaste, wastePrint)
+                                )
                                 FootprintPieChart(userDailies)
                             }
                         }
@@ -274,7 +406,7 @@ fun PageFootprintScreen(navController: NavController) {
                         NeededCountries()
                     }
 
-                    CarbonFootprint()
+                    com.example.kalikasapp.ui.theme.navigation.landing_screens.CarbonFootprint()
                     DailyCarbonFootprint()
                 }
             }
@@ -284,7 +416,15 @@ fun PageFootprintScreen(navController: NavController) {
 
 @Composable
 fun DailyCarbonFootprint() {
-   Column(
+    var doneWater by rememberSaveable { mutableIntStateOf(userDailiesDone.waterDailiesDone) }
+    var doneEnergy by rememberSaveable { mutableIntStateOf(userDailiesDone.energyDailiesDone) }
+    var doneTranspo by rememberSaveable { mutableIntStateOf(userDailiesDone.transpoDailiesDone) }
+    var doneFood by rememberSaveable { mutableIntStateOf(userDailiesDone.foodDailiesDone) }
+    var doneWaste by rememberSaveable { mutableIntStateOf(userDailiesDone.wasteDailiesDone) }
+    var userDailyCarbonFootprint by rememberSaveable { mutableFloatStateOf(0f) }
+    var recalc: CarbonFootprint
+
+    Column(
         modifier = Modifier
             .absolutePadding(200.dp, 644.dp, 20.dp, 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -302,8 +442,32 @@ fun DailyCarbonFootprint() {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
             )
+
+            LaunchedEffect(userDailiesDone) {
+                doneWater = userDailiesDone.waterDailiesDone
+                doneEnergy = userDailiesDone.energyDailiesDone
+                doneTranspo = userDailiesDone.transpoDailiesDone
+                doneFood = userDailiesDone.foodDailiesDone
+                doneWaste = userDailiesDone.wasteDailiesDone
+
+                userDailyCarbonFootprint = if (doneWater > 0 || doneEnergy > 0 ||
+                    doneTranspo > 0 || doneFood > 0 || doneWaste > 0
+                ) {
+                    recalc = userRecalcCarbonFootprint(
+                        household = adjustWaterEmission().household,
+                        waterComponent = adjustWaterEmission(),
+                        energyComponent = adjustEnergyEmission(),
+                        transpoComponent = adjustTranspoEmission(),
+                        foodComponent = adjustFoodEmission(),
+                        wasteComponent = adjustWasteEmission()
+                    )
+                    recalc.total / 30.0f
+                } else {
+                    userCarbonFootprint.total / 30.0f
+                }
+            }
             Text(
-                text = String.format(Locale.US, "%.2f", userDailyCarbonFootprint())
+                text = String.format(Locale.US, "%.2f", userDailyCarbonFootprint)
                     .toFloat().toString(),
                 textAlign = TextAlign.Center,
                 color = Color.DarkGray,
@@ -312,6 +476,7 @@ fun DailyCarbonFootprint() {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
             )
+
             Text(
                 text = "kilograms",
                 textAlign = TextAlign.Center,
@@ -327,19 +492,13 @@ fun DailyCarbonFootprint() {
 
 @Composable
 fun DailyWaterLogsButton(navController: NavController){
-    val dailyWater =
-        if (userDailiesProgress.waterDailies.d1.t2 || userDailiesProgress.waterDailies.d2.t2 ||
-            userDailiesProgress.waterDailies.d3.t2
-        ) {
-            String.format(Locale.US, "%.2f",
-                (userRecalcCarbonFootprint.water / 30f)
-            ).toFloat()
-        } else {
-            String.format(Locale.US, "%.2f",
-                (userCarbonFootprint.water / 30f)
-            ).toFloat()
-        }
-    val userDailyWater = userDailyWater()
+    var dailyOne by rememberSaveable { mutableStateOf(userDailiesProgress.waterDailies.d1.t2) }
+    var dailyTwo by rememberSaveable { mutableStateOf(userDailiesProgress.waterDailies.d2.t2) }
+    var dailyThree by rememberSaveable { mutableStateOf(userDailiesProgress.waterDailies.d3.t2) }
+
+    var dailyWater by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyWater by rememberSaveable { mutableFloatStateOf(0f) }
+    var recalc: CarbonFootprint
 
     Row(
         modifier = Modifier.width(140.dp),
@@ -355,6 +514,37 @@ fun DailyWaterLogsButton(navController: NavController){
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            LaunchedEffect(userDailiesProgress.waterDailies) {
+                dailyOne = userDailiesProgress.waterDailies.d1.t2
+                dailyTwo = userDailiesProgress.waterDailies.d2.t2
+                dailyThree =  userDailiesProgress.waterDailies.d3.t2
+
+                recalc = userRecalcCarbonFootprint(
+                    household = adjustWaterEmission().household,
+                    waterComponent = adjustWaterEmission(),
+                    energyComponent = adjustEnergyEmission(),
+                    transpoComponent = adjustTranspoEmission(),
+                    foodComponent = adjustFoodEmission(),
+                    wasteComponent = adjustWasteEmission()
+                )
+
+                // consumption per liter
+                dailyWater = if (dailyOne || dailyTwo || dailyThree) {
+                    String.format(Locale.US, "%.2f",
+                        (recalc.water / 30f)
+                    ).toFloat()
+                } else {
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.water / 30f)
+                    ).toFloat()
+                }
+
+                // consumption percentage
+                userDailyWater =
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.water / userCarbonFootprint.total) * 100.0f
+                    ).toFloat()
+            }
             Text(
                 text = "$userDailyWater%",
                 textAlign = TextAlign.Center,
@@ -379,17 +569,13 @@ fun DailyWaterLogsButton(navController: NavController){
 
 @Composable
 fun DailyEnergyLogsButton(navController: NavController){
-    val dailyEnergy =
-        if (userDailiesProgress.energyDailies.d1.t2 || userDailiesProgress.energyDailies.d2.t2 ||
-            userDailiesProgress.energyDailies.d3.t2
-        ) {
-            String.format(Locale.US, "%.2f",
-                (userRecalcCarbonFootprint.energy / 30f)).toFloat()
-        } else {
-            String.format(Locale.US, "%.2f",
-                (userCarbonFootprint.energy / 30f)).toFloat()
-        }
-    val userDailyEnergy = userDailyEnergy()
+    var dailyOne by rememberSaveable { mutableStateOf(userDailiesProgress.energyDailies.d1.t2) }
+    var dailyTwo by rememberSaveable { mutableStateOf(userDailiesProgress.energyDailies.d2.t2) }
+    var dailyThree by rememberSaveable { mutableStateOf(userDailiesProgress.energyDailies.d3.t2) }
+
+    var dailyEnergy by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyEnergy by rememberSaveable { mutableFloatStateOf(0f) }
+    var recalc: CarbonFootprint
 
     Row(
         modifier = Modifier.width(140.dp),
@@ -405,6 +591,35 @@ fun DailyEnergyLogsButton(navController: NavController){
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            LaunchedEffect(userDailiesProgress.energyDailies) {
+                dailyOne = userDailiesProgress.energyDailies.d1.t2
+                dailyTwo = userDailiesProgress.energyDailies.d2.t2
+                dailyThree =  userDailiesProgress.energyDailies.d3.t2
+
+                recalc = userRecalcCarbonFootprint(
+                    household = adjustWaterEmission().household,
+                    waterComponent = adjustWaterEmission(),
+                    energyComponent = adjustEnergyEmission(),
+                    transpoComponent = adjustTranspoEmission(),
+                    foodComponent = adjustFoodEmission(),
+                    wasteComponent = adjustWasteEmission()
+                )
+
+                // consumption per kWh
+                dailyEnergy = if (dailyOne || dailyTwo || dailyThree) {
+                    String.format(Locale.US, "%.2f",
+                        (recalc.energy / 30f)).toFloat()
+                } else {
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.energy / 30f)).toFloat()
+                }
+
+                // consumption percentage
+                userDailyEnergy =
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.energy / userCarbonFootprint.total) * 100.0f
+                    ).toFloat()
+            }
             Text(
                 text = "$userDailyEnergy%",
                 textAlign = TextAlign.Center,
@@ -429,17 +644,13 @@ fun DailyEnergyLogsButton(navController: NavController){
 
 @Composable
 fun DailyTranspoLogsButton(navController: NavController){
-    val dailyTranspo =
-        if (userDailiesProgress.transpoDailies.d1.t2 || userDailiesProgress.transpoDailies.d2.t2 ||
-            userDailiesProgress.transpoDailies.d3.t2
-        ) {
-            String.format(Locale.US, "%.2f",
-                (userRecalcCarbonFootprint.transpo / 30f)).toFloat()
-        } else {
-            String.format(Locale.US, "%.2f",
-                (userCarbonFootprint.transpo / 30f)).toFloat()
-        }
-    val userDailyTranspo = userDailyTranspo()
+    var dailyOne by rememberSaveable { mutableStateOf(userDailiesProgress.transpoDailies.d1.t2) }
+    var dailyTwo by rememberSaveable { mutableStateOf(userDailiesProgress.transpoDailies.d2.t2) }
+    var dailyThree by rememberSaveable { mutableStateOf(userDailiesProgress.transpoDailies.d3.t2) }
+
+    var dailyTranspo by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyTranspo by rememberSaveable { mutableFloatStateOf(0f) }
+    var recalc: CarbonFootprint
 
     Row(
         modifier = Modifier.width(140.dp),
@@ -455,6 +666,35 @@ fun DailyTranspoLogsButton(navController: NavController){
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            LaunchedEffect(userDailiesProgress.transpoDailies) {
+                dailyOne = userDailiesProgress.transpoDailies.d1.t2
+                dailyTwo = userDailiesProgress.transpoDailies.d2.t2
+                dailyThree =  userDailiesProgress.transpoDailies.d3.t2
+
+                recalc = userRecalcCarbonFootprint(
+                    household = adjustWaterEmission().household,
+                    waterComponent = adjustWaterEmission(),
+                    energyComponent = adjustEnergyEmission(),
+                    transpoComponent = adjustTranspoEmission(),
+                    foodComponent = adjustFoodEmission(),
+                    wasteComponent = adjustWasteEmission()
+                )
+
+                // consumption per km
+                dailyTranspo = if (dailyOne || dailyTwo || dailyThree) {
+                    String.format(Locale.US, "%.2f",
+                        (recalc.transpo / 30f)).toFloat()
+                } else {
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.transpo / 30f)).toFloat()
+                }
+
+                // consumption percentage
+                userDailyTranspo =
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.transpo / userCarbonFootprint.total) * 100.0f
+                    ).toFloat()
+            }
             Text(
                 text = "$userDailyTranspo%",
                 textAlign = TextAlign.Center,
@@ -479,17 +719,13 @@ fun DailyTranspoLogsButton(navController: NavController){
 
 @Composable
 fun DailyFoodLogsButton(navController: NavController){
-    val dailyFood =
-        if (userDailiesProgress.foodDailies.d1.t2 || userDailiesProgress.foodDailies.d2.t2 ||
-            userDailiesProgress.foodDailies.d3.t2
-        ) {
-            String.format(Locale.US, "%.2f",
-                (userRecalcCarbonFootprint.food / 30f)).toFloat()
-        } else {
-            String.format(Locale.US, "%.2f",
-                (userCarbonFootprint.food / 30f)).toFloat()
-        }
-    val userDailyFood = userDailyFood()
+    var dailyOne by rememberSaveable { mutableStateOf(userDailiesProgress.foodDailies.d1.t2) }
+    var dailyTwo by rememberSaveable { mutableStateOf(userDailiesProgress.foodDailies.d2.t2) }
+    var dailyThree by rememberSaveable { mutableStateOf(userDailiesProgress.foodDailies.d3.t2) }
+
+    var dailyFood by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyFood by rememberSaveable { mutableFloatStateOf(0f) }
+    var recalc: CarbonFootprint
 
     Row(
         modifier = Modifier.width(140.dp),
@@ -505,6 +741,35 @@ fun DailyFoodLogsButton(navController: NavController){
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            LaunchedEffect(userDailiesProgress.foodDailies) {
+                dailyOne = userDailiesProgress.foodDailies.d1.t2
+                dailyTwo = userDailiesProgress.foodDailies.d2.t2
+                dailyThree =  userDailiesProgress.foodDailies.d3.t2
+
+                recalc = userRecalcCarbonFootprint(
+                    household = adjustWaterEmission().household,
+                    waterComponent = adjustWaterEmission(),
+                    energyComponent = adjustEnergyEmission(),
+                    transpoComponent = adjustTranspoEmission(),
+                    foodComponent = adjustFoodEmission(),
+                    wasteComponent = adjustWasteEmission()
+                )
+
+                // consumption per serving
+                dailyFood = if (dailyOne || dailyTwo || dailyThree) {
+                    String.format(Locale.US, "%.2f",
+                        (recalc.food / 30f)).toFloat()
+                } else {
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.food / 30f)).toFloat()
+                }
+
+                // consumption percentage
+                userDailyFood =
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.food / userCarbonFootprint.total) * 100.0f
+                    ).toFloat()
+            }
             Text(
                 text = "$userDailyFood%",
                 textAlign = TextAlign.Center,
@@ -529,17 +794,13 @@ fun DailyFoodLogsButton(navController: NavController){
 
 @Composable
 fun DailyWasteLogsButton(navController: NavController){
-    val dailyWaste =
-        if (userDailiesProgress.wasteDailies.d1.t2 || userDailiesProgress.wasteDailies.d2.t2 ||
-            userDailiesProgress.wasteDailies.d3.t2
-        ) {
-            String.format(Locale.US, "%.2f",
-                (userRecalcCarbonFootprint.waste / 30f)).toFloat()
-        } else {
-            String.format(Locale.US, "%.2f",
-                (userCarbonFootprint.waste / 30f)).toFloat()
-        }
-    val userDailyWaste = userDailyWaste()
+    var dailyOne by rememberSaveable { mutableStateOf(userDailiesProgress.wasteDailies.d1.t2) }
+    var dailyTwo by rememberSaveable { mutableStateOf(userDailiesProgress.wasteDailies.d2.t2) }
+    var dailyThree by rememberSaveable { mutableStateOf(userDailiesProgress.wasteDailies.d3.t2) }
+
+    var dailyWaste by rememberSaveable { mutableFloatStateOf(0f) }
+    var userDailyWaste by rememberSaveable { mutableFloatStateOf(0f) }
+    var recalc: CarbonFootprint
 
     Row(
         modifier = Modifier.width(140.dp),
@@ -555,6 +816,35 @@ fun DailyWasteLogsButton(navController: NavController){
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            LaunchedEffect(userDailiesProgress.wasteDailies) {
+                dailyOne = userDailiesProgress.wasteDailies.d1.t2
+                dailyTwo = userDailiesProgress.wasteDailies.d2.t2
+                dailyThree =  userDailiesProgress.wasteDailies.d3.t2
+
+                recalc = userRecalcCarbonFootprint(
+                    household = adjustWaterEmission().household,
+                    waterComponent = adjustWaterEmission(),
+                    energyComponent = adjustEnergyEmission(),
+                    transpoComponent = adjustTranspoEmission(),
+                    foodComponent = adjustFoodEmission(),
+                    wasteComponent = adjustWasteEmission()
+                )
+
+                // production per kg
+                dailyWaste = if (dailyOne || dailyTwo || dailyThree) {
+                    String.format(Locale.US, "%.2f",
+                        (recalc.waste / 30f)).toFloat()
+                } else {
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.waste / 30f)).toFloat()
+                }
+
+                // production percentage
+                userDailyWaste =
+                    String.format(Locale.US, "%.2f",
+                        (userCarbonFootprint.waste / userCarbonFootprint.total) * 100.0f
+                    ).toFloat()
+            }
             Text(
                 text = "$userDailyWaste%",
                 textAlign = TextAlign.Center,
@@ -579,6 +869,14 @@ fun DailyWasteLogsButton(navController: NavController){
 
 @Composable
 fun EcologicalFootprint() {
+    var doneWater by rememberSaveable { mutableIntStateOf(userDailiesDone.waterDailiesDone) }
+    var doneEnergy by rememberSaveable { mutableIntStateOf(userDailiesDone.energyDailiesDone) }
+    var doneTranspo by rememberSaveable { mutableIntStateOf(userDailiesDone.transpoDailiesDone) }
+    var doneFood by rememberSaveable { mutableIntStateOf(userDailiesDone.foodDailiesDone) }
+    var doneWaste by rememberSaveable { mutableIntStateOf(userDailiesDone.wasteDailiesDone) }
+    var userDailyEcoFootprint by rememberSaveable { mutableFloatStateOf(userEcoFootprint().ecoGha) }
+    var recalc: CarbonFootprint
+
     Row(
         modifier = Modifier
             .absolutePadding(0.dp, 14.dp, 0.dp, 0.dp)
@@ -601,7 +899,31 @@ fun EcologicalFootprint() {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
             )
-            Text(text = String.format(Locale.US, "%.2f", userEcoFootprint().ecoGha)
+
+            LaunchedEffect(userDailiesDone) {
+                doneWater = userDailiesDone.waterDailiesDone
+                doneEnergy = userDailiesDone.energyDailiesDone
+                doneTranspo = userDailiesDone.transpoDailiesDone
+                doneFood = userDailiesDone.foodDailiesDone
+                doneWaste = userDailiesDone.wasteDailiesDone
+
+                userDailyEcoFootprint = if (doneWater > 0 || doneEnergy > 0 ||
+                    doneTranspo > 0 || doneFood > 0 || doneWaste > 0
+                ) {
+                    recalc = userRecalcCarbonFootprint(
+                        household = adjustWaterEmission().household,
+                        waterComponent = adjustWaterEmission(),
+                        energyComponent = adjustEnergyEmission(),
+                        transpoComponent = adjustTranspoEmission(),
+                        foodComponent = adjustFoodEmission(),
+                        wasteComponent = adjustWasteEmission()
+                    )
+                    userEcoFootprint(recalc).ecoGha
+                } else {
+                    userEcoFootprint(userCarbonFootprint).ecoGha
+                }
+            }
+            Text(text = String.format(Locale.US, "%.2f", userDailyEcoFootprint)
                 .toFloat().toString() + " gha",
                 color = Color.White,
                 fontSize = 16.sp,
@@ -609,6 +931,7 @@ fun EcologicalFootprint() {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
             )
+
             Text(text = "(global hectares)",
                 color = Color.White,
                 fontSize = 12.sp,
@@ -622,7 +945,15 @@ fun EcologicalFootprint() {
 
 @Composable
 fun CarbonFootprint() {
-     Column(
+    var doneWater by rememberSaveable { mutableIntStateOf(userDailiesDone.waterDailiesDone) }
+    var doneEnergy by rememberSaveable { mutableIntStateOf(userDailiesDone.energyDailiesDone) }
+    var doneTranspo by rememberSaveable { mutableIntStateOf(userDailiesDone.transpoDailiesDone) }
+    var doneFood by rememberSaveable { mutableIntStateOf(userDailiesDone.foodDailiesDone) }
+    var doneWaste by rememberSaveable { mutableIntStateOf(userDailiesDone.wasteDailiesDone) }
+    var userDailyEcoFootprint by rememberSaveable { mutableFloatStateOf(userEcoFootprint().carbonGha) }
+    var recalc: CarbonFootprint
+
+    Column(
         modifier = Modifier
             .absolutePadding(20.dp, 560.dp, 20.dp, 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -639,7 +970,31 @@ fun CarbonFootprint() {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
             )
-            Text(text = String.format(Locale.US, "%.2f", userEcoFootprint().carbonGha)
+
+            LaunchedEffect(userDailiesDone) {
+                doneWater = userDailiesDone.waterDailiesDone
+                doneEnergy = userDailiesDone.energyDailiesDone
+                doneTranspo = userDailiesDone.transpoDailiesDone
+                doneFood = userDailiesDone.foodDailiesDone
+                doneWaste = userDailiesDone.wasteDailiesDone
+
+                userDailyEcoFootprint = if (doneWater > 0 || doneEnergy > 0 ||
+                    doneTranspo > 0 || doneFood > 0 || doneWaste > 0
+                ) {
+                    recalc = userRecalcCarbonFootprint(
+                        household = adjustWaterEmission().household,
+                        waterComponent = adjustWaterEmission(),
+                        energyComponent = adjustEnergyEmission(),
+                        transpoComponent = adjustTranspoEmission(),
+                        foodComponent = adjustFoodEmission(),
+                        wasteComponent = adjustWasteEmission()
+                    )
+                    userEcoFootprint(recalc).carbonGha
+                } else {
+                    userEcoFootprint(userCarbonFootprint).carbonGha
+                }
+            }
+            Text(text = String.format(Locale.US, "%.2f", userDailyEcoFootprint)
                 .toFloat().toString() + " gha",
                 textAlign = TextAlign.Center,
                 color = Color.White,
@@ -648,6 +1003,7 @@ fun CarbonFootprint() {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
             )
+
             Text(text = "(global hectares)",
                 textAlign = TextAlign.Center,
                 color = Color.White,
@@ -670,6 +1026,14 @@ fun CarbonFootprint() {
 
 @Composable
 fun NeededCountries() {
+    var doneWater by rememberSaveable { mutableIntStateOf(userDailiesDone.waterDailiesDone) }
+    var doneEnergy by rememberSaveable { mutableIntStateOf(userDailiesDone.energyDailiesDone) }
+    var doneTranspo by rememberSaveable { mutableIntStateOf(userDailiesDone.transpoDailiesDone) }
+    var doneFood by rememberSaveable { mutableIntStateOf(userDailiesDone.foodDailiesDone) }
+    var doneWaste by rememberSaveable { mutableIntStateOf(userDailiesDone.wasteDailiesDone) }
+    var userDailyEcoFootprint by rememberSaveable { mutableFloatStateOf(userEcoFootprint().countriesNeeded) }
+    var recalc: CarbonFootprint
+
     Box(
         modifier = Modifier
     ) {
@@ -685,7 +1049,30 @@ fun NeededCountries() {
             modifier = Modifier
                 .absolutePadding(0.dp, 110.dp, 0.dp, 0.dp)
         ) {
-            Text(text = String.format(Locale.US, "%.2f", userEcoFootprint().countriesNeeded)
+            LaunchedEffect(userDailiesDone) {
+                doneWater = userDailiesDone.waterDailiesDone
+                doneEnergy = userDailiesDone.energyDailiesDone
+                doneTranspo = userDailiesDone.transpoDailiesDone
+                doneFood = userDailiesDone.foodDailiesDone
+                doneWaste = userDailiesDone.wasteDailiesDone
+
+                userDailyEcoFootprint = if (doneWater > 0 || doneEnergy > 0 ||
+                    doneTranspo > 0 || doneFood > 0 || doneWaste > 0
+                ) {
+                    recalc = userRecalcCarbonFootprint(
+                        household = adjustWaterEmission().household,
+                        waterComponent = adjustWaterEmission(),
+                        energyComponent = adjustEnergyEmission(),
+                        transpoComponent = adjustTranspoEmission(),
+                        foodComponent = adjustFoodEmission(),
+                        wasteComponent = adjustWasteEmission()
+                    )
+                    userEcoFootprint(recalc).countriesNeeded
+                } else {
+                    userEcoFootprint(userCarbonFootprint).countriesNeeded
+                }
+            }
+            Text(text = String.format(Locale.US, "%.2f", userDailyEcoFootprint)
                 .toFloat().toString() + "x of \nPhilippines",
                 color = Color.White,
                 fontSize = 18.sp,
@@ -693,6 +1080,7 @@ fun NeededCountries() {
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
             )
+
             Text(text = "is needed if all\nFilipinos followed\nyour lifestyle",
                 color = Color.White,
                 fontSize = 12.sp,
@@ -778,7 +1166,9 @@ fun TopNavBar(navController: NavController) {
                                 painter = painterResource(id = item.selectedIcon),
                                 tint = Color.Unspecified,
                                 contentDescription = null,
-                                modifier = Modifier.width(50.dp).height(40.dp)
+                                modifier = Modifier
+                                    .width(50.dp)
+                                    .height(40.dp)
                             )
                             /*
                             if(index == selectedItemIndex) {

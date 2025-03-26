@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -12,12 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.kalikasapp.R
 import com.example.kalikasapp.ui.theme.navigation.Screen
 import com.example.kalikasapp.ui.theme.robotoFamily
 
@@ -42,7 +46,8 @@ fun WaterQuestionsSetA() {
             modifier = Modifier
                 .absolutePadding(10.dp, 20.dp, 10.dp, 20.dp)
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // water benchmark Q1
             Row(
@@ -138,6 +143,12 @@ fun WaterQuestionsSetA() {
                     }
                 )
             }
+
+            Image(
+                painter = painterResource(R.drawable.waterbench_a),
+                contentDescription = null,
+                modifier = Modifier.size(80.dp)
+            )
         }
     }
 }
