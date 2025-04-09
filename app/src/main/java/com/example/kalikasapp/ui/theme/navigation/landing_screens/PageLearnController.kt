@@ -23,31 +23,31 @@ class LessonModule {
 }
 
 // Lesson subject tag colors
-val enviSciTag = Color(0XFF1F5D9E)
-val marineBioTag = Color(0XFF1F5D9E)
-val ecologyTag = Color(0XFF866ABF)
-val drrmTag = Color(0XFFF07579)
-val earthSciTag = Color(0XFFA55649)
-val pubPolicyTag = Color(0XFF1F5D9E)
-val urbanStudTag = Color(0XFFFFD577)
-val agriTag = Color(0XFF866ABF)
-val ruralDevTag = Color(0XFFF07579)
+val enviSciTag = Color(0XFF5D8AA8)
+val marineBioTag = Color(0XFF00798C)
+val ecologyTag = Color(0XFFC94950)
+val drrmTag = Color(0XFFFC7A12)
+val earthSciTag = Color(0XFFA47149)
+val pubPolicyTag = Color(0XFF8B6FC2)
+val urbanStudTag = Color(0XFF3D3E40)
+val agriTag = Color(0XFFD89B25)
+val ruralDevTag = Color(0XFFC46288)
 
 // Card colors for lesson information
-val infoCardA = Color(0xFF1E653E)
-val infoCardB = Color(0XFF1F5D9E)
-val infoCardC = Color(0XFFFFD577)
-val infoCardD = Color(0XFF866ABF)
-val infoCardE = Color(0XFFF07579)
-val infoCardF = Color(0XFFA55649)
+val infoCardA = Color(0xFF6BBE83)
+val infoCardB = Color(0XFF7CBF6F)
+val infoCardC = Color(0XFFB4D9A5)
+val infoCardD = Color(0XFF9CC26B)
+val infoCardE = Color(0XFF60CA7A)
+val infoCardF = Color(0XFF72BC90)
 
 // Card colors for lesson summary
-val lessonCardA = Color(0xFF1E653E)
-val lessonCardB = Color(0XFF1F5D9E)
-val lessonCardC = Color(0XFFFFD577)
-val lessonCardD = Color(0XFF866ABF)
-val lessonCardE = Color(0XFFF07579)
-val lessonCardF = Color(0XFFA55649)
+val lessonCardA = Color(0xFFA8D8D8)
+val lessonCardB = Color(0XFFFFE1B2)
+val lessonCardC = Color(0XFFF2E3C6)
+val lessonCardD = Color(0XFFD3F1F8)
+val lessonCardE = Color(0XFFE4D9F2)
+val lessonCardF = Color(0XFFF9D4D0)
 
 // initialize variables for lesson class
 var lessonA = LessonModule()

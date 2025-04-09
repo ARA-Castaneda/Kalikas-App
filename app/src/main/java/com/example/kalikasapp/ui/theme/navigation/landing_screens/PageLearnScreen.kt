@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.absolutePadding
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,9 +16,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Card
@@ -33,7 +29,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -52,18 +47,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.kalikasapp.R
-import com.example.kalikasapp.ui.theme.Collections_bookmark
-import com.example.kalikasapp.ui.theme.Compost
-import com.example.kalikasapp.ui.theme.Diversity_2
-import com.example.kalikasapp.ui.theme.Explore_anecdote
 import com.example.kalikasapp.ui.theme.Lesson_duration
 import com.example.kalikasapp.ui.theme.Lesson_favorite
 import com.example.kalikasapp.ui.theme.Lesson_modules
 import com.example.kalikasapp.ui.theme.Lesson_saves
-import com.example.kalikasapp.ui.theme.Mood
-import com.example.kalikasapp.ui.theme.Notifications_active
-import com.example.kalikasapp.ui.theme.navigation.Screen
 import com.example.kalikasapp.ui.theme.robotoFamily
 import com.example.kalikasapp.ui.theme.soraFamily
 
