@@ -40,7 +40,11 @@ import com.example.kalikasapp.ui.theme.navigation.landing_screens.PageFootprintS
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.PageLearnScreen
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.PageNotifsScreen
 import com.example.kalikasapp.ui.theme.navigation.landing_screens.PageProfileScreen
+import com.example.kalikasapp.ui.theme.navigation.landing_screens.ProfileEducatorScreen
+import com.example.kalikasapp.ui.theme.navigation.landing_screens.ProfileMerchantScreen
 import com.example.kalikasapp.ui.theme.navigation.signup_screens.SignupStudentScreen
+import com.example.kalikasapp.ui.theme.navigation.signup_screens.SignupEducatorScreen
+import com.example.kalikasapp.ui.theme.navigation.signup_screens.SignupMerchantScreen
 import com.example.kalikasapp.ui.theme.navigation.profile_utilscreens.ProfileSettingsScreen
 
 // a reusable Composable for navigating screens
@@ -63,6 +67,14 @@ fun Navigation() {
         // student signup
         composable(route = Screen.SignupStudentScreen.route) {
             SignupStudentScreen(navController = navController)
+        }
+        // educator signup
+        composable(route = Screen.SignupEducatorScreen.route) {
+            SignupEducatorScreen(navController = navController)
+        }
+        // merchant signup
+        composable(route = Screen.SignupMerchantScreen.route) {
+            SignupMerchantScreen(navController = navController)
         }
 
         // Login screen
@@ -139,6 +151,14 @@ fun Navigation() {
         // user profile settings
         composable(route = Screen.ProfileSettingsScreen.route) {
             ProfileSettingsScreen(navController = navController)
+        }
+        // educator profile screen
+        composable(route = Screen.ProfileEducatorScreen.route) {
+            ProfileEducatorScreen(navController = navController)
+        }
+        // merchant profile screen
+        composable(route = Screen.ProfileMerchantScreen.route) {
+            ProfileMerchantScreen(navController = navController)
         }
 
         // Footprint calculator screens

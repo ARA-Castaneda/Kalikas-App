@@ -54,10 +54,7 @@ fun SignupStudentScreen(navController: NavController) {
     var confirmPassword by rememberSaveable { mutableStateOf("")}
     var showError by rememberSaveable { mutableStateOf(false)}
 
-    // val darkGreen = Color(0xFF15472B)
     val green = Color(0xFF1E653E)
-    // val lightGreen = Color(0xFF39C076)
-    // val lightBlue = Color(0xFF9FE3BE)
     val blackGreen = Color(0xFF113822)
     val whiteGreen = Color(0xFFFAFEFC)
 
@@ -71,6 +68,7 @@ fun SignupStudentScreen(navController: NavController) {
                 .absolutePadding(20.dp, 20.dp, 20.dp, 20.dp)
                 .fillMaxSize()
         ) {
+            // button return to Signup Screen
             Row(
                 modifier = Modifier
             ) {
@@ -88,6 +86,7 @@ fun SignupStudentScreen(navController: NavController) {
                 }
             }
 
+            // signup header text
             Row(
                 modifier = Modifier
                     .absolutePadding(20.dp, 10.dp, 20.dp, 10.dp)
@@ -102,6 +101,7 @@ fun SignupStudentScreen(navController: NavController) {
                 )
             }
 
+            // student signup icon
             Row(
                 modifier = Modifier
                     .absolutePadding(20.dp, 0.dp, 20.dp, 0.dp)

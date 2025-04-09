@@ -36,6 +36,8 @@ sealed class Screen(val route: String) {
     object WasteBenchmarkScreenC : Screen("waste_benchmarkC")
     object WasteBenchmarkScreenD : Screen("waste_benchmarkD")
 
+    object ProfileEducatorScreen : Screen("profile_educator_screen")
+    object ProfileMerchantScreen : Screen("profile_merchant_screen")
     object ProfileBadgesScreen : Screen("profile_badges")
     object ProfileConnectsScreen : Screen("profile_connects")
     object ProfileMilestonesScreen : Screen("profile_milestones")

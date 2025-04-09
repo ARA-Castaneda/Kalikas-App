@@ -76,11 +76,6 @@ import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkFoo
 import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkTranspoFootprint
 import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkWasteFootprint
 import com.example.kalikasapp.ui.theme.navigation.benchmark_screens.benchmarkWaterFootprint
-import com.example.kalikasapp.ui.theme.navigation.footprint_screens.EnergyFootprint
-import com.example.kalikasapp.ui.theme.navigation.footprint_screens.FoodFootprint
-import com.example.kalikasapp.ui.theme.navigation.footprint_screens.TranspoFootprint
-import com.example.kalikasapp.ui.theme.navigation.footprint_screens.WasteFootprint
-import com.example.kalikasapp.ui.theme.navigation.footprint_screens.WaterFootprint
 import com.example.kalikasapp.ui.theme.robotoFamily
 import com.example.kalikasapp.ui.theme.soraFamily
 

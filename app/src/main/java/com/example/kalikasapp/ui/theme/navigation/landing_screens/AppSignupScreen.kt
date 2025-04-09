@@ -154,7 +154,7 @@ fun AppSignupScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(30.dp))
                 ElevatedButton(
                     onClick = {
-                        navController.navigate(Screen.AppMainScreen.route)
+                        navController.navigate(Screen.SignupEducatorScreen.route)
                     },
                     colors = elevatedButtonColors(green, Color.White, green, Color.White),
                     modifier = Modifier
@@ -168,7 +168,7 @@ fun AppSignupScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(30.dp))
                 ElevatedButton(
                     onClick = {
-                        navController.navigate(Screen.AppMainScreen.route)
+                        navController.navigate(Screen.SignupMerchantScreen.route)
                     },
                     colors = elevatedButtonColors(green, Color.White, green, Color.White),
                     modifier = Modifier
