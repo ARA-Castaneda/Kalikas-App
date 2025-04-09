@@ -79,8 +79,8 @@ fun PageExploreScreen(navController: NavController) {
                         cardColor = waterTipCard,
                         categoryTip = "Water Sustainability",
                         tip = systemWaterTip,
-                        painterResource(R.drawable.holderasset),
-                        painterResource(R.drawable.holderasset)
+                        painterResource(R.drawable.tip_watera),
+                        painterResource(R.drawable.tip_waterb)
                     )
 
                     // Implement multiple daily tips in improved UI
@@ -113,12 +113,12 @@ fun PageExploreScreen(navController: NavController) {
                     SustainabilityTutorial(
                         duration = systemFoodTutorial[0],
                         tutorial = systemFoodTutorial[1],
-                        tutorialImage = painterResource(R.drawable.holdertutorial)
+                        tutorialImage = painterResource(R.drawable.tutorial_food)
                     )
                     SustainabilityTutorial(
                         duration = systemWasteTutorial[0],
                         tutorial = systemWasteTutorial[1],
-                        tutorialImage = painterResource(R.drawable.holdertutorial)
+                        tutorialImage = painterResource(R.drawable.tutorial_waste)
                     )
                 }
 
@@ -131,32 +131,32 @@ fun PageExploreScreen(navController: NavController) {
                 ) {
                     SustainabilityAnecdote(
                         duration = systemAnecdoteA[0], title = systemAnecdoteA[1],
-                        sourceImage = painterResource(R.drawable.holderprofile),
-                        anecdoteImage = painterResource(R.drawable.holdertutorial),
+                        sourceImage = painterResource(R.drawable.source_a),
+                        anecdoteImage = painterResource(R.drawable.anecdote_a),
                         anecdote = systemAnecdoteA[2]
                     )
                     SustainabilityAnecdote(
                         duration = systemAnecdoteB[0], title = systemAnecdoteB[1],
-                        sourceImage = painterResource(R.drawable.holderprofile),
-                        anecdoteImage = painterResource(R.drawable.holdertutorial),
+                        sourceImage = painterResource(R.drawable.source_b),
+                        anecdoteImage = painterResource(R.drawable.anecdote_b),
                         anecdote = systemAnecdoteB[2]
                     )
                     SustainabilityAnecdote(
                         duration = systemAnecdoteC[0], title = systemAnecdoteC[1],
-                        sourceImage = painterResource(R.drawable.holderprofile),
-                        anecdoteImage = painterResource(R.drawable.holdertutorial),
+                        sourceImage = painterResource(R.drawable.source_c),
+                        anecdoteImage = painterResource(R.drawable.anecdote_c),
                         anecdote = systemAnecdoteC[2]
                     )
                     SustainabilityAnecdote(
                         duration = systemAnecdoteD[0], title = systemAnecdoteD[1],
-                        sourceImage = painterResource(R.drawable.holderprofile),
-                        anecdoteImage = painterResource(R.drawable.holdertutorial),
+                        sourceImage = painterResource(R.drawable.source_d),
+                        anecdoteImage = painterResource(R.drawable.anecdote_d),
                         anecdote = systemAnecdoteD[2]
                     )
                     SustainabilityAnecdote(
                         duration = systemAnecdoteE[0], title = systemAnecdoteE[1],
-                        sourceImage = painterResource(R.drawable.holderprofile),
-                        anecdoteImage = painterResource(R.drawable.holdertutorial),
+                        sourceImage = painterResource(R.drawable.source_e),
+                        anecdoteImage = painterResource(R.drawable.anecdote_e),
                         anecdote = systemAnecdoteE[2]
                     )
                 }

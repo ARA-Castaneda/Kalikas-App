@@ -1,7 +1,8 @@
 package com.example.kalikasapp.ui.theme.navigation.landing_screens
 
 // Populate local database with sustainability tips
-var systemWaterTip = "Reduce wasted water by reusing rainwater for irrigation."
+var systemWaterTip = "Install water-efficient fixtures to significantly reduce water consumption " +
+        "and lower utility bills."
 var systemEnergyTip = "sustainability sustainability sustainability sustainability sustainability"
 var systemTranspoTip = "sustainability sustainability sustainability sustainability sustainability"
 var systemFoodTip = "sustainability sustainability sustainability sustainability sustainability"
